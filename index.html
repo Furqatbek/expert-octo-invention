@@ -1,0 +1,1929 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#F1EFF4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#131017" media="(prefers-color-scheme: dark)">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Shokh Parfume">
+<title>Shokh Parfume</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;1,6..96,500&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<style>
+/* Layout: a till. Product tiles on the left, the cart on the right (a bottom bar on phones); porcelain ground, amber marks perfume levels */
+:root{
+  --bg:#F1EFF4; --surface:#FFFFFF; --sunk:#EAE6EF; --ink:#1C1722; --muted:#655D70; --line:#DCD6E3;
+  --accent:#995810; --accent-ink:#FFFFFF; --accent-soft:#F5E7D4; --liquid:#C68629; --glass:#ECE8F1;
+  --good:#2B774C; --bad:#B13348; --bad-soft:#F8DFE3; --warn:#76640A; --warn-soft:#F1EBC9;
+  --s1:#2a78d6; --s2:#eb6834; --grid:#E6E2EB;
+  --scrim:rgba(24,19,30,.48); --shadow:0 1px 2px rgba(28,23,34,.07),0 12px 32px rgba(28,23,34,.10);
+  --f-disp:'Bodoni Moda','Bodoni 72','Didot',Georgia,serif;
+  --f-ui:'Instrument Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --f-num:'IBM Plex Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --r:12px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#131017; --surface:#1C1822; --sunk:#27222E; --ink:#EEEAF3; --muted:#A79FB2; --line:#352E3E;
+    --accent:#E4A24F; --accent-ink:#1F1406; --accent-soft:#3B2B18; --liquid:#D9973D; --glass:#2A2432;
+    --good:#66C28D; --bad:#F07A8C; --bad-soft:#3D1B23; --warn:#D9C45F; --warn-soft:#302A12;
+    --s1:#3987e5; --s2:#d95926; --grid:#2C2633;
+    --scrim:rgba(0,0,0,.6); --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 32px rgba(0,0,0,.4);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#131017; --surface:#1C1822; --sunk:#27222E; --ink:#EEEAF3; --muted:#A79FB2; --line:#352E3E;
+  --accent:#E4A24F; --accent-ink:#1F1406; --accent-soft:#3B2B18; --liquid:#D9973D; --glass:#2A2432;
+  --good:#66C28D; --bad:#F07A8C; --bad-soft:#3D1B23; --warn:#D9C45F; --warn-soft:#302A12;
+  --s1:#3987e5; --s2:#d95926; --grid:#2C2633;
+  --scrim:rgba(0,0,0,.6); --shadow:0 1px 2px rgba(0,0,0,.4),0 12px 32px rgba(0,0,0,.4);
+  color-scheme:dark;
+}
+html{background:var(--bg)}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-ui);font-size:15px;line-height:1.45}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--surface)}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+h1,h2,h3{margin:0;text-wrap:balance;font-weight:500}
+p{margin:0}
+button{font:inherit;color:inherit}
+img{max-width:100%}
+.wrap{max-width:1320px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.num{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+.good{color:var(--good)} .bad{color:var(--bad)}
+.lbl{font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.disp{font-family:var(--f-disp);font-weight:500}
+.mn{white-space:nowrap}
+.cu{font-size:.76em;opacity:.7}
+.ico{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+
+/* header + nav */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface);border-bottom:1px solid var(--line)}
+.top-row{display:flex;align-items:center;gap:8px 18px;padding-block:10px}
+.mark{font-family:var(--f-disp);font-style:italic;font-weight:500;font-size:28px;line-height:1;white-space:nowrap}
+@media (max-width:400px){.mark{font-size:24px}}
+.shopname{color:var(--muted);font-size:13.5px}
+.tabs{display:flex;gap:2px;margin-left:12px;overflow-x:auto;scrollbar-width:none;min-width:0;flex:0 1 auto}
+.tabs::-webkit-scrollbar{display:none}
+.ordline{display:grid;gap:8px;padding:12px;border:1px solid var(--line);border-radius:10px}
+.ordnums{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) minmax(0,1fr) 40px;gap:8px;align-items:end}
+@media (max-width:480px){.ordnums{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 40px}.ordnums .sumf{display:none}}
+.check{display:flex;gap:10px;align-items:center;font-weight:500;cursor:pointer}
+.check input{width:20px;height:20px;accent-color:var(--accent)}
+.atomrow{display:grid;gap:8px;margin-top:10px}
+.lines .atl{display:block}
+.lines .atl b{font-weight:600;color:var(--accent)}
+.flow{display:grid;gap:0}
+.flow div{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:14px}
+.flow div:first-child{border-top:0}
+.flow b{font-family:var(--f-num);font-weight:500}
+.flow .tot{font-weight:600}
+.flow .tot b{font-size:16px}
+.tab{appearance:none;border:0;background:none;display:flex;align-items:center;gap:7px;padding:9px 13px;border-radius:9px;font-weight:500;color:var(--muted);cursor:pointer;white-space:nowrap}
+.tab:hover{color:var(--ink);background:var(--sunk)}
+.tab[aria-selected="true"]{color:var(--ink);background:var(--accent-soft)}
+.tab[aria-selected="true"] .ico{color:var(--accent)}
+.status{margin-left:auto;font-size:12.5px;color:var(--muted);white-space:nowrap}
+.status .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--good);margin-right:6px;vertical-align:1px}
+.status.warn .dot{background:var(--warn)}
+.botnav{display:none}
+.tab .cnt{font-family:var(--f-num);font-size:11px;padding:1px 6px;border-radius:999px;background:var(--bad-soft);color:var(--bad);line-height:1.4}
+.pill.ok{background:color-mix(in srgb,var(--good) 16%,transparent);color:var(--good)}
+.debts{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(320px,1fr))}
+.debt .nm{font-weight:600;font-size:16px;overflow-wrap:anywhere}
+.debt .ph{font-family:var(--f-num);font-size:13.5px;user-select:all}
+.debt .its{font-size:13.5px;color:var(--muted)}
+.debt.st-overdue{border-color:color-mix(in srgb,var(--bad) 45%,var(--line))}
+.kv3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:10px 12px;border-radius:9px;background:var(--sunk)}
+.kv3 div{display:grid;gap:1px}
+.kv3 span{font-size:12px;color:var(--muted)}
+.kv3 b{font-family:var(--f-num);font-weight:500;font-size:14px}
+.debtbox{display:grid;gap:12px;padding:12px;border-radius:10px;background:var(--accent-soft)}
+.between{justify-content:space-between}
+.owed{font-size:14px;color:var(--muted)}
+.owed b{font-family:var(--f-disp);font-size:24px;color:var(--ink);font-weight:500;margin-left:6px}
+main{padding-block:18px 110px}
+@media (max-width:860px){
+  .tabs{display:none}
+  .top-row{padding-block:10px}
+  .botnav{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:25;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px);padding-left:max(4px,env(safe-area-inset-left,0px));padding-right:max(4px,env(safe-area-inset-right,0px))}
+  .botnav .tab{flex:1;flex-direction:column;gap:3px;padding:8px 1px 9px;font-size:10.5px;border-radius:0;background:none;min-width:0}
+  .botnav .tab[aria-selected="true"]{background:none;color:var(--accent)}
+  .botnav .tab{position:relative}
+  .botnav .cnt{position:absolute;top:3px;left:calc(50% + 6px);font-size:10px;padding:0 5px}
+  main{padding-block:14px 150px}
+}
+
+/* generic */
+.pane{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px;min-width:0;display:grid;gap:12px;align-content:start}
+.head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.h{font-family:var(--f-disp);font-size:24px;line-height:1.15}
+.h-sm{font-size:12px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.banner{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:12px 16px;border-radius:var(--r);background:var(--accent-soft);margin-bottom:16px}
+.banner p{flex:1;min-width:220px}
+.note{padding:9px 12px;border-radius:8px;font-size:13.5px;background:var(--sunk)}
+.note.warn{background:var(--warn-soft)}
+.note.info{background:var(--accent-soft)}
+.note.bad{background:var(--bad-soft);color:var(--bad)}
+.empty{padding:32px 12px;text-align:center;color:var(--muted);display:grid;gap:10px;justify-items:center}
+.empty b{color:var(--ink);font-weight:600;font-size:16px}
+.field{display:grid;gap:6px;min-width:0}
+.field>label{font-size:12px;font-weight:600;color:var(--muted)}
+.hint{font-size:12.5px;color:var(--muted)}
+input[type=text],input[type=date],select{width:100%;min-width:0;font:inherit;font-size:16px;padding:11px 12px;border:1px solid var(--line);border-radius:9px;background:var(--surface);color:var(--ink)}
+input[type=text]:focus,select:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:10px 16px;border-radius:9px;font-weight:500;cursor:pointer;white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:7px}
+.btn:hover{border-color:var(--muted)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{filter:brightness(1.06)}
+.btn.big{width:100%;padding:15px 16px;font-size:17px;font-weight:600}
+.btn.small{padding:7px 11px;font-size:13.5px}
+.btn.danger{color:var(--bad)}
+.btn.danger.solid{background:var(--bad);color:var(--surface);border-color:var(--bad)}
+.btn.ghost{border-color:transparent;background:transparent;color:var(--accent)}
+.btn:disabled{opacity:.45;cursor:not-allowed;filter:none}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.row.end{justify-content:flex-end}
+.grow{flex:1}
+.seg{display:flex;background:var(--sunk);border-radius:10px;padding:3px;gap:3px}
+.seg button{flex:1;appearance:none;border:0;background:transparent;padding:10px 8px;border-radius:8px;font-weight:500;color:var(--muted);cursor:pointer;min-width:0}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+.chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+@media (max-width:560px){.toolbar .row.prodbar{flex-wrap:wrap}.prodbar .search{flex:1 1 100%}.prodbar .btn{flex:1 1 auto}}
+.filtrow{display:flex;gap:6px;align-items:flex-start;min-width:0}
+.filtrow>.chips{flex:1 1 auto;min-width:0}
+.bsel{position:relative;flex:none;max-width:52%;display:block}
+.bsel select{appearance:none;-webkit-appearance:none;width:auto;max-width:100%;font-size:16px;line-height:1.25;padding:7px 30px 7px 13px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--muted);cursor:pointer;text-overflow:ellipsis}
+.bsel select:hover{color:var(--ink)}
+.bsel::after{content:'';position:absolute;right:13px;top:50%;width:6px;height:6px;border-right:1.5px solid var(--muted);border-bottom:1.5px solid var(--muted);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+.bsel.on select{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.bsel.on::after{border-color:var(--surface)}
+.chips::-webkit-scrollbar{display:none}
+.chip{appearance:none;border:1px solid var(--line);background:var(--surface);color:var(--muted);padding:7px 13px;border-radius:999px;font-size:14px;cursor:pointer;white-space:nowrap;flex:none}
+.chip:hover{color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.pill{display:inline-block;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;padding:2px 6px;border-radius:4px;background:var(--sunk);color:var(--muted);white-space:nowrap}
+.pill.c-original{background:var(--accent-soft);color:var(--accent)}
+.pill.c-handmade{background:transparent;box-shadow:inset 0 0 0 1px var(--muted);color:var(--ink)}
+.pill.low{background:var(--warn-soft);color:var(--warn)}
+.pill.neg{background:var(--bad-soft);color:var(--bad)}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.search{position:relative}
+.search .ico{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);width:18px;height:18px}
+.search input{padding-left:38px}
+.toolbar{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;margin-bottom:14px}
+.toolbar>*{min-width:0}
+.toolbar .row{flex-wrap:nowrap}
+.toolbar .row.between{flex-wrap:wrap}
+.toolbar .row.between>.chips{min-width:0;flex:1 1 260px}
+.kv3 .mn{white-space:normal}
+.tname{appearance:none;border:0;background:none;padding:0;text-align:left;font:inherit;font-weight:500;cursor:pointer;color:var(--ink);overflow-wrap:anywhere}
+.tname:hover{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+.tsub{font-size:12.5px;color:var(--muted);margin-top:2px}
+.kr{padding:11px 0;border-top:1px solid var(--line)}
+.kr:first-child{border-top:0;padding-top:2px}
+.kh{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.kh b{font-weight:600}
+.kd{display:flex;justify-content:space-between;gap:4px 12px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-top:3px}
+.lp th:first-child,.lp td:first-child{position:sticky;left:0;background:var(--surface);z-index:1}
+.lp thead th:first-child{z-index:2}
+td.mintd{min-width:180px}
+.tablewrap.tall{max-height:560px;overflow:auto}
+.tablewrap.tall thead th{position:sticky;top:0;z-index:1;background:var(--surface)}
+.tablewrap tfoot td{position:sticky;bottom:0;background:var(--surface);font-weight:600;border-top:1px solid var(--line)}
+.trow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px 12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.trow:first-child{border-top:0}
+.trow .nm{font-weight:500;overflow-wrap:anywhere}
+.trow .sub{font-size:12.5px;color:var(--muted)}
+.gauge{height:5px;background:var(--glass);border-radius:3px;overflow:hidden}
+.gauge>i{display:block;height:100%;background:var(--liquid);border-radius:3px}
+
+/* thumbs */
+.thumb{display:block;aspect-ratio:1/1;border-radius:10px;overflow:hidden;background:var(--sunk);position:relative;max-width:100%}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb .mono{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--f-disp);font-style:italic;font-size:30px;color:var(--muted)}
+.thumb.c-original{background:var(--accent-soft)} .thumb.c-original .mono{color:var(--accent)}
+.thumb.c-handmade{background:linear-gradient(160deg,var(--accent-soft),var(--sunk))}
+
+/* tiles */
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+@media (max-width:480px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}}
+.tile{appearance:none;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:8px 8px 12px;display:grid;gap:8px;cursor:pointer;color:var(--ink);min-width:0;align-content:start}
+.tile:hover{border-color:var(--accent)}
+.tile:active{transform:scale(.99)}
+.tile .nm{font-weight:500;line-height:1.25;overflow-wrap:anywhere;padding-inline:4px}
+.tile .sub{font-size:12.5px;color:var(--muted);padding-inline:4px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.tile .pr{font-family:var(--f-num);font-size:13.5px;padding-inline:4px}
+.tile .st{font-size:12.5px;color:var(--muted);padding-inline:4px;display:grid;gap:4px}
+.tile .incart{position:absolute;top:6px;right:6px;background:var(--accent);color:var(--accent-ink);font-size:12px;font-weight:600;border-radius:999px;min-width:22px;height:22px;display:grid;place-items:center;padding:0 6px}
+
+/* sell layout */
+.sell{display:grid;gap:18px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:861px){.sell{grid-template-columns:minmax(0,1fr) 380px;align-items:start}.cartcol{position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px);display:grid;gap:14px;max-height:calc(100vh - 96px);overflow:auto}}
+@media (max-width:860px){.cartcol .cartpane{display:none}}
+.cartpane{gap:14px}
+.lines{list-style:none;margin:0;padding:0;display:grid}
+.lines li{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.lines li:first-child{border-top:0}
+.lines .thumb{width:44px;border-radius:8px}
+.lines .thumb .mono{font-size:16px}
+.lines .nm{font-weight:500;overflow-wrap:anywhere;line-height:1.25}
+.lines .dt{font-size:12.5px;color:var(--muted)}
+.lines .w{font-size:12px;color:var(--warn)}
+.lines .w.err{color:var(--bad);font-weight:500}
+.tile.out,.tile.out:hover,.card.out,.card.out:hover{border-color:var(--bad);box-shadow:0 0 0 1px var(--bad)}
+.tile.low,.tile.low:hover,.card.low,.card.low:hover{border-color:var(--warn);box-shadow:0 0 0 1px var(--warn)}
+.tile.out{background:var(--sunk)}
+.tile.out .thumb{filter:grayscale(1);opacity:.6}
+.tile.out .nm,.tile.out .pr{color:var(--muted)}
+.tile .outtag{justify-self:start;font-size:11.5px;font-weight:600;letter-spacing:.02em;color:var(--bad);background:var(--bad-soft);border-radius:999px;padding:2px 9px}
+.tile .outtag.low{color:var(--warn);background:var(--warn-soft)}
+.pill.out{color:var(--bad);background:var(--bad-soft)}
+.lines .pr{text-align:right;font-family:var(--f-num);font-size:14px}
+.qty{display:inline-flex;align-items:center;gap:2px;margin-top:6px}
+.qty button{appearance:none;width:30px;height:30px;border:1px solid var(--line);background:var(--surface);border-radius:8px;cursor:pointer;font-size:16px;line-height:1}
+.qty span{min-width:74px;padding:0 6px;text-align:center;font-family:var(--f-num);font-size:13.5px}
+.rm{appearance:none;border:0;background:none;color:var(--muted);font-size:12.5px;cursor:pointer;text-decoration:underline;text-underline-offset:2px;padding:0;margin-top:6px}
+.total{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.total b{font-family:var(--f-disp);font-size:30px;line-height:1}
+.sumrow{display:flex;justify-content:space-between;font-size:14px;color:var(--muted)}
+.sumrow span:last-child{font-family:var(--f-num)}
+.cartbar{display:none}
+@media (max-width:860px){
+  .cartbar{display:flex;position:fixed;left:0;right:0;bottom:calc(62px + env(safe-area-inset-bottom,0px));z-index:24;padding:8px max(12px,env(safe-area-inset-right,0px)) 8px max(12px,env(safe-area-inset-left,0px))}
+  .cartbar .btn{width:100%;justify-content:space-between;padding:14px 18px;font-size:16px;box-shadow:var(--shadow)}
+}
+.receipts{list-style:none;margin:0;padding:0;display:grid}
+.receipts li{display:grid;grid-template-columns:44px minmax(0,1fr) auto;gap:4px 10px;padding:10px 0;border-top:1px solid var(--line)}
+.receipts li:first-child{border-top:0}
+.receipts .t{font-family:var(--f-num);font-size:12.5px;color:var(--muted);padding-top:2px}
+.receipts .it{font-size:13.5px;overflow-wrap:anywhere}
+.receipts .dt{font-size:12.5px;color:var(--muted)}
+.receipts .pr{text-align:right;font-family:var(--f-num);font-size:13.5px}
+.receipts .pr small{display:block;font-size:11.5px}
+.linkbtn{appearance:none;border:0;background:none;padding:0;color:var(--accent);font-size:12.5px;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.linkbtn.bad{color:var(--bad)}
+.tstats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.tstats b{display:block;font-family:var(--f-num);font-weight:500;font-size:14.5px}
+
+/* product cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px}
+.card{appearance:none;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:10px;display:grid;grid-template-columns:76px minmax(0,1fr);gap:12px;cursor:pointer;color:var(--ink);align-items:start;min-width:0}
+.card:hover{border-color:var(--accent)}
+.card .nm{font-weight:500;overflow-wrap:anywhere;line-height:1.25}
+.card .sub{font-size:12.5px;color:var(--muted);display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:3px}
+.card .facts{display:grid;gap:5px;margin-top:8px;font-size:13px}
+.card .facts .k{color:var(--muted)}
+.card .facts b{font-family:var(--f-num);font-weight:500}
+.strip{display:flex;flex-wrap:wrap;gap:8px 28px;padding:12px 16px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);margin-bottom:14px}
+.strip div{display:grid;gap:2px}
+.strip b{font-family:var(--f-num);font-weight:500}
+
+/* inventory */
+.inv{display:grid;gap:16px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:1000px){.inv{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);align-items:start}}
+.irows{display:grid;gap:8px}
+.irow{appearance:none;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:12px 14px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;cursor:pointer;color:var(--ink);align-items:center}
+.irow:hover{border-color:var(--accent)}
+.irow .nm{font-weight:500;overflow-wrap:anywhere}
+.irow .sub{font-size:12.5px;color:var(--muted)}
+.irow .q{text-align:right;font-family:var(--f-num);font-size:17px}
+.irow .q small{font-size:12px;color:var(--muted);margin-left:3px}
+.moves{list-style:none;margin:0;padding:0;display:grid}
+.moves li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;padding:9px 0;border-top:1px solid var(--line);font-size:13.5px}
+.moves li:first-child{border-top:0}
+.moves .w{color:var(--muted);font-size:12.5px}
+.moves .d{text-align:right;font-family:var(--f-num)}
+.moves .d.plus{color:var(--good)}
+.mtype{display:inline-block;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;padding:1px 6px;border-radius:4px;background:var(--sunk);color:var(--muted);margin-right:6px}
+.mtype.in{background:color-mix(in srgb,var(--good) 16%,transparent);color:var(--good)}
+.bignum{font-family:var(--f-disp);font-size:40px;line-height:1}
+.bignum small{font-family:var(--f-ui);font-size:15px;color:var(--muted);margin-left:6px}
+
+/* handmade */
+.hm-list{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(330px,1fr))}
+.hm{grid-template-columns:84px minmax(0,1fr);display:grid;gap:14px;align-items:start}
+.hm .disp{font-size:21px;line-height:1.15}
+.kv{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 14px;margin-top:10px}
+.kv div{display:grid;gap:1px}
+.kv span{font-size:12px;color:var(--muted)}
+.kv b{font-family:var(--f-num);font-weight:500;font-size:14px}
+.recipe-line{display:grid;grid-template-columns:minmax(0,1fr) 76px 84px 40px;gap:6px;align-items:center}
+.recipe-line .lc{text-align:right;font-size:12.5px;color:var(--muted)}
+.xbtn{appearance:none;border:1px solid var(--line);background:var(--surface);border-radius:8px;height:44px;cursor:pointer;color:var(--muted);font-size:18px}
+.xbtn:hover{color:var(--bad);border-color:var(--bad)}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);font-weight:600;text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+td.n,th.n{text-align:right;white-space:nowrap}
+td.n{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+
+/* reports + charts */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-bottom:16px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;display:grid;gap:4px}
+.kpi b{font-family:var(--f-disp);font-weight:500;font-size:28px;line-height:1.1}
+.kpi small{font-size:12.5px;color:var(--muted)}
+.rgrid{display:grid;gap:16px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:1000px){.rgrid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.rgrid .wide{grid-column:1/-1}}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.colchart{display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 8px}
+.yaxis{position:relative;height:200px;font-family:var(--f-num);font-size:11px;color:var(--muted);min-width:34px}
+.yaxis span{position:absolute;right:0;transform:translateY(50%)}
+.plot{position:relative;height:200px;border-bottom:1px solid var(--line)}
+.plot .gl{position:absolute;left:0;right:0;height:1px;background:var(--grid)}
+.cols{position:absolute;inset:0;display:flex;align-items:flex-end}
+.band{flex:1;height:100%;display:flex;align-items:flex-end;justify-content:center;gap:2px;cursor:default;outline-offset:-2px;min-width:0;position:relative}
+.band:hover,.band:focus-visible{background:color-mix(in srgb,var(--ink) 5%,transparent)}
+.band i{display:block;width:min(14px,38%);border-radius:4px 4px 0 0;min-height:0}
+.band .b1{background:var(--s1)} .band .b2{background:var(--s2)}
+.band .peak{position:absolute;bottom:calc(var(--h) + 4px);left:50%;transform:translateX(-50%);font-family:var(--f-num);font-size:11px;color:var(--ink);white-space:nowrap;pointer-events:none}
+.xaxis{grid-column:2;display:flex;font-family:var(--f-num);font-size:11px;color:var(--muted);padding-top:6px}
+.xaxis span{flex:1;text-align:center;min-width:0;white-space:nowrap;overflow:visible}
+.hbars{display:grid;gap:10px}
+.hrow{display:grid;grid-template-columns:minmax(80px,32%) minmax(0,1fr);gap:10px;align-items:center;border-radius:6px;outline-offset:2px}
+.hrow:hover .hb,.hrow:focus-visible .hb{filter:brightness(1.12)}
+.hrow .hl{font-size:13.5px;overflow-wrap:anywhere;line-height:1.25}
+.htrack{display:flex;align-items:center;gap:8px;min-width:0}
+.hb{display:block;height:16px;border-radius:0 4px 4px 0;background:var(--s1);width:calc((100% - 8.5em) * var(--w));min-width:2px;flex:none}
+.hv{font-family:var(--f-num);font-size:12.5px;white-space:nowrap}
+.tip{position:fixed;z-index:70;pointer-events:none;background:var(--surface);color:var(--ink);border:1px solid var(--line);box-shadow:var(--shadow);border-radius:8px;padding:8px 10px;font-size:13px;min-width:140px;display:grid;gap:4px}
+.tip .tt{font-size:12px;color:var(--muted)}
+.tip .tr{display:grid;grid-template-columns:12px minmax(0,1fr) auto;gap:8px;align-items:center}
+.tip .tr i{height:2px;border-radius:1px;display:block}
+.tip .tr b{font-family:var(--f-num);font-weight:500}
+.tip .tr span{color:var(--muted)}
+
+/* sheets */
+.overlay{position:fixed;inset:0;z-index:40;background:var(--scrim);display:flex;justify-content:flex-end}
+.sheet{width:min(520px,100%);height:100%;background:var(--surface);display:flex;flex-direction:column;box-shadow:var(--shadow);padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-right:env(safe-area-inset-right,0px)}
+.overlay.center{justify-content:center;align-items:center;padding:16px}
+.overlay.center .sheet{height:auto;max-height:min(760px,calc(100vh - 32px));border-radius:16px;width:min(460px,100%);padding:0}
+@media (max-width:860px){
+  .overlay.center{align-items:flex-end;padding:0}
+  .overlay.center .sheet{width:100%;border-radius:18px 18px 0 0;max-height:92vh;padding-bottom:env(safe-area-inset-bottom,0px)}
+}
+.sheet-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 20px;border-bottom:1px solid var(--line)}
+.sheet-head .disp{font-size:22px;line-height:1.15;overflow-wrap:anywhere}
+.sheet-body{flex:1;overflow:auto;padding:18px 20px;display:grid;gap:16px;align-content:start}
+.sheet-foot{padding:14px 20px;border-top:1px solid var(--line);display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.sec{display:grid;gap:12px;padding-top:16px;border-top:1px solid var(--line)}
+.opt{border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:14px;display:grid;gap:10px;cursor:pointer;color:var(--ink)}
+.opt.on{border-color:var(--accent);background:color-mix(in srgb,var(--accent-soft) 55%,var(--surface))}
+.opt .ot{appearance:none;border:0;background:none;padding:0;width:100%;text-align:left;cursor:pointer;color:inherit;display:flex;justify-content:space-between;gap:10px;font-weight:600;font-size:16px}
+.opt .ot span:last-child{font-family:var(--f-num);font-weight:500}
+.opt .os{font-size:13px;color:var(--muted)}
+.mlchips{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.mlchips button{appearance:none;border:1px solid var(--line);background:var(--surface);border-radius:9px;padding:10px 4px;font-family:var(--f-num);font-size:14px;cursor:pointer;color:var(--ink)}
+.mlchips button[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.imgpick{display:grid;grid-template-columns:110px minmax(0,1fr);gap:14px;align-items:center}
+.imgpick .thumb{width:110px}
+.filebtn{position:relative;overflow:hidden}
+.filebtn input{position:absolute;inset:0;opacity:0;cursor:pointer;font-size:0}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:80;background:var(--ink);color:var(--surface);padding:11px 16px;border-radius:9px;box-shadow:var(--shadow);max-width:min(92vw,460px);font-size:14px}
+.toast.bad{background:var(--bad);color:var(--surface)}
+@media (max-width:860px){.toast{bottom:calc(132px + env(safe-area-inset-bottom,0px))}}
+@media (max-width:560px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.kpi{padding:12px}.kpi b{font-size:20px}.kpi .mn{white-space:normal}}
+@media (prefers-reduced-motion:no-preference){.toast{animation:rise .18s ease-out}.overlay .sheet{animation:slide .2s ease-out}.overlay.center .sheet{animation:rise2 .18s ease-out}@keyframes rise{from{transform:translate(-50%,8px);opacity:0}}@keyframes slide{from{transform:translateX(24px);opacity:.6}}@keyframes rise2{from{transform:translateY(14px);opacity:.6}}}
+</style>
+<style>
+/* sign-in / setup screen and the offline bar (standalone only) */
+.sp-gate{position:fixed;inset:0;z-index:100;background:var(--bg);display:grid;place-items:center;overflow-y:auto;padding-block:calc(24px + env(safe-area-inset-top,0px)) calc(24px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.sp-card{width:100%;max-width:400px;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:28px 24px;display:grid;gap:14px;color:var(--ink);font-family:var(--f-ui)}
+.sp-card form{display:grid;gap:14px}
+.sp-brand{font-family:var(--f-disp);font-style:italic;font-size:30px;line-height:1.1;text-align:center;color:var(--ink)}
+.sp-sub{margin:0;text-align:center;color:var(--muted);font-size:15px}
+.sp-note{margin:0;color:var(--muted);font-size:13.5px;line-height:1.5}
+.sp-err{background:var(--bad-soft);color:var(--bad);border-radius:9px;padding:10px 12px;font-size:14px}
+.sp-small{justify-self:center;font-size:13px}
+.sp-card input[type=email],.sp-card input[type=password],.sp-card textarea{width:100%;min-width:0;font:inherit;font-size:16px;padding:11px 12px;border:1px solid var(--line);border-radius:9px;background:var(--surface);color:var(--ink);box-sizing:border-box}
+.sp-card textarea{font-family:var(--f-num);font-size:13px;resize:vertical}
+.sp-card input:focus,.sp-card textarea:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 22%,transparent)}
+.sp-card .btn{width:100%;justify-content:center}
+.sp-net{position:fixed;z-index:90;left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top,0px) + 8px);max-width:calc(100% - 32px);box-sizing:border-box;background:var(--warn-soft);color:var(--warn);border:1px solid color-mix(in srgb,var(--warn) 30%,transparent);border-radius:999px;padding:8px 16px;font:500 13px/1.35 var(--f-ui);box-shadow:var(--shadow);text-align:center}
+</style>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+</head>
+<body>
+<div id="app"></div>
+<div id="tip" class="tip" hidden></div>
+<div id="toast" class="toast" hidden role="status" aria-live="polite"></div>
+<div id="sp-gate" class="sp-gate" hidden></div>
+<div id="sp-net" class="sp-net" hidden role="status"></div>
+<script>
+(function(){
+"use strict";
+/* Shokh Parfume — standalone platform layer.
+   Gives the app the same small API it had inside Claude (db, assets, downloads, user),
+   backed by Firebase Authentication + Cloud Firestore. */
+const FIREBASE_CONFIG = /*__FIREBASE_CONFIG__*/null;
+const CFG_KEY='sp-firebase-config';
+const COLLS=['products','materials','sales','debts','expenses','orders','settings','images'];
+
+const gate=document.getElementById('sp-gate');
+const net=document.getElementById('sp-net');
+let readyRes; const READY=new Promise(r=>{ readyRes=r; });
+const SP=window.SP={user:null,started:false,img:()=>'' };
+window.SP_READY=READY;
+
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function readCfg(){ if(FIREBASE_CONFIG&&FIREBASE_CONFIG.apiKey) return FIREBASE_CONFIG; try{ const s=localStorage.getItem(CFG_KEY); return s?JSON.parse(s):null; }catch(e){ return null; } }
+function parseCfg(text){
+  const keys=['apiKey','authDomain','projectId','storageBucket','messagingSenderId','appId','measurementId'], o={};
+  keys.forEach(k=>{ const m=String(text||'').match(new RegExp('["\']?'+k+'["\']?\\s*:\\s*["\']([^"\']+)["\']')); if(m) o[k]=m[1].trim(); });
+  return (o.apiKey&&o.projectId&&o.appId)?o:null;
+}
+function uid32(){ const a=new Uint8Array(16); (window.crypto||{}).getRandomValues?crypto.getRandomValues(a):a.forEach((_,i)=>{ a[i]=Math.floor(Math.random()*256); }); return [...a].map(b=>b.toString(16).padStart(2,'0')).join(''); }
+function today(){ const d=new Date(), z=x=>String(x).padStart(2,'0'); return d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate()); }
+
+/* ---------- gate screens (setup / login / errors) ---------- */
+function card(inner){ gate.innerHTML='<div class="sp-card"><div class="sp-brand">Shokh Parfume</div>'+inner+'</div>'; gate.hidden=false; }
+function hideGate(){ gate.hidden=true; gate.innerHTML=''; }
+function showNoSdk(){
+  card('<p class="sp-sub">Dastur ochilishi uchun internet kerak.</p><p class="sp-note">Internetga ulanib, sahifani yangilang.</p><button class="btn primary big" type="button" data-sp="reload">Qayta urinish</button>');
+}
+function showSetup(err){
+  card('<p class="sp-sub">Birinchi sozlash</p><p class="sp-note">Firebase loyihangizdagi <b>firebaseConfig</b> matnini toʻliq nusxalab, shu yerga qoʻying. Bu har bir qurilmada faqat bir marta soʻraladi.</p>'+
+    '<div class="field"><label for="sp-cfg">firebaseConfig</label><textarea id="sp-cfg" rows="8" spellcheck="false" placeholder="const firebaseConfig = {&#10;  apiKey: &quot;...&quot;,&#10;  authDomain: &quot;...&quot;,&#10;  projectId: &quot;...&quot;,&#10;  appId: &quot;...&quot;&#10;};"></textarea></div>'+
+    (err?'<div class="sp-err" role="alert">'+esc(err)+'</div>':'')+'<button class="btn primary big" type="button" data-sp="save-cfg">Saqlash</button>');
+}
+function showLogin(err,email){
+  const fromLs=!(FIREBASE_CONFIG&&FIREBASE_CONFIG.apiKey);
+  card('<p class="sp-sub">Doʻkon dasturiga kirish</p><form id="sp-login" novalidate>'+
+    '<div class="field"><label for="sp-email">Email</label><input id="sp-email" type="email" autocomplete="username" inputmode="email" value="'+esc(email||'')+'" required></div>'+
+    '<div class="field"><label for="sp-pass">Parol</label><input id="sp-pass" type="password" autocomplete="current-password" required></div>'+
+    (err?'<div class="sp-err" role="alert">'+esc(err)+'</div>':'')+
+    '<button class="btn primary big" type="submit" id="sp-go">Kirish</button></form>'+
+    '<p class="sp-note">Hisoblarni doʻkon egasi Firebase’da ochadi: oʻzi va sotuvchi uchun.</p>'+
+    (fromLs?'<button class="linkbtn sp-small" type="button" data-sp="reset-cfg">Firebase sozlamasini qayta kiritish</button>':''));
+  setTimeout(()=>{ const el=document.getElementById(email?'sp-pass':'sp-email'); if(el) el.focus(); },30);
+}
+function authErr(e){
+  const c=e&&e.code||'';
+  if(/invalid-credential|wrong-password|user-not-found|invalid-login/.test(c)) return 'Email yoki parol notoʻgʻri.';
+  if(/invalid-email/.test(c)) return 'Email notoʻgʻri yozilgan.';
+  if(/too-many-requests/.test(c)) return 'Juda koʻp urinish. Birozdan keyin qayta urinib koʻring.';
+  if(/network-request-failed/.test(c)) return 'Internet yoʻq. Ulanishni tekshiring.';
+  if(/user-disabled/.test(c)) return 'Bu hisob oʻchirib qoʻyilgan.';
+  if(/unauthorized-domain/.test(c)) return 'Bu sayt manzili Firebase’da ruxsat etilmagan. Authentication → Settings → Authorized domains boʻlimiga qoʻshing.';
+  if(/api-key|invalid-api-key|configuration-not-found|operation-not-allowed/.test(c)) return 'Firebase sozlamasi notoʻgʻri yoki Email/Password kirish yoqilmagan.';
+  return 'Kirib boʻlmadi ('+c+').';
+}
+
+/* ---------- network / pending writes bar ---------- */
+let pending=0, slowPend=null, persistOk=true;
+function netBar(){
+  let t='';
+  if(!navigator.onLine) t='Internet yoʻq. Oʻzgarishlar shu qurilmada saqlanmoqda va internet qaytganda yuboriladi.'+(persistOk?'':' Sahifani yopmang.');
+  else if(pending>0&&slowPend==='on') t='Maʼlumotlar yuborilmoqda…';
+  net.textContent=t; net.hidden=!t;
+}
+window.addEventListener('online',netBar); window.addEventListener('offline',netBar);
+function track(p){
+  pending++; if(!slowPend) slowPend=setTimeout(()=>{ slowPend='on'; netBar(); },4000);
+  const done=()=>{ pending--; if(pending<=0){ pending=0; if(slowPend&&slowPend!=='on') clearTimeout(slowPend); slowPend=null; } netBar(); };
+  p.then(done,done); return p;
+}
+function mapErr(e){ const c=String(e&&e.code||'unknown').replace(/^firestore\//,'').replace(/-/g,'_'); const x=new Error(e&&e.message||c); x.code=c; x.orig=e; return x; }
+function lateErr(e){ const x=mapErr(e); const el=document.getElementById('toast'); if(el){ el.textContent='Oldingi oʻzgarish serverga saqlanmadi ('+x.code+'). Sahifani yangilab tekshiring.'; el.className='toast bad'; el.hidden=false; setTimeout(()=>{ el.hidden=true; },7000); } }
+// A write is stored locally at once; the server confirms later. Offline we do not wait for that.
+function settle(p){
+  const tracked=track(p);
+  return new Promise((res,rej)=>{
+    let done=false; const fin=()=>{ if(!done){ done=true; res(); } };
+    tracked.then(v=>{ if(!done){ done=true; res(v); } },e=>{ if(!done){ done=true; rej(mapErr(e)); } else lateErr(e); });
+    if(!navigator.onLine||slowPend==='on'){ setTimeout(fin,0); return; }
+    const check=()=>{ if(done) return; if(!navigator.onLine||slowPend==='on') fin(); else setTimeout(check,500); };
+    setTimeout(check,500);
+  });
+}
+
+/* ---------- Firestore wrapper with the app's API ---------- */
+let fs=null, auth=null, META={};
+const histSubs=new Map(); // "coll" -> Set of refresh(id) for old (out-of-window) docs
+function touched(path){ const [c,id]=String(path).split('/'); const set=histSubs.get(c); if(set&&id) set.forEach(fn=>fn(id)); }
+function wrapDoc(ref){
+  const w=fn=>{ let p; try{ p=fn(); }catch(e){ return Promise.reject(mapErr(e)); } const r=settle(p); touched(ref.path); return r; };
+  return {
+    id:ref.id,
+    set:(d,o)=>w(()=>o?ref.set(d,o):ref.set(d)),
+    update:d=>w(()=>ref.update(d)),
+    delete:()=>w(()=>ref.delete()),
+    get:()=>ref.get(),
+    onSnapshot:(next,err)=>ref.onSnapshot(next,e=>{ if(err) err(mapErr(e)); })
+  };
+}
+/* Sales and expenses grow every day. Only the last LIVE_DAYS are listened to live; older days are read
+   once from the server per device (and again weekly), then from this device's own cache: that keeps
+   the daily free read limit far away even after years of sales. */
+const LIVE_DAYS=70, HIST={sales:'day',expenses:'day'};
+function dayMinus(n){ const d=new Date(); d.setDate(d.getDate()-n); const z=x=>String(x).padStart(2,'0'); return d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate()); }
+function histListen(coll,field,from,next,err){
+  const cut=dayMinus(LIVE_DAYS), KEY='sp-hist-'+coll;
+  let old=new Map(), liveDocs=null, meta={fromCache:true,hasPendingWrites:false}, alive=true;
+  const emit=()=>{ if(!alive||!liveDocs) return; const m=new Map(old); liveDocs.forEach(d=>m.set(d.id,d)); const docs=[...m.values()]; next({docs,size:docs.length,empty:!docs.length,forEach:fn=>docs.forEach(fn),docChanges:()=>[],metadata:meta}); };
+  let flag={}; try{ flag=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ flag={}; }
+  const save=()=>{ try{ localStorage.setItem(KEY,JSON.stringify(flag)); }catch(e){} };
+  const fresh=persistOk&&flag.from&&flag.from<=from&&flag.seen&&flag.seen>=cut&&flag.fullAt&&flag.fullAt>=dayMinus(7)&&(!META.restoredAt||flag.fullAt>META.restoredAt);
+  const base=fs.collection(coll).where(field,'>=',from).where(field,'<',cut);
+  const loadOld=async()=>{
+    let snap=null;
+    if(fresh){ try{ snap=await base.get({source:'cache'}); if(snap.size<(flag.n||0)) snap=null; }catch(e){ snap=null; } }
+    if(!snap){ try{ snap=await base.get(); }catch(e){ snap=null; } if(snap&&!snap.metadata.fromCache){ flag.from=from; flag.fullAt=new Date().toISOString(); flag.n=snap.size; save(); } else if(snap) retryOnline(); }
+    if(snap&&alive){ old=new Map(); snap.forEach(d=>old.set(d.id,d)); emit(); }
+  };
+  const retryOnline=()=>{ const h=()=>{ window.removeEventListener('online',h); if(alive) loadOld(); }; window.addEventListener('online',h); };
+  loadOld();
+  const refresh=id=>{ if(!old.has(id)) return; fs.doc(coll+'/'+id).get({source:'cache'}).then(d=>{ if(d.exists) old.set(id,d); else old.delete(id); emit(); }).catch(()=>{}); };
+  if(!histSubs.has(coll)) histSubs.set(coll,new Set()); histSubs.get(coll).add(refresh);
+  const unsub=fs.collection(coll).where(field,'>=',cut).onSnapshot(sn=>{ liveDocs=sn.docs; meta=sn.metadata; if(!sn.metadata.fromCache){ flag.seen=today(); save(); } emit(); },e=>{ if(err) err(mapErr(e)); });
+  return ()=>{ alive=false; histSubs.get(coll).delete(refresh); unsub(); };
+}
+function wrapQ(q,meta){
+  meta=meta||{coll:'',filters:[]};
+  const sub=(nq,f)=>wrapQ(nq,{coll:meta.coll,filters:f?meta.filters.concat([f]):meta.filters});
+  return {
+    where:(f,op,v)=>sub(q.where(f,op,v),[f,op,v]),
+    orderBy:(...a)=>sub(q.orderBy(...a)),
+    limit:n=>sub(q.limit(n)),
+    doc:id=>wrapDoc(q.doc(id)),
+    get:()=>q.get(),
+    onSnapshot:(next,err)=>{
+      const h=HIST[meta.coll], f=meta.filters;
+      if(h&&f.length===1&&f[0][0]===h&&f[0][1]==='>='&&String(f[0][2])<dayMinus(LIVE_DAYS)) return histListen(meta.coll,h,String(f[0][2]),next,err);
+      return q.onSnapshot(next,e=>{ if(err) err(mapErr(e)); });
+    }
+  };
+}
+let DBW=null;
+function makeDb(){ return { doc:p=>wrapDoc(fs.doc(p)), collection:p=>wrapQ(fs.collection(p),{coll:p,filters:[]}), inc:n=>firebase.firestore.FieldValue.increment(n), union:(...a)=>firebase.firestore.FieldValue.arrayUnion(...a), remove:(...a)=>firebase.firestore.FieldValue.arrayRemove(...a) }; }
+
+/* ---------- photos: stored as small JPEGs in the "images" collection ---------- */
+const IMG=new Map();
+function dataToBlobUrl(d){
+  try{ const m=/^data:([^;,]+)?(;base64)?,(.*)$/s.exec(d); if(!m) return d; const bin=m[2]?atob(m[3]):decodeURIComponent(m[3]); const u=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) u[i]=bin.charCodeAt(i); return URL.createObjectURL(new Blob([u],{type:m[1]||'image/jpeg'})); }catch(e){ return d; }
+}
+function cacheImg(id,d){ if(!id||!d) return; const old=IMG.get(id); if(old&&old.d===d) return; if(old&&old.u&&old.u.startsWith('blob:')) URL.revokeObjectURL(old.u); IMG.set(id,{d,u:dataToBlobUrl(d)}); }
+let imgReady=false; const imgWant=new Set(), imgBusy=new Set(), imgGone=new Map(), imgErr=new Set();
+SP.img=id=>{ const x=IMG.get(id); if(x) return x.u; if(id&&imgReady&&!imgBusy.has(id)&&!(imgGone.has(id)&&Date.now()-imgGone.get(id)<60000)&&!imgErr.has(id)){ imgWant.add(id); fetchImgs(); } return ''; };
+let rq=0; function rerender(){ if(rq) return; rq=requestAnimationFrame(()=>{ rq=0; if(window.SP_render) window.SP_render(); }); }
+let imgTimer=null;
+function fetchImgs(){
+  if(imgTimer) return;
+  imgTimer=setTimeout(async()=>{
+    imgTimer=null; const ids=[...imgWant]; imgWant.clear(); ids.forEach(i=>imgBusy.add(i));
+    for(let i=0;i<ids.length;i+=8){
+      await Promise.all(ids.slice(i,i+8).map(async id=>{
+        try{ const d=await fs.doc('images/'+id).get(); if(d.exists&&d.data()&&d.data().d) cacheImg(id,d.data().d); else imgGone.set(id,Date.now()); }
+        catch(e){ imgErr.add(id); }
+        finally{ imgBusy.delete(id); }
+      }));
+      rerender();
+    }
+  },60);
+}
+window.addEventListener('online',()=>{ imgErr.clear(); rerender(); });
+// photos already on this device cost nothing; only new ones are downloaded, once
+function loadImages(){
+  fs.collection('images').get({source:'cache'}).then(sn=>{ sn.forEach(d=>{ const v=d.data(); if(v&&v.d) cacheImg(d.id,v.d); }); },()=>{}).finally(()=>{ imgReady=true; rerender(); });
+}
+function readText(f){ return new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=()=>rej(r.error); r.readAsText(f); }); }
+function blobToData(b){ return new Promise((res,rej)=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=()=>rej(r.error); r.readAsDataURL(b); }); }
+
+/* ---------- downloads ---------- */
+function download(filename,data,type){
+  const blob=data instanceof Blob?data:new Blob([data],{type:type||(/\.csv$/i.test(filename)?'text/csv;charset=utf-8':'application/json')});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download=filename; a.rel='noopener'; document.body.appendChild(a); a.click();
+  setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); },5000);
+}
+
+/* ---------- the API the app asks for ---------- */
+window.claude={ use: async name=>{
+  await READY;
+  if(name==='db') return DBW;
+  if(name==='user') return { can: async()=>true, isOwner:()=>true, me: async()=>({id:SP.user&&SP.user.uid,name:SP.user&&SP.user.email}) };
+  if(name==='downloads') return { save: async({filename,data})=>{ download(filename,data); return {status:'saved'}; } };
+  if(name==='assets') return { upload: async blob=>{ const id=uid32(); const d=await blobToData(blob); cacheImg(id,d); await DBW.doc('images/'+id).set({d,t:new Date().toISOString(),by:SP.user?SP.user.email:''}); return {id,url:SP.img(id),sizeBytes:blob.size,contentType:blob.type}; } };
+  return null;
+}};
+
+/* ---------- backup: export everything / import a file ---------- */
+function toast(msg,bad){ const el=document.getElementById('toast'); if(!el) return; el.textContent=msg; el.className='toast'+(bad?' bad':''); el.hidden=false; clearTimeout(toast.t); toast.t=setTimeout(()=>{ el.hidden=true; },bad?6000:3000); }
+SP.exportAll=async()=>{
+  if(!fs) return;
+  toast('Zaxira tayyorlanmoqda…');
+  try{
+    const out={shop:'Shokh Parfume',format:'shokh-parfume-backup-1',exported:new Date().toISOString()};
+    if(!navigator.onLine){ toast('Zaxira uchun internet kerak.',true); return; }
+    for(const c of COLLS){ const snap=await fs.collection(c).get({source:'server'}); out[c]={}; snap.forEach(d=>{ out[c][d.id]=d.data(); }); }
+    download('shokh-parfume-zaxira-'+today()+'.json',JSON.stringify(out),'application/json');
+    const n=Object.keys(out.products||{}).length;
+    toast('Zaxira yuklab olindi · '+n+' ta mahsulot');
+  }catch(e){ toast('Zaxirani tayyorlab boʻlmadi. Internetni tekshiring.',true); }
+};
+SP.importText=async(text)=>{
+  let data; try{ data=JSON.parse(text); }catch(e){ toast('Bu fayl zaxira emas (JSON oʻqilmadi).',true); return false; }
+  if(!data||typeof data!=='object'||typeof data.products!=='object'){ toast('Bu fayl Shokh Parfume zaxirasi emas.',true); return false; }
+  const jobs=[]; let big=0; ['images'].concat(COLLS.filter(c=>c!=='images')).forEach(c=>{ const o=data[c]; if(o&&typeof o==='object') Object.entries(o).forEach(([id,doc])=>{ if(id&&doc&&typeof doc==='object'&&!Array.isArray(doc)&&!/\//.test(id)){ if(JSON.stringify(doc).length>1000000){ big++; return; } jobs.push([c,id,doc]); } }); });
+  if(!jobs.length){ toast('Faylda maʼlumot yoʻq.',true); return false; }
+  const np=Object.keys(data.products||{}).length, ni=Object.keys(data.images||{}).length;
+  if(!window.confirm('Zaxiradan tiklash: '+np+' ta mahsulot, '+ni+' ta rasm, jami '+jobs.length+' ta yozuv.\n\nBir xil yozuvlar fayldagi bilan almashtiriladi. Davom etasizmi?')) return false;
+  if(!navigator.onLine){ toast('Tiklash uchun internet kerak.',true); return false; }
+  let batch=fs.batch(), ops=0, bytes=0, done=0;
+  const flush=async()=>{ if(!ops) return; await batch.commit(); batch=fs.batch(); ops=0; bytes=0; };
+  try{
+    for(const [c,id,doc] of jobs){
+      const sz=JSON.stringify(doc).length;
+      if(ops>=400||bytes+sz>3500000) await flush();
+      batch.set(fs.collection(c).doc(id),doc); ops++; bytes+=sz; done++;
+      if(done%50===0) toast('Tiklanmoqda… '+done+' / '+jobs.length);
+    }
+    await flush();
+    await fs.doc('settings/meta').set({restoredAt:new Date().toISOString()},{merge:true});
+    Object.entries(data.images||{}).forEach(([id,d])=>{ if(d&&d.d) cacheImg(id,d.d); });
+    toast('Tiklandi: '+np+' ta mahsulot, '+ni+' ta rasm'+(big?' · '+big+' ta juda katta yozuv oʻtkazib yuborildi':'')); rerender();
+    setTimeout(()=>location.reload(),2500); return true;
+  }catch(e){ const x=mapErr(e); toast('Tiklash toʻxtadi ('+done+' / '+jobs.length+'): '+(x.code==='permission_denied'?'ruxsat yoʻq':x.code)+'. Qayta urinib koʻring.',true); return false; }
+};
+// role = what the database rules allow: only owners may read owner/check
+async function detectRole(u){
+  const KEY='sp-role-'+u.uid; let cached=null; try{ cached=localStorage.getItem(KEY); }catch(e){}
+  let role;
+  try{ await Promise.race([fs.doc('owner/check').get({source:'server'}),new Promise((_,rej)=>setTimeout(()=>rej({code:'timeout'}),5000))]); role='owner'; }
+  catch(e){ role=/permission/.test(String(e&&e.code||''))?'seller':(cached||'seller'); }
+  SP.role=role; try{ localStorage.setItem(KEY,role); }catch(e){}
+}
+SP.logout=async()=>{ try{ await auth.signOut(); }catch(e){} location.reload(); };
+
+/* ---------- events for gate + backup controls ---------- */
+document.addEventListener('click',async e=>{
+  const el=e.target.closest&&e.target.closest('[data-sp]'); if(!el) return;
+  const a=el.getAttribute('data-sp');
+  if(a==='reload') location.reload();
+  else if(a==='save-cfg'){ const c=parseCfg(document.getElementById('sp-cfg').value); if(!c){ showSetup('Matndan apiKey, projectId va appId topilmadi. firebaseConfig ni toʻliq nusxalang.'); return; } try{ localStorage.setItem(CFG_KEY,JSON.stringify(c)); }catch(err){} location.reload(); }
+  else if(a==='reset-cfg'){ try{ localStorage.removeItem(CFG_KEY); }catch(err){} location.reload(); }
+  else if(a==='export') SP.exportAll();
+  else if(a==='logout') SP.logout();
+});
+document.addEventListener('change',async e=>{
+  const t=e.target; if(!t||!t.hasAttribute||!t.hasAttribute('data-sp-import')) return;
+  const f=t.files&&t.files[0]; t.value=''; if(!f) return;
+  try{ SP.importText(await readText(f)); }catch(err){ toast('Faylni oʻqib boʻlmadi.',true); }
+});
+document.addEventListener('submit',async e=>{
+  if(!e.target||e.target.id!=='sp-login') return;
+  e.preventDefault();
+  const email=document.getElementById('sp-email').value.trim(), pass=document.getElementById('sp-pass').value;
+  if(!email||!pass){ showLogin('Email va parolni kiriting.',email); return; }
+  const b=document.getElementById('sp-go'); b.disabled=true; b.textContent='Kirilmoqda…';
+  try{ await auth.signInWithEmailAndPassword(email,pass); }
+  catch(err){ showLogin(authErr(err),email); }
+});
+
+/* ---------- start ---------- */
+function start(){
+  if(typeof window.firebase==='undefined'||!firebase.initializeApp){ showNoSdk(); return; }
+  const cfg=readCfg(); if(!cfg){ showSetup(); return; }
+  try{ firebase.initializeApp(cfg); }catch(e){ showSetup('Bu sozlama ishlamadi: '+(e&&e.message||e)); return; }
+  auth=firebase.auth(); fs=firebase.firestore();
+  try{ fs.settings({ignoreUndefinedProperties:true,merge:true,cacheSizeBytes:firebase.firestore.CACHE_SIZE_UNLIMITED}); }catch(e){ try{ fs.settings({ignoreUndefinedProperties:true,merge:true}); }catch(e2){} }
+  try{ fs.enablePersistence({synchronizeTabs:true}).catch(()=>{ persistOk=false; }); }catch(e){ persistOk=false; }
+  DBW=makeDb();
+  auth.onAuthStateChanged(u=>{
+    if(u){ SP.user=u; hideGate(); if(!SP.started){ SP.started=true; loadImages(); Promise.all([detectRole(u),Promise.race([fs.doc('settings/meta').get().then(d=>{ META=(d&&d.exists&&d.data())||{}; }).catch(()=>{}),new Promise(r=>setTimeout(r,3000))])]).then(()=>{ readyRes(); netBar(); }); } }
+    else if(SP.started) location.reload();
+    else showLogin();
+  });
+}
+start();
+})();
+</script>
+
+<script>
+(function(){
+"use strict";
+/* ---------- constants ---------- */
+const BASE_CATS=[
+  {id:'original',label:'Original',liquid:true},
+  {id:'copy',label:'Nusxa',liquid:true},
+  {id:'analogue',label:'Analog',liquid:true},
+  {id:'handmade',label:'Qoʻlbola',liquid:true},
+  {id:'deodorant',label:'Dezodorant',liquid:false},
+  {id:'diffuser',label:'Diffuzor',liquid:false},
+  {id:'atomizer',label:'Atomayzer',liquid:false},
+  {id:'accessory',label:'Aksessuar',liquid:false}
+];
+let CATS=BASE_CATS.slice(), CAT=Object.fromEntries(CATS.map(c=>[c.id,c]));
+function setTypes(list){ const base=new Set(BASE_CATS.map(c=>c.id)); CATS=BASE_CATS.concat((list||[]).filter(t=>t&&t.id&&t.label&&!base.has(t.id)).map(t=>({id:String(t.id),label:String(t.label),liquid:!!t.liquid,custom:true}))); CAT=Object.fromEntries(CATS.map(c=>[c.id,c])); }
+function catLabel(c){ return CAT[c]?CAT[c].label:'Oʻchirilgan tur'; }
+const PAYS=[['cash','Naqd'],['card','Karta'],['transfer','Oʻtkazma']];
+const SALE_PAYS=PAYS.concat([['debt','Nasiya']]);
+const PAY=Object.fromEntries(SALE_PAYS);
+const ML_CHIPS=[3,5,10,15,20,30,50,100];
+const MOVE={in:'Kirim',sale:'Sotuv',fill:'Quyish',batch:'Partiya',out:'Sarf',adjust:'Sanoq',return:'Qaytarildi',start:'Boshlangʻich'};
+const KIND={bottle:'shisha',ml:'ml',piece:'dona',atom:'atomayzer',writeoff:'hisobdan chiqarish'};
+function UL(u){ return u==='pcs'?'dona':u==='g'?'g':(u||''); }
+const ICONS={
+  sell:'<path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/>',
+  products:'<rect x="6" y="9" width="12" height="12" rx="3"/><path d="M10 9V6h4v3"/><path d="M9 3h6"/>',
+  inventory:'<path d="M3 7.5 12 3l9 4.5-9 4.5-9-4.5z"/><path d="M3 7.5v9L12 21l9-4.5v-9"/><path d="M12 12v9"/>',
+  handmade:'<path d="M9 3h6"/><path d="M10 3v6.5L5.2 18.6A1.6 1.6 0 0 0 6.6 21h10.8a1.6 1.6 0 0 0 1.4-2.4L14 9.5V3"/><path d="M7.5 15h9"/>',
+  expenses:'<path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3z"/><path d="M9 8h6"/><path d="M9 12h6"/><path d="M9 16h3"/>',
+  today:'<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+  reports:'<path d="M4 20V11"/><path d="M10 20V5"/><path d="M16 20v-6"/><path d="M21 20H3"/>',
+  debts:'<path d="M4 7h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a1 1 0 0 1-1-1V7z"/><path d="M4 7l11-3v3"/><path d="M16 13.5h1.5"/>',
+  search:'<circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/>',
+  cart:'<path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/>'
+};
+const TABS=[['sell','Sotish'],['products','Mahsulotlar'],['inventory','Materiallar'],['handmade','Qoʻlbola'],['debts','Nasiya'],['expenses','Xarajatlar'],['reports','Moliya']];
+const SHORT={products:'Mahsulot',inventory:'Material',expenses:'Xarajat'};
+const isSeller=()=>!!(window.SP&&window.SP.role==='seller');
+const SELLER_TABS=[['sell','Sotish'],['today','Bugun']];
+const EXP_CATS=[['rent','Ijara'],['salary','Ish haqi'],['utility','Kommunal'],['tax','Soliq'],['ads','Reklama'],['delivery','Yetkazib berish'],['repair','Taʼmir'],['other','Boshqa']];
+const EXPC=Object.fromEntries(EXP_CATS);
+function icon(k){ return '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">'+ICONS[k]+'</svg>'; }
+
+/* ---------- state ---------- */
+const S={
+  tab:'sell', products:new Map(), materials:new Map(), sales:new Map(), debts:new Map(), expenses:new Map(), orders:new Map(), settings:{name:'',currency:"soʻm"},
+  got:{p:false,m:false,s:false,d:false,e:false,o:false}, fresh:{p:false,m:false,s:false,d:false,e:false,o:false}, slow:false, noDb:false, readOnly:false, busy:false, dead:false,
+  q:'', cat:'all', cart:[], discount:'', pay:'cash', lastCont:'', confirmUndo:null, cust:{name:'',phone:'',due:''},
+  dcat:'open', dq:'', dform:null, xtab:'exp', xmonth:'', ocat:'open', oform:null,
+  pq:'', pcat:'all', iq:'', types:[], prq:'', prcat:'all', brand:'', pbrand:'', prbrand:'',
+  rp:'7d', rFrom:'', rTo:'', setDraft:null, showTable:false,
+  sheet:null, uploading:false
+};
+let DB=null, DL=null, ASSETS=null, writeChain=Promise.resolve();
+let DEVICE;
+try{ DEVICE=localStorage.getItem('flakon-device'); if(!DEVICE){ DEVICE='d'+uid(); localStorage.setItem('flakon-device',DEVICE); } }catch(e){ DEVICE='d'+uid(); }
+
+/* ---------- helpers ---------- */
+function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function num(v){ if(typeof v==='number') return isFinite(v)?v:0; const n=parseFloat(String(v==null?'':v).replace(/[\s  ]/g,'').replace(',','.')); return isFinite(n)?n:0; }
+function rnd(n){ return Math.round((n||0)*100)/100; }
+function str(v){ return v==null?'':String(v); }
+function cur(){ return S.settings.currency||"soʻm"; }
+function grp(v){ return Math.abs(v).toLocaleString('ru-RU'); }
+function plainMoney(n){ const v=Math.round(n||0); return (v<0?'−':'')+grp(v)+' '+cur(); }
+function money(n){ const v=Math.round(n||0); return '<span class="mn">'+(v<0?'−':'')+grp(v)+'<span class="cu"> '+esc(cur())+'</span></span>'; }
+function q1(n){ const v=Math.round((n||0)*10)/10; return (v<0?'−':'')+grp(v); }
+function pct(a,b){ return b>0?Math.round(a/b*100)+'%':'—'; }
+function plural(n,one,many){ return one; }
+function compact(v){ const a=Math.abs(v); if(a>=1e9) return (v/1e9).toFixed(a>=1e10?0:1).replace('.0','')+'B'; if(a>=1e6) return (v/1e6).toFixed(a>=1e7?0:1).replace('.0','')+'M'; if(a>=1e3) return Math.round(v/1e3)+'K'; return String(Math.round(v)); }
+function niceMax(v){ if(v<=0) return 1; const e=Math.pow(10,Math.floor(Math.log10(v))); const f=v/e; return (f<=1?1:f<=2?2:f<=2.5?2.5:f<=5?5:10)*e; }
+function dayKey(d){ d=d||new Date(); const z=x=>String(x).padStart(2,'0'); return d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate()); }
+function addDays(k,n){ const a=k.split('-').map(Number); return dayKey(new Date(a[0],a[1]-1,a[2]+n)); }
+function dateOf(k){ const a=k.split('-').map(Number); return new Date(a[0],a[1]-1,a[2]); }
+const UZM=['yanvar','fevral','mart','aprel','may','iyun','iyul','avgust','sentabr','oktabr','noyabr','dekabr'];
+const UZMS=['yan','fev','mar','apr','may','iyn','iyl','avg','sen','okt','noy','dek'];
+const UZD=['Yakshanba','Dushanba','Seshanba','Chorshanba','Payshanba','Juma','Shanba'];
+function dayLabel(k){ const d=dateOf(k); return UZD[d.getDay()]+', '+d.getDate()+'-'+UZM[d.getMonth()]; }
+function shortDay(k){ const d=dateOf(k); return d.getDate()+'-'+UZMS[d.getMonth()]; }
+function timeOf(iso){ const d=new Date(iso); const z=x=>String(x).padStart(2,'0'); return z(d.getHours())+':'+z(d.getMinutes()); }
+function whenOf(iso){ const d=new Date(iso); const k=dayKey(d); return (k===dayKey()?'Bugun':shortDay(k))+' '+timeOf(iso); }
+function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
+const isLiquid=p=>!!(p&&CAT[p.cat]&&CAT[p.cat].liquid);
+const isHand=p=>!!p&&p.cat==='handmade';
+function byName(a,b){ return String(a[1].name||'').localeCompare(String(b[1].name||'')); }
+function matCost(mid){ const m=S.materials.get(mid); return m?num(m.cost):0; }
+function matName(mid){ const m=S.materials.get(mid); return m?m.name:'(oʻchirilgan material)'; }
+function matUnit(mid){ const m=S.materials.get(mid); return m?(m.unit||'pcs'):''; }
+function recipeCostMl(p){ return (p.recipe||[]).reduce((s,r)=>s+num(r.amt)*matCost(r.mid),0)/100; }
+function packCost(p){ return isHand(p)?(p.pack||[]).reduce((s,r)=>s+num(r.amt)*matCost(r.mid),0):0; }
+function costMl(p){ const c=num(p.costMl); if(c>0||!isHand(p)) return c; return recipeCostMl(p); }
+function bottleCost(p){ return num(p.bottleMl)*costMl(p)+packCost(p); }
+function isLow(p){ if(soldOut(p)) return true; const low=num(p.low); if(low<=0) return false; return isLiquid(p)?num(p.sealed)<=low:num(p.qty)<=low; }
+function dis(){ return (S.readOnly||S.noDb||S.busy||S.dead)?' disabled':''; }
+function canWrite(){ return !(S.readOnly||S.noDb||S.dead); }
+function loaded(){ return S.got.p&&S.got.m&&S.got.s&&S.got.d&&S.got.e&&S.got.o; }
+function initials(n){ const w=String(n||'?').replace(/[()]/g,'').trim().split(/\s+/); return esc(((w[0]||'?')[0]+((w[1]||'')[0]||'')).toUpperCase()); }
+function thumb(p,cls){ const c=p?p.cat:''; const src=p&&p.img&&window.SP?window.SP.img(p.img):''; const img=src?'<img src="'+esc(src)+'" alt="" loading="lazy">':''; return '<span class="thumb c-'+esc(c)+(cls?' '+cls:'')+'">'+(img||'<span class="mono">'+initials(p&&p.name)+'</span>')+'</span>'; }
+function catPill(c){ const x=CAT[c]; return x?'<span class="pill c-'+c+'">'+x.label+'</span>':''; }
+function atomKey(k){ k=str(k); if(!k) return ''; return /^[pm]:/.test(k)?k:'m:'+k; }
+function atomRef(k,work){
+  k=atomKey(k); if(!k) return null; const id=k.slice(2);
+  if(k[0]==='p'){ const p=(work&&work.get(id))||S.products.get(id); if(!p||isLiquid(p)) return null; return {key:k,k:'p',id,name:p.name||'',cost:num(p.cost),price:num(p.price),stock:num(p.qty)}; }
+  const m=S.materials.get(id); if(!m) return null; return {key:k,k:'m',id,name:m.name||'',cost:num(m.cost),price:num(m.price),stock:num(m.stock)};
+}
+function isAtomProd(p){ return !!p&&!isLiquid(p)&&(p.cat==='atomizer'||/atom|атом/i.test(String(p.name||''))||/atom/i.test(catLabel(p.cat))); }
+function atomOptions(sel){
+  sel=atomKey(sel);
+  const o=(k,label)=>'<option value="'+esc(k)+'"'+(sel===k?' selected':'')+'>'+esc(label)+'</option>';
+  const prods=[...S.products.entries()].filter(([id,p])=>!isLiquid(p)&&(isAtomProd(p)||sel==='p:'+id)).sort(byName);
+  const mats=[...S.materials.entries()].filter(([id,m])=>(m.unit||'pcs')==='pcs').sort(byName);
+  let h='<option value="">Yoʻq</option>';
+  if(prods.length) h+='<optgroup label="Mahsulotlar">'+prods.map(([id,p])=>o('p:'+id,p.name+' · '+plainMoney(p.price)+' · '+q1(p.qty)+' ta')).join('')+'</optgroup>';
+  if(mats.length) h+='<optgroup label="Materiallar">'+mats.map(([id,m])=>o('m:'+id,m.name+' · '+(num(m.price)>0?plainMoney(m.price):'tannarx '+plainMoney(m.cost))+' · '+q1(m.stock)+' ta')).join('')+'</optgroup>';
+  return h;
+}
+function atomField(val,bind,id){ const a=atomRef(val); return '<div class="field"><label for="'+id+'">Ml sotuvi uchun atomayzer</label><select id="'+id+'" data-bind="'+bind+'">'+atomOptions(val)+'</select><span class="hint">'+(a?'Ml sotuvida oʻzi tanlanadi. Tannarxi '+money(a.cost)+(a.price>0?', sotish narxi '+money(a.price):'')+'. Sotuvda narx bilan yoki sovgʻa qilib berish mumkin.':'Quyma atir solinadigan atomayzer. Atomayzerlarni “Mahsulotlar”ga “Atomayzer” turi bilan qoʻshing.')+'</span></div>'; }
+function debtLeft(x){ return Math.max(0,num(x.total)-num(x.paid)); }
+function debtState(x){ if(debtLeft(x)<0.5) return 'paid'; const t=dayKey(); if((x.due||'')<t) return 'overdue'; if(x.due===t) return 'today'; return 'open'; }
+function debtOk(){ const c=S.cust; return c.name.trim().length>0&&c.phone.replace(/\D/g,'').length>=7&&!!c.due&&c.due>=dayKey(); }
+function tipAttr(t,rows){ return ' data-tip="'+esc(JSON.stringify({t,rows}))+'"'; }
+
+/* ---------- toast ---------- */
+let toastTimer=null;
+function toast(msg,tone){ const el=document.getElementById('toast'); el.textContent=msg; el.className='toast'+(tone==='bad'?' bad':''); el.hidden=false; clearTimeout(toastTimer); toastTimer=setTimeout(()=>{ el.hidden=true; },tone==='bad'?5200:2400); }
+function errText(e){
+  const c=e&&e.code;
+  if(c==='permission_denied') return 'Ruxsat yoʻq. Bu email Firebase qoidalarida yozilmagan boʻlishi mumkin.';
+  if(c==='not_found') return 'Bu yozuv topilmadi. U boshqa qurilmada oʻchirilgan boʻlishi mumkin.';
+  if(c==='invalid_argument') return 'Oʻzgarish saqlanmadi: maʼlumot notoʻgʻri.';
+  if(c==='quota_exceeded') return 'Doʻkon xotirasi toʻldi. Eski maʼlumotlarni oʻchirib, qayta urinib koʻring.';
+  if(c==='resource_exhausted') return 'Bir vaqtda juda koʻp oʻzgarish. Bir necha soniya kutib, qayta urinib koʻring.';
+  if(c==='revoked') return 'Sahifa ochiq turganda doʻkonga kirish huquqi oʻzgardi.';
+  return 'Saqlab boʻlmadi. Internetni tekshirib, qayta urinib koʻring.';
+}
+
+/* ---------- writes ---------- */
+async function retry(fn){ try{ return await fn(); }catch(e){ if(e&&e.code==='unavailable'){ await sleep(400+Math.random()*600); return await fn(); } throw e; } }
+function enqueue(fn){ const p=writeChain.then(fn); writeChain=p.catch(()=>{}); return p; }
+async function run(fn,okMsg){
+  if(!canWrite()){ toast(S.noDb?'Oʻzgarishlarni saqlash uchun tizimga kiring.':'Bu doʻkonni faqat koʻra olasiz, oʻzgartira olmaysiz.','bad'); return false; }
+  S.busy=true; render();
+  try{ await enqueue(fn); if(okMsg) toast(okMsg); return true; }
+  catch(e){ if(e&&e.code==='permission_denied'&&!isSeller()) S.readOnly=true; if(e&&e.code==='revoked') S.dead=true; toast(errText(e),'bad'); return false; }
+  finally{ S.busy=false; render(); }
+}
+// stock fields go to the database as +/- changes measured from the state the change was planned on (base);
+// base===false = an absolute count someone typed in
+function incPatch(cur,base,f,keys){ if(base===false||!DB||!DB.inc) return [f,f]; const b=base||cur, loc=Object.assign({},f), srv=Object.assign({},f); keys.forEach(k=>{ if(k in f&&typeof f[k]==='number'&&typeof b[k]==='number'){ const d=rnd(f[k]-b[k]); srv[k]=DB.inc(d); loc[k]=rnd(num(cur[k])+d); } }); return [loc,srv]; }
+function fixNums(d,keys){ if(!d) return d; keys.forEach(k=>{ if(typeof d[k]==='number') d[k]=rnd(d[k]); }); return d; }
+async function patchProduct(id,f,base){ const p=S.products.get(id); if(!p) return; const [loc,srv]=incPatch(p,base,f,['sealed','openMl','qty']); S.products.set(id,Object.assign({},p,loc)); await retry(()=>DB.doc('products/'+id).update(srv)); }
+async function setProduct(id,doc){ S.products.set(id,doc); await retry(()=>DB.doc('products/'+id).set(doc)); }
+async function patchMaterial(id,f,base){ const m=S.materials.get(id); if(!m) return; const [loc,srv]=incPatch(m,base,f,['stock']); S.materials.set(id,Object.assign({},m,loc)); await retry(()=>DB.doc('materials/'+id).update(srv)); }
+async function setMaterial(id,doc){ S.materials.set(id,doc); await retry(()=>DB.doc('materials/'+id).set(doc)); }
+// every inventory change goes through here so it is logged
+async function moveMats(moves){
+  const by=new Map();
+  moves.forEach(m=>{ if(!m.mid||!m.delta) return; if(!by.has(m.mid)) by.set(m.mid,[]); by.get(m.mid).push(m); });
+  for(const [mid,list] of by){
+    const mat=S.materials.get(mid); if(!mat) continue;
+    let stock=num(mat.stock); const log=(mat.log||[]).slice(); const t=new Date().toISOString(); let cost=null;
+    list.forEach(m=>{ stock=rnd(stock+m.delta); log.push({t,type:m.type,d:rnd(m.delta),bal:stock,note:m.note||''}); if(m.cost!=null) cost=m.cost; });
+    const f={stock,log:log.slice(-300)}; if(cost!=null) f.cost=rnd(cost);
+    await patchMaterial(mid,f,list.some(x=>x.type==='adjust')?false:undefined);
+  }
+}
+async function addSaleItems(items){
+  const k=dayKey(), id=k+'_'+DEVICE, c=S.sales.get(id);
+  const doc={day:k,device:DEVICE,items:[...((c&&c.items)||[]),...items]};
+  S.sales.set(id,doc); await retry(()=>DB.union?DB.doc('sales/'+id).set({day:k,device:DEVICE,items:DB.union(...items)},{merge:true}):DB.doc('sales/'+id).set(doc));
+}
+
+/* ---------- planning ---------- */
+// one cart line against the product's current state
+function planLine(p,l,work){
+  const r={warn:[],uses:[],opened:0,filled:0,n:0,ml:0,patch:{}};
+  if(!isLiquid(p)){
+    const n=Math.max(0,Math.floor(num(l.n))); r.kind='piece'; r.n=n;
+    r.list=n*num(p.price); r.cost=n*num(p.cost); r.patch={qty:num(p.qty)-n};
+    if(n>num(p.qty)) r.err=num(p.qty)>0?'Faqat '+q1(p.qty)+' ta bor':'Qolmagan';
+  } else if(l.kind==='bottle'){
+    const n=Math.max(0,Math.floor(num(l.n))), bm=num(p.bottleMl);
+    r.kind='bottle'; r.n=n; r.ml=n*bm;
+    let sealed=num(p.sealed), open=num(p.openMl);
+    if(sealed>=n) sealed-=n;
+    else{
+      const have=Math.max(0,sealed), short=n-have;
+      if(isHand(p)&&open>=short*bm){ open=rnd(open-short*bm); sealed-=have; r.filled=short; (p.pack||[]).forEach(x=>r.uses.push({mid:x.mid,delta:-num(x.amt)*short,type:'fill',note:p.name})); }
+      else { sealed-=n; r.err=(have>0?'Faqat '+q1(have)+' ta yangi shisha bor':'Yangi shisha qolmagan')+(open>0&&num(p.priceMl)>0?' · ochiq shishadan ml boʻyicha sotish mumkin ('+q1(open)+' ml)':''); }
+    }
+    r.list=n*num(p.priceBottle); r.cost=n*bottleCost(p); r.patch={sealed,openMl:open};
+  } else {
+    const m=Math.max(0,num(l.ml)), bm=num(p.bottleMl);
+    r.kind='ml'; r.ml=m;
+    let sealed=num(p.sealed), open=num(p.openMl);
+    while(open<m&&sealed>0&&bm>0){ sealed--; open+=bm; r.opened++; }
+    if(open<m) r.err=open>0?'Faqat '+q1(open)+' ml bor':'Qolmagan';
+    open=rnd(open-m);
+    r.mlList=m*num(p.priceMl); r.mlCost=m*costMl(p); r.list=r.mlList; r.cost=r.mlCost;
+    const a=l.cont?atomRef(l.cont,work):null;
+    if(a){
+      const sp=str(l.atomPrice).trim()!==''?Math.max(0,num(l.atomPrice)):a.price, gift=!!l.gift||sp<=0, ap=gift?0:sp;
+      r.atom={key:a.key,k:a.k,id:a.id,name:a.name,cost:a.cost,price:ap,sellPrice:sp,gift};
+      r.list+=ap; r.cost+=a.cost;
+      if(a.stock<1) r.err=(r.err?r.err+' · ':'')+a.name+' qolmagan: boshqasini yoki “Yoʻq”ni tanlang';
+      if(a.k==='m') r.uses.push({mid:a.id,delta:-1,type:'sale',note:p.name+' '+q1(m)+' ml'});
+      else r.atomPatch={id:a.id,qty:a.stock-1};
+    }
+    r.patch={sealed,openMl:open};
+  }
+  return r;
+}
+function stockLeft(p){ if(!isLiquid(p)) return {n:Math.max(0,num(p.qty)),ml:0,bottles:0}; const bm=num(p.bottleMl), sealed=Math.max(0,num(p.sealed)), open=Math.max(0,num(p.openMl)); return {bottles:sealed+(isHand(p)&&bm>0?Math.floor(open/bm):0),ml:open+sealed*bm,n:0}; }
+function soldOut(p){ const s=stockLeft(p); return isLiquid(p)?(s.ml<=0&&s.bottles<=0):s.n<=0; }
+function stockState(p){ return soldOut(p)?'out':isLow(p)?'low':''; }
+function cartBad(cp){ return cp.lines.some(x=>x.missing||(x.r&&x.r.err)); }
+function cartPlan(){
+  const work=new Map(), lines=[]; let list=0,cost=0; const uses=[];
+  S.cart.forEach(l=>{
+    const base=work.get(l.pid)||S.products.get(l.pid);
+    if(!base){ lines.push({l,missing:true}); return; }
+    const r=planLine(base,l,work); work.set(l.pid,Object.assign({},base,r.patch));
+    if(r.atomPatch){ const ab=work.get(r.atomPatch.id)||S.products.get(r.atomPatch.id); if(ab) work.set(r.atomPatch.id,Object.assign({},ab,{qty:r.atomPatch.qty})); }
+    lines.push({l,p:base,r}); list+=r.list; cost+=r.cost; r.uses.forEach(u=>uses.push(u));
+  });
+  const disc=Math.min(Math.max(0,num(S.discount)),list);
+  lines.forEach(x=>{ if(x.r) x.price=list>0?x.r.list-disc*x.r.list/list:0; });
+  const total=list-disc;
+  return {lines,work,uses,list,disc,total,cost,profit:total-cost};
+}
+function lineDesc(kind,n,ml,opened,gift){
+  let t='';
+  if(kind==='bottle') t=n+' '+plural(n,'shisha','shisha')+(ml?' · '+q1(ml)+' ml':'');
+  else if(kind==='ml') t=q1(ml)+' ml'+(opened?' · '+opened+' ta yangi ochildi':'');
+  else if(kind==='piece'||kind==='atom') t=n+' dona';
+  else if(kind==='writeoff') t='Hisobdan chiqarildi '+q1(ml)+' ml';
+  return t+(gift?' · sovgʻa':'');
+}
+function planBatch(p,mk){
+  const X=Math.max(0,num(mk.ml)), N=Math.max(0,Math.floor(num(mk.fill))), bm=num(p.bottleMl);
+  const need=new Map(); const add=(mid,a)=>{ if(!mid||!a) return; need.set(mid,(need.get(mid)||0)+a); };
+  let liq=0,pk=0;
+  (p.recipe||[]).forEach(r=>{ const a=num(r.amt)*X/100; add(r.mid,a); liq+=a*matCost(r.mid); });
+  (p.pack||[]).forEach(r=>{ const a=num(r.amt)*N; add(r.mid,a); pk+=a*matCost(r.mid); });
+  const oldLiquid=num(p.openMl)+Math.max(0,num(p.sealed))*bm, oldCost=costMl(p);
+  const newCostMl=(oldLiquid+X)>0?(oldLiquid*oldCost+liq)/(oldLiquid+X):oldCost;
+  const open=rnd(num(p.openMl)+X-N*bm), sealed=num(p.sealed)+N;
+  const warn=[];
+  if(X>0&&!(p.recipe||[]).length) warn.push('Hali retsept yoʻq. Tannarx toʻgʻri boʻlishi uchun retsept qoʻshing.');
+  if(open<0) warn.push('Suyuqlik yetmaydi: '+N+' ta shishani toʻldirib boʻlmaydi.');
+  const rows=[...need.entries()].map(([mid,a])=>{ const have=S.materials.get(mid)?num(S.materials.get(mid).stock):0; return {mid,name:matName(mid),unit:matUnit(mid),need:a,have,short:a>have}; });
+  if(rows.some(r=>r.short)) warn.push('Baʼzi materiallar yetmaydi. Ularning soni noldan pastga tushadi.');
+  return {X,N,liq,pk,total:liq+pk,newCostMl,open,sealed,rows,warn,ok:(X>0||N>0)&&open>=0};
+}
+
+/* ---------- reports data ---------- */
+function allItems(from,to){
+  const out=[];
+  for(const [id,d] of S.sales){ if(!d||!d.day) continue; if(from&&d.day<from) continue; if(to&&d.day>to) continue; (d.items||[]).forEach(it=>out.push(Object.assign({_doc:id,_day:d.day},it))); }
+  out.sort((a,b)=>String(b.t).localeCompare(String(a.t)));
+  return out;
+}
+function receiptsOf(items){
+  const m=new Map();
+  items.forEach(it=>{ const k=it.rid||it.id; if(!m.has(k)) m.set(k,{rid:k,t:it.t,pay:it.pay,items:[]}); m.get(k).items.push(it); });
+  return [...m.values()].sort((a,b)=>String(b.t).localeCompare(String(a.t)));
+}
+function periodRange(){
+  const t=dayKey(), a=t.split('-').map(Number);
+  switch(S.rp){
+    case 'today': return [t,t];
+    case 'yesterday': { const y=addDays(t,-1); return [y,y]; }
+    case 'month': return [t.slice(0,8)+'01',t];
+    case 'lastmonth': return [dayKey(new Date(a[0],a[1]-2,1)),dayKey(new Date(a[0],a[1]-1,0))];
+    case '12m': return [dayKey(new Date(a[0],a[1]-12,1)),t];
+    case 'custom': { let f=S.rFrom||t, e=S.rTo||t; if(f>e){ const x=f; f=e; e=x; } return [f,e]; }
+    default: return [addDays(t,-6),t];
+  }
+}
+function summarize(items){
+  const s={rev:0,cost:0,wo:0,byCat:{},kind:{bottle:{rev:0,cost:0,n:0,ml:0},ml:{rev:0,cost:0,ml:0,opened:0},piece:{rev:0,cost:0,n:0}},pay:{},byProd:{}};
+  items.forEach(it=>{
+    const price=num(it.price), cost=num(it.cost);
+    if(it.kind==='writeoff'){ s.wo+=cost; s.cost+=cost; return; }
+    s.rev+=price; s.cost+=cost;
+    const c=s.byCat[it.cat]||(s.byCat[it.cat]={rev:0,profit:0}); c.rev+=price; c.profit+=price-cost;
+    const k=s.kind[it.kind==='atom'?'piece':it.kind]; if(k){ k.rev+=price; k.cost+=cost; if(it.kind==='ml'){ k.ml+=num(it.ml); k.opened+=num(it.opened); } else { k.n+=num(it.n); if(it.kind==='bottle') k.ml+=num(it.ml); } }
+    s.pay[it.pay||'cash']=(s.pay[it.pay||'cash']||0)+price;
+    const key=it.pid||(it.mid?'m:'+it.mid:it.name); const pr=s.byProd[key]||(s.byProd[key]={name:it.name,cat:it.cat,rev:0,profit:0,bottles:0,ml:0,b:{n:0,rev:0,cost:0},m:{ml:0,rev:0,cost:0}});
+    pr.rev+=price; pr.profit+=price-cost; if(it.kind==='bottle'){ pr.bottles+=num(it.n); pr.ml+=num(it.ml); pr.b.n+=num(it.n); pr.b.rev+=price; pr.b.cost+=cost; } if(it.kind==='ml'){ pr.ml+=num(it.ml); pr.m.ml+=num(it.ml); pr.m.rev+=price; pr.m.cost+=cost; }
+  });
+  s.profit=s.rev-s.cost;
+  s.receipts=receiptsOf(items.filter(i=>i.kind!=='writeoff')).length;
+  return s;
+}
+function buckets(items,from,to){
+  const sold=items.filter(i=>i.kind!=='writeoff');
+  let keys=[],keyOf,label;
+  if(from===to){
+    let lo=9,hi=21; sold.forEach(i=>{ const h=new Date(i.t).getHours(); lo=Math.min(lo,h); hi=Math.max(hi,h); });
+    for(let h=lo;h<=hi;h++) keys.push(String(h));
+    keyOf=i=>String(new Date(i.t).getHours()); label=k=>String(k).padStart(2,'0')+':00';
+  } else {
+    const days=Math.round((dateOf(to)-dateOf(from))/864e5)+1;
+    if(days<=62){ for(let k=from;k<=to;k=addDays(k,1)) keys.push(k); keyOf=i=>i._day; label=k=>shortDay(k); }
+    else { let d=dateOf(from); d=new Date(d.getFullYear(),d.getMonth(),1); while(dayKey(d)<=to){ keys.push(dayKey(d).slice(0,7)); d=new Date(d.getFullYear(),d.getMonth()+1,1); } keyOf=i=>i._day.slice(0,7); label=k=>{ const m=UZMS[dateOf(k+'-01').getMonth()]; return m[0].toUpperCase()+m.slice(1); }; }
+  }
+  const m=new Map(keys.map(k=>[k,{k,label:label(k),rev:0,profit:0,n:0}]));
+  sold.forEach(i=>{ const b=m.get(keyOf(i)); if(b){ b.rev+=num(i.price); b.profit+=num(i.price)-num(i.cost); } });
+  receiptsOf(sold).forEach(r=>{ const b=m.get(keyOf(r.items[0])); if(b) b.n++; });
+  return [...m.values()];
+}
+
+/* ---------- charts ---------- */
+function colChart(bs,title){
+  const top=Math.max(0,...bs.map(b=>Math.max(b.rev,b.profit)));
+  const stepV=niceMax(top/4)||1, max=Math.max(stepV,Math.ceil(top/stepV)*stepV);
+  const ticks=[]; for(let v=0;v<=max+1e-6;v+=stepV) ticks.push(v);
+  let peak=-1,pv=0; bs.forEach((b,i)=>{ if(b.rev>pv){ pv=b.rev; peak=i; } });
+  const step=Math.max(1,Math.ceil(bs.length/8));
+  const y='<div class="yaxis" aria-hidden="true">'+ticks.map(t=>'<span style="bottom:'+(t/max*100)+'%">'+compact(t)+'</span>').join('')+'</div>';
+  const grid=ticks.slice(1).map(t=>'<span class="gl" style="bottom:'+(t/max*100)+'%"></span>').join('');
+  const cols=bs.map((b,i)=>{
+    const h1=b.rev/max*100, h2=Math.max(0,b.profit)/max*100;
+    return '<div class="band" tabindex="0" role="listitem" aria-label="'+esc(b.label+': tushum '+plainMoney(b.rev)+', foyda '+plainMoney(b.profit))+'"'+tipAttr(b.label,[['s1','Tushum',plainMoney(b.rev)],['s2','Foyda',plainMoney(b.profit)],['','Sotuvlar',String(b.n)]])+'><i class="b1" style="height:'+h1+'%"></i><i class="b2" style="height:'+h2+'%"></i>'+(i===peak&&pv>0?'<span class="peak" style="--h:'+h1+'%">'+compact(b.rev)+'</span>':'')+'</div>';
+  }).join('');
+  const xs=bs.map((b,i)=>'<span>'+(i%step===0?esc(b.label):'')+'</span>').join('');
+  return '<div class="legend"><span><i style="background:var(--s1)"></i>Tushum</span><span><i style="background:var(--s2)"></i>Foyda</span></div><div class="colchart" role="group" aria-label="'+esc(title)+'">'+y+'<div class="plot">'+grid+'<div class="cols" role="list">'+cols+'</div></div><div class="xaxis" aria-hidden="true">'+xs+'</div></div>';
+}
+function hbars(rows,fmt){
+  if(!rows.length||rows.every(r=>!(r.v>0))) return '<div class="empty" style="padding:18px">Bu davrda sotuv yoʻq.</div>';
+  const max=Math.max(...rows.map(r=>r.v));
+  return '<div class="hbars" role="list">'+rows.map(r=>'<div class="hrow" tabindex="0" role="listitem"'+tipAttr(r.label,r.tip||[['s1',r.name||'Tushum',plainMoney(r.v)]])+'><span class="hl">'+esc(r.label)+'</span><span class="htrack"><i class="hb" style="--w:'+(max>0?Math.max(0,r.v)/max:0)+'"></i><span class="hv">'+(fmt?fmt(r):money(r.v))+'</span></span></div>').join('')+'</div>';
+}
+
+/* ---------- path binding ---------- */
+function setPath(path,val){ const parts=path.split('.'); let o=S; for(let i=0;i<parts.length-1;i++){ if(o[parts[i]]==null) return; o=o[parts[i]]; } o[parts[parts.length-1]]=val; }
+
+/* ---------- render ---------- */
+const app=document.getElementById('app');
+function render(){
+  const a=document.activeElement, id=a&&a.id; let ss=null,se=null;
+  try{ ss=a.selectionStart; se=a.selectionEnd; }catch(e){}
+  const sb=document.querySelector('.sheet-body'); const sheetScroll=sb?sb.scrollTop:0;
+  app.innerHTML=viewHeader()+'<main class="wrap">'+viewTab()+'</main>'+viewCartBar()+viewBotNav()+(S.sheet?viewSheet():'');
+  const nb=document.querySelector('.sheet-body'); if(nb) nb.scrollTop=sheetScroll;
+  if(id){ const el=document.getElementById(id); if(el&&el!==document.activeElement){ try{ el.focus({preventScroll:true}); }catch(e){} try{ if(ss!=null) el.setSelectionRange(ss,se); }catch(e){} } }
+  hideTip();
+}
+function tabButtons(short){ let od=0; for(const x of S.debts.values()) if(debtState(x)==='overdue') od++; return (isSeller()?SELLER_TABS:TABS).map(([k,l])=>'<button class="tab" role="tab" type="button" data-act="tab" data-arg="'+k+'" aria-selected="'+(S.tab===k)+'"'+(short&&SHORT[k]?' aria-label="'+l+'"':'')+'>'+icon(k)+'<span>'+(short&&SHORT[k]?SHORT[k]:l)+'</span>'+(k==='debts'&&od?'<span class="cnt" aria-label="'+od+' ta muddati oʻtgan">'+od+'</span>':'')+'</button>').join(''); }
+function viewHeader(){
+  let st;
+  if(S.noDb) st='<span class="status warn"><span class="dot"></span>Saqlanmayapti</span>';
+  else if(S.dead) st='<span class="status warn"><span class="dot"></span>Ulanmagan</span>';
+  else if(S.readOnly) st='<span class="status warn"><span class="dot"></span>Faqat koʻrish</span>';
+  else if(S.slow&&!(S.fresh.p&&S.fresh.s)) st='<span class="status warn"><span class="dot"></span>Maʼlumotlarga ulanib boʻlmadi</span>';
+  else if(!loaded()) st='<span class="status">Yuklanmoqda…</span>';
+  else st='<span class="status"><span class="dot"></span>Saqlandi</span>';
+  return '<header class="top"><div class="wrap"><div class="top-row"><span class="mark">Shokh Parfume</span>'+(S.settings.name?'<span class="shopname">'+esc(S.settings.name)+'</span>':'')+'<nav class="tabs" role="tablist" aria-label="Boʻlimlar">'+tabButtons()+'</nav>'+st+'</div></div></header>';
+}
+function viewBotNav(){ return '<nav class="botnav" role="tablist" aria-label="Boʻlimlar">'+tabButtons(true)+'</nav>'; }
+function viewToday(){
+  const k=dayKey(), items=allItems(k,k).filter(i=>i.kind!=='writeoff'), recs=receiptsOf(items);
+  const tot=items.reduce((s,i)=>s+num(i.price),0), byPay={}; items.forEach(i=>{ byPay[i.pay||'cash']=(byPay[i.pay||'cash']||0)+num(i.price); });
+  let h='<div class="head"><h2 class="h">Bugungi sotuvlar</h2></div>';
+  if(!loaded()&&!S.noDb) return h+loadingBlock();
+  h+='<div class="kpis"><div class="kpi"><span class="lbl">Bugun jami</span><b>'+money(tot)+'</b><small>'+recs.length+' ta sotuv</small></div>'+SALE_PAYS.filter(([pk])=>byPay[pk]).map(([pk,l])=>'<div class="kpi"><span class="lbl">'+esc(l)+'</span><b>'+money(byPay[pk])+'</b></div>').join('')+'</div>';
+  h+='<section class="pane wide" style="margin-bottom:16px"><h3 class="h-sm">Sotuvlar</h3>'+salesList(items)+'</section>';
+  h+='<section class="pane"><p class="muted" style="font-size:13.5px;margin:0">Kirgan: <b>'+esc(window.SP&&SP.user?SP.user.email:'')+'</b> · <button class="linkbtn" type="button" data-sp="logout">Chiqish</button></p></section>';
+  return h;
+}
+function sellerCanUndo(r){ const dt=S.debts.get(r.rid); return r.items.every(i=>i._day===dayKey())&&!(dt&&num(dt.paid)>0); }
+function viewTab(){ if(isSeller()) return S.tab==='today'?viewToday():viewSell(); switch(S.tab){ case 'expenses': return viewExpenses(); case 'debts': return viewDebts(); case 'products': return viewProducts(); case 'inventory': return viewInventory(); case 'handmade': return viewHandmade(); case 'reports': return viewReports(); default: return viewSell(); } }
+function catChips(key,list,extra){
+  const counts={}; list.forEach(p=>{ counts[p.cat]=(counts[p.cat]||0)+1; });
+  const v=S[key];
+  let h='<div class="chips" role="group" aria-label="Saralash"><button class="chip" type="button" data-act="chip" data-arg="'+key+'|all" aria-pressed="'+(v==='all')+'">Hammasi</button>';
+  (extra||[]).forEach(([k,l])=>{ h+='<button class="chip" type="button" data-act="chip" data-arg="'+key+'|'+k+'" aria-pressed="'+(v===k)+'">'+l+'</button>'; });
+  CATS.forEach(c=>{ if(!counts[c.id]&&v!==c.id) return; h+='<button class="chip" type="button" data-act="chip" data-arg="'+key+'|'+c.id+'" aria-pressed="'+(v===c.id)+'">'+c.label+'</button>'; });
+  return h+'</div>';
+}
+function brandKey(b){ return String(b||'').trim().toLowerCase().replace(/\s+/g,' '); }
+function brandOk(p,sel){ return !sel||(sel==='__none'?!brandKey(p.brand):brandKey(p.brand)===sel); }
+function brandNames(){ const m=new Map(); for(const p of S.products.values()){ const nm=String(p.brand||'').trim().replace(/\s+/g,' '); if(!nm) continue; const k=brandKey(nm); const e=m.get(k)||{}; e[nm]=(e[nm]||0)+1; m.set(k,e); } const out=new Map(); m.forEach((e,k)=>out.set(k,Object.entries(e).sort((a,b)=>b[1]-a[1]||(/^\p{Lu}/u.test(b[0])-/^\p{Lu}/u.test(a[0]))||a[0].localeCompare(b[0]))[0][0])); return out; }
+function brandSelect(key,list){
+  const sel=S[key]||'', names=brandNames(), cnt=new Map();
+  list.forEach(p=>{ const k=brandKey(p.brand)||'__none'; cnt.set(k,(cnt.get(k)||0)+1); });
+  if(sel&&!cnt.has(sel)) cnt.set(sel,0);
+  const lab=k=>k==='__none'?'Brendsiz':(names.get(k)||k);
+  const keys=[...cnt.keys()].sort((a,b)=>a==='__none'?1:b==='__none'?-1:lab(a).localeCompare(lab(b),undefined,{sensitivity:'base'}));
+  return '<span class="bsel'+(sel?' on':'')+'"><select id="'+key+'-sel" data-bind="'+key+'" aria-label="Brend boʻyicha saralash"><option value="">Barcha brendlar</option>'+keys.map(k=>'<option value="'+esc(k)+'"'+(sel===k?' selected':'')+'>'+esc(lab(k))+' · '+cnt.get(k)+'</option>').join('')+'</select></span>';
+}
+function brandDatalist(){ return '<datalist id="brand-list">'+[...brandNames().values()].sort((a,b)=>a.localeCompare(b,undefined,{sensitivity:'base'})).map(n=>'<option value="'+esc(n)+'"></option>').join('')+'</datalist>'; }
+function matchQ(p,q){ q=q.trim().toLowerCase(); return !q||((p.name||'')+' '+(p.brand||'')).toLowerCase().includes(q); }
+function searchBox(id,bind,val,ph){ return '<div class="search grow">'+icon('search')+'<input id="'+id+'" type="text" data-bind="'+bind+'" value="'+esc(val)+'" placeholder="'+esc(ph)+'" aria-label="'+esc(ph)+'" autocomplete="off"></div>'; }
+function loadingBlock(){ return '<div class="empty">Doʻkon yuklanmoqda…</div>'; }
+
+/* ----- Sell ----- */
+function viewSell(){
+  const all=[...S.products.values()];
+  const list=[...S.products.entries()].filter(([id,p])=>(S.cat==='all'||p.cat===S.cat)&&brandOk(p,S.brand)&&matchQ(p,S.q)).sort(byName);
+  const inCart={}; S.cart.forEach(l=>{ inCart[l.pid]=(inCart[l.pid]||0)+1; });
+  let tiles;
+  if(!loaded()&&!S.noDb) tiles=loadingBlock();
+  else if(!S.products.size) tiles='<div class="empty"><b>Hali mahsulot yoʻq</b><span>Atir va boshqa mahsulotlarni “Mahsulotlar” boʻlimida qoʻshing.</span>'+(isSeller()?'':'<button class="btn primary" type="button" data-act="tab" data-arg="products">Mahsulotlarga oʻtish</button>')+'</div>';
+  else if(!list.length) tiles='<div class="empty">Hech narsa topilmadi.</div>';
+  else tiles='<div class="tiles">'+list.map(([id,p])=>{
+    const liquid=isLiquid(p);
+    const mlOnly=liquid&&num(p.priceBottle)<=0&&num(p.priceMl)>0;
+    const price=liquid?(mlOnly?money(p.priceMl)+'<span class="muted"> / ml</span>':money(p.priceBottle)+(num(p.priceMl)?'<br><span class="muted">'+money(p.priceMl)+' / ml</span>':'')):money(p.price);
+    const st=liquid?'<span>'+q1(p.sealed)+' yangi · '+q1(p.openMl)+' ml ochiq</span>'+(num(p.openMl)>0?'<span class="gauge"><i style="width:'+Math.min(100,num(p.openMl)/Math.max(1,num(p.bottleMl))*100)+'%"></i></span>':''):'<span>'+q1(p.qty)+' ta bor</span>';
+    const ss=stockState(p), out=ss==='out';
+    return '<button class="tile'+(ss?' '+ss:'')+'" type="button" data-act="tile" data-arg="'+esc(id)+'" aria-label="'+esc((out?'Qolmagan: ':'Qoʻshish: ')+p.name+(ss==='low'?' (kam qoldi)':''))+'">'+(out?'<span class="outtag">Qolmagan</span>':ss==='low'?'<span class="outtag low">Kam qoldi</span>':'')+'<span style="position:relative;display:block">'+thumb(p)+(inCart[id]?'<span class="incart">'+inCart[id]+'</span>':'')+'</span><span class="nm">'+esc(p.name)+'</span><span class="sub">'+catPill(p.cat)+(p.brand?'<span>'+esc(p.brand)+'</span>':'')+'</span><span class="pr">'+price+'</span><span class="st">'+st+'</span></button>';
+  }).join('')+'</div>';
+  return '<div class="sell"><section aria-label="Mahsulotlar"><div class="toolbar"><div class="row">'+searchBox('sell-q','q',S.q,'Mahsulot qidirish')+'</div><div class="filtrow">'+brandSelect('brand',all.filter(p=>S.cat==='all'||p.cat===S.cat))+catChips('cat',all.filter(p=>brandOk(p,S.brand)))+'</div></div>'+tiles+'</section>'+
+    '<aside class="cartcol"><section class="pane cartpane" aria-label="Savat">'+(S.sheet&&S.sheet.kind==='cart'?'':cartBody())+'</section></aside></div>';
+}
+function cartBody(){
+  const cp=cartPlan();
+  let h='<div class="row" style="justify-content:space-between"><h2 class="h">Savat</h2>'+(S.cart.length?'<button class="linkbtn" type="button" data-act="cart-clear">Tozalash</button>':'')+'</div>';
+  if(!S.cart.length) return h+'<div class="empty" style="padding:22px 8px"><span>Mahsulotni bosib savatga qoʻshing. Bitta sotuvda shisha, ml va boshqa mahsulotlarni aralashtirish mumkin.</span></div>';
+  h+='<ul class="lines">'+cp.lines.map((x,i)=>{
+    if(x.missing) return '<li><span></span><span class="nm">Oʻchirilgan mahsulot</span><button class="rm" type="button" data-act="line-rm" data-arg="'+i+'">Olib tashlash</button></li>';
+    const l=x.l, p=x.p, r=x.r;
+    const qty=l.kind==='ml'?'<span class="qty"><button type="button" data-act="line-ml" data-arg="'+i+'|-1" aria-label="Kamaytirish">−</button><span>'+q1(l.ml)+' ml</span><button type="button" data-act="line-ml" data-arg="'+i+'|1" aria-label="Koʻpaytirish">+</button></span>':'<span class="qty"><button type="button" data-act="line-n" data-arg="'+i+'|-1" aria-label="Kamaytirish">−</button><span>'+l.n+' '+(l.kind==='bottle'?'shisha':'dona')+'</span><button type="button" data-act="line-n" data-arg="'+i+'|1" aria-label="Koʻpaytirish">+</button></span>';
+    const at=r.atom?'<span class="dt atl">+ '+esc(r.atom.name)+' · '+(r.atom.gift?'<b>sovgʻa</b>':money(r.atom.price))+((!r.atom.gift||r.atom.sellPrice>0)?' · <button class="linkbtn" type="button" data-act="line-gift" data-arg="'+i+'">'+(r.atom.gift?'Narx bilan sotish':'Sovgʻa qilish')+'</button>':'')+'</span>':'';
+    const extra=[]; if(r.opened) extra.push(r.opened+' ta yangi shisha ochiladi'); if(r.filled) extra.push(r.filled+' ta suyuqlikdan quyiladi');
+    return '<li>'+thumb(p)+'<span><span class="nm">'+esc(p.name)+'</span>'+at+(extra.length?'<span class="dt" style="display:block">'+extra.join(' · ')+'</span>':'')+(r.err?'<span class="w err" style="display:block">'+esc(r.err)+'</span>':'')+(r.warn.length?'<span class="w" style="display:block">'+esc(r.warn.join(' · '))+'</span>':'')+qty+'</span><span class="pr">'+money(r.list)+'<br><button class="rm" type="button" data-act="line-rm" data-arg="'+i+'">Olib tashlash</button></span></li>';
+  }).join('')+'</ul>';
+  h+='<div class="field"><label for="disc">Chegirma</label><input id="disc" type="text" inputmode="numeric" data-bind="discount" value="'+esc(S.discount)+'" placeholder="0"></div>';
+  h+='<div class="seg" role="group" aria-label="Toʻlov">'+SALE_PAYS.map(([k,l])=>'<button type="button" data-act="pay" data-arg="'+k+'" aria-pressed="'+(S.pay===k)+'">'+l+'</button>').join('')+'</div>';
+  if(S.pay==='debt'){
+    const names=[...new Set([...S.debts.values()].map(x=>x.name).filter(Boolean))].sort();
+    h+='<div class="debtbox"><span class="lbl">Mijoz keyin toʻlaydi</span>'+f('cust-name','Mijoz ismi','cust.name',S.cust.name,{ph:'Ism familiya',list:'cust-list'})+f('cust-phone','Telefon','cust.phone',S.cust.phone,{mode:'tel',ph:'+998 90 123 45 67'})+'<div class="field"><label for="cust-due">Toʻlashga vaʼda qilingan sana</label><input id="cust-due" type="date" data-bind="cust.due" value="'+esc(S.cust.due)+'" min="'+dayKey()+'"></div>'+(names.length?'<datalist id="cust-list">'+names.map(n=>'<option value="'+esc(n)+'"></option>').join('')+'</datalist>':'')+'</div>';
+  }
+  if(cp.disc>0) h+='<div class="sumrow"><span>Chegirmasiz</span><span>'+money(cp.list)+'</span></div><div class="sumrow"><span>Chegirma</span><span>'+money(-cp.disc)+'</span></div>';
+  h+='<div class="total"><span class="lbl">Jami</span><b>'+money(cp.total)+'</b></div>';
+  if(!isSeller()) h+='<div class="sumrow"><span>Foyda</span><span class="'+(cp.profit<0?'bad':'good')+'">'+money(cp.profit)+'</span></div>';
+  const stockBad=cartBad(cp), dbtBad=S.pay==='debt'&&!debtOk()||stockBad;
+  if(stockBad) h+='<div class="note bad" role="alert">Savatda yetarli boʻlmagan mahsulot bor. Miqdorni kamaytiring yoki olib tashlang.</div>';
+  else if(dbtBad) h+='<span class="hint">Nasiyaga sotish uchun ism, telefon va toʻlov sanasini kiriting.</span>';
+  h+='<button class="btn primary big" type="button" data-act="checkout"'+(dbtBad?' disabled':dis())+'>'+(S.busy?'Saqlanmoqda…':(S.pay==='debt'?'Nasiyaga sotish':'Sotuvni yakunlash'))+'</button>';
+  return h;
+}
+function salesList(items){
+  const recs=receiptsOf(items);
+  if(!recs.length) return '<div class="muted" style="font-size:13.5px">Bu davrda sotuv yoʻq.</div>';
+  return '<ul class="receipts">'+recs.slice(0,60).map(r=>{
+    const wo=r.items.every(i=>i.kind==='writeoff');
+    const tot=r.items.reduce((s,i)=>s+num(i.price),0), pr=r.items.reduce((s,i)=>s+num(i.price)-num(i.cost),0);
+    const multi=r.items.length>1;
+    const txt=r.items.map(i=>esc(i.name)+' <span class="muted">'+esc(lineDesc(i.kind,num(i.n),num(i.ml),i.opened,i.gift))+(multi&&!i.gift&&i.kind!=='writeoff'?' · '+esc(plainMoney(i.price)):'')+'</span>').join('<br>');
+    const c=S.confirmUndo===r.rid, cust=r.items[0]&&r.items[0].cust;
+    return '<li><span class="t">'+esc(r.items[0]._day===dayKey()?timeOf(r.t):shortDay(r.items[0]._day))+'</span><span><span class="it">'+txt+'</span><span class="dt" style="display:block">'+(wo?'Hisobdan chiqarish':esc(PAY[r.pay]||r.pay||'')+(cust?' · '+esc(cust):''))+'</span>'+(c?'<button class="linkbtn bad" type="button" data-act="undo" data-arg="'+esc(r.rid)+'"'+dis()+'>Bekor qilish va qoldiqni qaytarish</button> · <button class="linkbtn" type="button" data-act="undo-cancel">Qoldirish</button>':(isSeller()&&!sellerCanUndo(r)?'<span class="muted" style="font-size:12.5px">Bekor qilish: faqat doʻkon egasi</span>':'<button class="linkbtn" type="button" data-act="undo-ask" data-arg="'+esc(r.rid)+'">Bekor qilish</button>'))+'</span><span class="pr">'+(wo?'<span class="muted">—</span>':money(tot))+(isSeller()?'':'<small class="'+(pr<0?'bad':'good')+'">'+(pr>=0?'+':'')+money(pr)+'</small>')+'</span></li>';
+  }).join('')+'</ul>';
+}
+function viewCartBar(){
+  if(S.tab!=='sell'||!S.cart.length||S.sheet) return '';
+  const cp=cartPlan();
+  return '<div class="cartbar"><button class="btn primary" type="button" data-act="open-cart"><span>'+icon('cart')+' Savat · '+S.cart.length+' '+plural(S.cart.length,'ta','ta')+'</span><span>'+money(cp.total)+'</span></button></div>';
+}
+
+/* ----- Products ----- */
+function viewProducts(){
+  const all=[...S.products.values()];
+  const list=[...S.products.entries()].filter(([id,p])=>{
+    if(!matchQ(p,S.pq)||!brandOk(p,S.pbrand)) return false;
+    if(S.pcat==='open') return isLiquid(p)&&num(p.openMl)!==0;
+    if(S.pcat==='low') return isLow(p);
+    return S.pcat==='all'||p.cat===S.pcat;
+  }).sort(S.pcat==='open'?((a,b)=>num(a[1].openMl)/Math.max(1,num(a[1].bottleMl))-num(b[1].openMl)/Math.max(1,num(b[1].bottleMl))):byName);
+  let value=0; all.forEach(p=>{ value+=isLiquid(p)?Math.max(0,num(p.sealed))*bottleCost(p)+Math.max(0,num(p.openMl))*costMl(p):Math.max(0,num(p.qty))*num(p.cost); });
+  const openN=all.filter(p=>isLiquid(p)&&num(p.openMl)>0).length, lowN=all.filter(isLow).length;
+  let h='<div class="toolbar"><div class="row prodbar">'+searchBox('prod-q','pq',S.pq,'Mahsulot qidirish')+'<button class="btn" type="button" data-act="open-types">Turlar</button><button class="btn primary" type="button" data-act="new-product"'+dis()+'>+ Mahsulot qoʻshish</button></div><div class="filtrow">'+brandSelect('pbrand',all.filter(p=>S.pcat==='open'?isLiquid(p)&&num(p.openMl)!==0:S.pcat==='low'?isLow(p):(S.pcat==='all'||p.cat===S.pcat)))+catChips('pcat',all.filter(p=>brandOk(p,S.pbrand)),[['open','Ochiq shishalar'],['low','Kam qolgan']])+'</div></div>';
+  if(!loaded()&&!S.noDb) return h+loadingBlock();
+  if(!list.length) return h+(all.length?'<div class="empty">Bu yerda hech narsa yoʻq.</div>':'<div class="empty"><b>Hali mahsulot yoʻq</b><span>Atirni bir marta qoʻshing. Uni butun shisha yoki ml boʻyicha sotish mumkin.</span></div>');
+  return h+'<div class="cards">'+list.map(([id,p])=>{
+    const liquid=isLiquid(p), neg=liquid?(num(p.sealed)<0||num(p.openMl)<0):num(p.qty)<0;
+    const facts=liquid?
+      '<div class="row" style="justify-content:space-between"><span class="k">Yangi shishalar</span><b>'+q1(p.sealed)+' × '+q1(p.bottleMl)+' ml</b></div><div class="row" style="justify-content:space-between"><span class="k">Ochiq</span><b>'+q1(p.openMl)+' ml</b></div>'+(num(p.openMl)>0?'<div class="gauge"><i style="width:'+Math.min(100,num(p.openMl)/Math.max(1,num(p.bottleMl))*100)+'%"></i></div>':'')+'<div class="row" style="justify-content:space-between"><span class="k">Narx</span><b>'+money(p.priceBottle)+' · '+money(p.priceMl)+'/ml</b></div>':
+      '<div class="row" style="justify-content:space-between"><span class="k">Qoldiq</span><b>'+q1(p.qty)+' dona</b></div><div class="row" style="justify-content:space-between"><span class="k">Narx</span><b>'+money(p.price)+'</b></div>';
+    const ss=stockState(p);
+    return '<button class="card'+(ss?' '+ss:'')+'" type="button" data-act="edit-product" data-arg="'+esc(id)+'">'+thumb(p)+'<span style="min-width:0"><span class="nm">'+esc(p.name)+'</span><span class="sub">'+catPill(p.cat)+(p.brand?esc(p.brand):'')+(ss==='out'?' <span class="pill out">Qolmagan</span>':ss==='low'?' <span class="pill low">Kam</span>':'')+(neg?' <span class="pill neg">Qayta sanang</span>':'')+'</span><span class="facts">'+facts+'</span></span></button>';
+  }).join('')+'</div>';
+}
+
+/* ----- Inventory ----- */
+function viewInventory(){
+  const q=S.iq.trim().toLowerCase();
+  const list=[...S.materials.entries()].filter(([id,m])=>!q||String(m.name||'').toLowerCase().includes(q)).sort(byName);
+  let value=0, low=0; for(const m of S.materials.values()){ value+=Math.max(0,num(m.stock))*num(m.cost); if(num(m.stock)<=num(m.low)) low++; }
+  let h='<div class="toolbar"><div class="row">'+searchBox('inv-q','iq',S.iq,'Material qidirish')+'<button class="btn primary" type="button" data-act="new-material"'+dis()+'>+ Material qoʻshish</button></div><span class="hint">Sotilmaydigan, ishlatiladigan narsalar. Kirim, sarf yoki sanoq uchun materialni bosing. Har bir oʻzgarish tarixda saqlanadi.</span></div>';
+  if(!loaded()&&!S.noDb) return h+loadingBlock();
+  const rows=list.length?'<div class="irows">'+list.map(([id,m])=>{ const lo=num(m.stock)<=num(m.low), neg=num(m.stock)<0; return '<button class="irow" type="button" data-act="edit-material" data-arg="'+esc(id)+'"><span><span class="nm">'+esc(m.name)+'</span> '+(neg?'<span class="pill neg">Qayta sanang</span>':(lo?'<span class="pill low">Kam</span>':''))+'<span class="sub" style="display:block">'+money(m.cost)+' / '+esc(UL(m.unit||'pcs'))+'</span></span><span class="q">'+q1(m.stock)+'<small>'+esc(UL(m.unit||'pcs'))+'</small></span></button>'; }).join('')+'</div>':
+    '<div class="empty">'+(S.materials.size?'Hech narsa topilmadi.':'<b>Hali material yoʻq</b><span>Atir tayyorlash va quyish uchun ishlatadiganlaringizni qoʻshing.</span>')+'</div>';
+  return h+rows;
+}
+function movesList(moves,withName){
+  return '<ul class="moves">'+moves.map(e=>'<li><span><span class="mtype'+(e.d>0?' in':'')+'">'+esc(MOVE[e.type]||e.type)+'</span>'+(withName?esc(e.name):'')+'<span class="w" style="display:block">'+esc(whenOf(e.t))+(e.note?' · '+esc(e.note):'')+'</span></span><span class="d'+(e.d>0?' plus':'')+'">'+(e.d>0?'+':'')+q1(e.d)+' '+esc(UL(e.unit))+'<span class="w" style="display:block">qoldi '+q1(e.bal)+'</span></span></li>').join('')+'</ul>';
+}
+
+/* ----- Handmade ----- */
+function viewHandmade(){
+  const list=[...S.products.entries()].filter(([id,p])=>isHand(p)).sort(byName);
+  let h='<div class="head"><h2 class="h">Qoʻlbola atirlar</h2><button class="btn primary" type="button" data-act="new-product" data-arg="handmade"'+dis()+'>+ Yangi atir</button></div>';
+  if(!loaded()&&!S.noDb) return h+loadingBlock();
+  if(!list.length) return h+'<div class="pane"><div class="empty"><b>Hali qoʻlbola atir yoʻq</b><span>Atir qoʻshing, materiallardan retsept tuzing va partiya tayyorlang.</span></div></div>';
+  return h+'<div class="hm-list">'+list.map(([id,p])=>{
+    const cml=costMl(p), bc=bottleCost(p), pb=num(p.priceBottle);
+    return '<section class="pane hm">'+thumb(p)+'<div style="min-width:0"><span class="disp">'+esc(p.name)+'</span><div class="muted" style="font-size:13px">'+q1(p.bottleMl)+' ml shishalar</div>'+
+      '<div class="kv"><div><span>Suyuqlik</span><b>'+q1(p.openMl)+' ml</b></div><div><span>Tayyor shishalar</span><b>'+q1(p.sealed)+'</b></div><div><span>1 ml tannarxi</span><b>'+money(cml)+'</b></div><div><span>1 shisha tannarxi</span><b>'+money(bc)+'</b></div><div><span>1 shisha foydasi</span><b class="'+(pb-bc<0?'bad':'good')+'">'+money(pb-bc)+'</b></div><div><span>1 ml foydasi</span><b class="'+(num(p.priceMl)-cml<0?'bad':'good')+'">'+money(num(p.priceMl)-cml)+'</b></div></div>'+
+      '<div class="row" style="margin-top:12px"><button class="btn primary small" type="button" data-act="open-batch" data-arg="'+esc(id)+'">Partiya tayyorlash</button><button class="btn small" type="button" data-act="open-recipe" data-arg="'+esc(id)+'">Retsept'+((p.recipe||[]).length?'':' (boʻsh)')+'</button><button class="btn ghost small" type="button" data-act="edit-product" data-arg="'+esc(id)+'">Tahrirlash</button></div></div></section>';
+  }).join('')+'</div>';
+}
+
+/* ----- Debts ----- */
+function viewDebts(){
+  const all=[...S.debts.entries()].map(([id,x])=>Object.assign({id,st:debtState(x)},x));
+  const owed=all.reduce((a,x)=>a+debtLeft(x),0);
+  const q=S.dq.trim().toLowerCase();
+  const F=[['open','Toʻlanmagan'],['overdue','Muddati oʻtgan'],['paid','Toʻlangan'],['all','Hammasi']];
+  const list=all.filter(x=>S.dcat==='all'||(S.dcat==='open'?x.st!=='paid':S.dcat==='overdue'?x.st==='overdue':x.st==='paid')).filter(x=>!q||((x.name||'')+' '+(x.phone||'')).toLowerCase().includes(q))
+    .sort((a,b)=>a.st==='paid'&&b.st==='paid'?String(b.t).localeCompare(String(a.t)):(a.st==='paid')-(b.st==='paid')||String(a.due).localeCompare(String(b.due)));
+  let h='<div class="head"><h2 class="h">Nasiya</h2><span class="owed">Sizga qarz<b>'+money(owed)+'</b></span></div>';
+  h+='<div class="toolbar"><div class="row">'+searchBox('debt-q','dq',S.dq,'Ism yoki telefon boʻyicha qidirish')+'</div><div class="chips" role="group" aria-label="Saralash">'+F.map(([k,l])=>'<button class="chip" type="button" data-act="chip" data-arg="dcat|'+k+'" aria-pressed="'+(S.dcat===k)+'">'+l+'</button>').join('')+'</div></div>';
+  if(!loaded()&&!S.noDb) return h+loadingBlock();
+  if(!list.length) return h+'<div class="pane"><div class="empty">'+(all.length?'Bu yerda hech narsa yoʻq.':'<b>Nasiya yoʻq</b><span>Savatda toʻlov turini <b style="font-size:inherit">Nasiya</b> qilib tanlang va mijozning ismi, telefoni hamda toʻlashga vaʼda bergan sanasini kiriting.</span>')+'</div></div>';
+  return h+'<div class="debts">'+list.map(debtCard).join('')+'</div>';
+}
+function debtCard(x){
+  const left=debtLeft(x), st=x.st;
+  const pill=st==='paid'?'<span class="pill ok">Toʻlangan</span>':st==='overdue'?'<span class="pill neg">Muddati oʻtgan · '+esc(shortDay(x.due))+'</span>':st==='today'?'<span class="pill low">Bugun toʻlashi kerak</span>':'<span class="pill">Muddat: '+esc(shortDay(x.due))+'</span>';
+  const fm=S.dform&&S.dform.id===x.id?S.dform:null;
+  let h='<section class="pane debt st-'+st+'"><div class="row between" style="align-items:flex-start"><div style="min-width:0"><div class="nm">'+esc(x.name)+'</div><div class="row" style="gap:6px"><span class="ph">'+esc(x.phone)+'</span><button class="linkbtn" type="button" data-act="copy" data-arg="'+esc(x.phone)+'">Nusxalash</button></div></div>'+pill+'</div>';
+  h+='<div class="its">'+(x.items||[]).map(i=>esc(i.name)+' · '+esc(i.desc)).join('<br>')+'<br>Sotilgan: '+esc(shortDay(x.day||String(x.t).slice(0,10)))+'</div>';
+  h+='<div class="kv3"><div><span>Jami</span><b>'+money(x.total)+'</b></div><div><span>Toʻlangan</span><b>'+money(x.paid)+'</b></div><div><span>Qoldi</span><b class="'+(left>0?'bad':'good')+'">'+money(left)+'</b></div></div>';
+  if((x.payments||[]).length) h+='<ul class="moves">'+x.payments.slice().reverse().map(pm=>'<li><span>'+esc(PAY[pm.m]||pm.m)+'<span class="w" style="display:block">'+esc(whenOf(pm.t))+'</span></span><span class="d plus">+'+money(pm.amount)+'</span></li>').join('')+'</ul>';
+  if(st!=='paid'){
+    if(fm&&fm.mode==='pay') h+='<div class="debtbox">'+f('dp-amt','Hozir toʻlangan summa','dform.amt',fm.amt,{mode:'numeric'})+'<div class="seg" role="group" aria-label="Toʻlov turi">'+PAYS.map(([k,l])=>'<button type="button" data-act="debt-m" data-arg="'+k+'" aria-pressed="'+(fm.m===k)+'">'+l+'</button>').join('')+'</div><div class="row"><button class="btn primary" type="button" data-act="debt-pay"'+(num(fm.amt)>0?dis():' disabled')+'>Toʻlovni saqlash</button><button class="btn ghost" type="button" data-act="debt-cancel">Bekor qilish</button></div></div>';
+    else if(fm&&fm.mode==='date') h+='<div class="debtbox"><div class="field"><label for="dd-due">Yangi vaʼda sanasi</label><input id="dd-due" type="date" data-bind="dform.due" value="'+esc(fm.due)+'" min="'+dayKey()+'"></div><div class="row"><button class="btn primary" type="button" data-act="debt-date"'+(fm.due&&fm.due>=dayKey()?dis():' disabled')+'>Sanani saqlash</button><button class="btn ghost" type="button" data-act="debt-cancel">Bekor qilish</button></div></div>';
+    else h+='<div class="row"><button class="btn primary small" type="button" data-act="debt-form" data-arg="'+esc(x.id)+'|pay"'+dis()+'>Toʻlov qabul qilish</button><button class="btn small" type="button" data-act="debt-form" data-arg="'+esc(x.id)+'|date"'+dis()+'>Sanani oʻzgartirish</button></div>';
+  }
+  return h+'</section>';
+}
+
+/* ----- Expenses & orders ----- */
+function orderLeft(o){ return Math.max(0,num(o.total)-num(o.paid)); }
+function monthLabel(ym){ const a=ym.split('-').map(Number); const m=UZM[a[1]-1]; return m[0].toUpperCase()+m.slice(1)+' '+a[0]; }
+function addMonths(ym,n){ const a=ym.split('-').map(Number); const d=new Date(a[0],a[1]-1+n,1); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'); }
+function itemInfo(key){
+  const i=String(key||'').indexOf(':'); if(i<0) return null; const t=key.slice(0,i), id=key.slice(i+1);
+  if(t==='p'){ const p=S.products.get(id); if(!p) return null; return {type:'product',id,name:p.name,unit:isLiquid(p)?'shisha':'dona',cost:isLiquid(p)?Math.round(bottleCost(p)):num(p.cost)}; }
+  if(t==='m'){ const m=S.materials.get(id); if(!m) return null; return {type:'material',id,name:m.name,unit:UL(m.unit||'pcs'),cost:num(m.cost)}; }
+  return null;
+}
+function viewExpenses(){
+  let h='<div class="head"><h2 class="h">Xarajatlar</h2><div class="seg" role="group" aria-label="Boʻlim" style="min-width:min(300px,100%)">'+[['exp','Xarajatlar'],['ord','Buyurtmalar']].map(([k,l])=>'<button type="button" data-act="xtab" data-arg="'+k+'" aria-pressed="'+(S.xtab===k)+'">'+l+'</button>').join('')+'</div></div>';
+  if(!loaded()&&!S.noDb) return h+loadingBlock();
+  return h+(S.xtab==='ord'?ordersBody():expensesBody());
+}
+function expensesBody(){
+  const ym=S.xmonth||dayKey().slice(0,7);
+  const list=[...S.expenses.entries()].filter(([id,x])=>String(x.day||'').slice(0,7)===ym).sort((a,b)=>String(b[1].day).localeCompare(String(a[1].day))||String(b[1].t).localeCompare(String(a[1].t)));
+  const tot=list.reduce((a,[id,x])=>a+num(x.amount),0);
+  let h='<div class="toolbar"><div class="row between"><div class="row" style="flex-wrap:nowrap"><button class="btn small" type="button" data-act="xmonth" data-arg="-1" aria-label="Oldingi oy">‹</button><b style="min-width:128px;text-align:center">'+esc(monthLabel(ym))+'</b><button class="btn small" type="button" data-act="xmonth" data-arg="1" aria-label="Keyingi oy"'+(ym>=dayKey().slice(0,7)?' disabled':'')+'>›</button></div><button class="btn primary" type="button" data-act="new-expense"'+dis()+'>+ Xarajat qoʻshish</button></div><span class="owed">Shu oy jami<b>'+money(tot)+'</b></span></div>';
+  if(!list.length) return h+'<div class="pane"><div class="empty"><b>Bu oyda xarajat yoʻq</b><span>Ijara, ish haqi, kommunal, soliq va boshqa xarajatlarni shu yerga yozing.</span></div></div>';
+  return h+'<div class="irows">'+list.map(([id,x])=>'<button class="irow" type="button" data-act="edit-expense" data-arg="'+esc(id)+'"><span><span class="nm">'+esc(EXPC[x.cat]||x.cat||'Boshqa')+'</span>'+(x.note?' <span class="muted">· '+esc(x.note)+'</span>':'')+'<span class="sub" style="display:block">'+esc(dayLabel(x.day))+' · '+esc(PAY[x.pay]||x.pay||'')+'</span></span><span class="q">'+money(x.amount)+'</span></button>').join('')+'</div>';
+}
+function ordersBody(){
+  const all=[...S.orders.entries()].map(([id,o])=>Object.assign({id},o));
+  const F=[['open','Kutilmoqda'],['unpaid','Toʻlanmagan'],['received','Qabul qilingan'],['all','Hammasi']];
+  const list=all.filter(o=>S.ocat==='all'||(S.ocat==='open'?o.status!=='received':S.ocat==='received'?o.status==='received':orderLeft(o)>=0.5)).sort((a,b)=>String(b.t).localeCompare(String(a.t)));
+  const owe=all.reduce((a,o)=>a+orderLeft(o),0);
+  let h='<div class="toolbar"><div class="row between"><div class="chips" role="group" aria-label="Saralash">'+F.map(([k,l])=>'<button class="chip" type="button" data-act="chip" data-arg="ocat|'+k+'" aria-pressed="'+(S.ocat===k)+'">'+l+'</button>').join('')+'</div><button class="btn primary" type="button" data-act="new-order"'+dis()+'>+ Yangi buyurtma</button></div>'+(owe>=0.5?'<span class="owed">Yetkazib beruvchilarga qarz<b>'+money(owe)+'</b></span>':'')+'</div>';
+  if(!list.length) return h+'<div class="pane"><div class="empty">'+(all.length?'Bu yerda hech narsa yoʻq.':'<b>Hali buyurtma yoʻq</b><span>Yetkazib beruvchidan atir, dezodorant yoki materiallarga buyurtma bering. Tovar kelganda “Qabul qilish”ni bosing, qoldiq oʻzi koʻpayadi.</span>')+'</div></div>';
+  return h+'<div class="debts">'+list.map(orderCard).join('')+'</div>';
+}
+function orderCard(o){
+  const left=orderLeft(o), rec=o.status==='received', fm=S.oform&&S.oform.id===o.id?S.oform:null;
+  const pill=rec?'<span class="pill ok">Qabul qilindi · '+esc(shortDay(o.receivedDay||o.day))+'</span>':'<span class="pill low">Kutilmoqda'+(o.expected?' · '+esc(shortDay(o.expected)):'')+'</span>';
+  let h='<section class="pane debt"><div class="row between" style="align-items:flex-start"><div style="min-width:0"><div class="nm">'+esc(o.supplier||'Yetkazib beruvchi')+'</div><div class="its">Buyurtma: '+esc(shortDay(o.day))+(o.note?' · '+esc(o.note):'')+'</div></div>'+pill+'</div>';
+  h+='<div class="its">'+(o.lines||[]).map(l=>esc(l.name)+' · '+q1(l.qty)+' '+esc(l.unitLabel||'')+' × '+money(l.cost)).join('<br>')+'</div>';
+  h+='<div class="kv3"><div><span>Jami</span><b>'+money(o.total)+'</b></div><div><span>Toʻlandi</span><b>'+money(o.paid)+'</b></div><div><span>Qarz</span><b class="'+(left>=0.5?'bad':'good')+'">'+money(left)+'</b></div></div>';
+  if((o.payments||[]).length) h+='<ul class="moves">'+o.payments.slice().reverse().map(pm=>'<li><span>'+esc(PAY[pm.m]||pm.m)+'<span class="w" style="display:block">'+esc(whenOf(pm.t))+'</span></span><span class="d">−'+money(pm.amount)+'</span></li>').join('')+'</ul>';
+  if(fm&&fm.mode==='pay') h+='<div class="debtbox">'+f('op-amt','Toʻlanadigan summa','oform.amt',fm.amt,{mode:'numeric'})+'<div class="seg" role="group" aria-label="Toʻlov turi">'+PAYS.map(([k,l])=>'<button type="button" data-act="of-m" data-arg="'+k+'" aria-pressed="'+(fm.m===k)+'">'+l+'</button>').join('')+'</div><div class="row"><button class="btn primary" type="button" data-act="of-pay"'+(num(fm.amt)>0?dis():' disabled')+'>Toʻlovni saqlash</button><button class="btn ghost" type="button" data-act="of-cancel">Bekor qilish</button></div></div>';
+  else if(fm&&fm.mode==='del') h+='<div class="row"><button class="btn danger solid small" type="button" data-act="of-del"'+dis()+'>Buyurtmani oʻchirish</button><button class="btn ghost small" type="button" data-act="of-cancel">Qoldirish</button></div>';
+  else h+='<div class="row">'+(!rec?'<button class="btn primary small" type="button" data-act="of-receive" data-arg="'+esc(o.id)+'"'+dis()+'>Qabul qilish</button>':'')+(left>=0.5?'<button class="btn small" type="button" data-act="of-form" data-arg="'+esc(o.id)+'|pay"'+dis()+'>Toʻlov qilish</button>':'')+(!rec?'<button class="btn ghost small" type="button" data-act="of-form" data-arg="'+esc(o.id)+'|del">Oʻchirish</button>':'')+'</div>';
+  return h+'</section>';
+}
+
+/* ----- Reports ----- */
+function viewReports(){
+  const [from,to]=periodRange();
+  const items=allItems(from,to), s=summarize(items);
+  const inR=d=>d&&d>=from&&d<=to;
+  let expT=0; const expBy={}; for(const x of S.expenses.values()) if(inR(x.day)){ expT+=num(x.amount); expBy[x.cat]=(expBy[x.cat]||0)+num(x.amount); }
+  let supPaid=0, recT=0, pendN=0, pendV=0, supOwe=0; const recBy={};
+  for(const o of S.orders.values()){ (o.payments||[]).forEach(pm=>{ if(inR(pm.day||dayKey(new Date(pm.t)))) supPaid+=num(pm.amount); }); if(o.status==='received'&&inR(o.receivedDay)){ recT+=num(o.total); const k=o.supplier||'Yetkazib beruvchi'; recBy[k]=(recBy[k]||0)+num(o.total); } if(o.status!=='received'){ pendN++; pendV+=num(o.total); } supOwe+=orderLeft(o); }
+  let cashSales=0; items.forEach(it=>{ if(it.kind!=='writeoff'&&it.pay!=='debt') cashSales+=num(it.price); });
+  let debtIn=0; for(const x of S.debts.values()) (x.payments||[]).forEach(pm=>{ if(inR(pm.day||dayKey(new Date(pm.t)))) debtIn+=num(pm.amount); });
+  const net=s.profit-expT, cashIn=cashSales+debtIn, cashOut=expT+supPaid;
+  let owed=0,owedN=0,overN=0; for(const x of S.debts.values()){ const l=debtLeft(x); if(l>=0.5){ owed+=l; owedN++; if(debtState(x)==='overdue') overN++; } }
+  const P=[['today','Bugun'],['yesterday','Kecha'],['7d','7 kun'],['month','Shu oy'],['lastmonth','Oʻtgan oy'],['12m','12 oy'],['custom','Sana']];
+  let h='<div class="head"><h2 class="h">Moliya</h2></div><div class="toolbar"><div class="chips" role="group" aria-label="Davr">'+P.map(([k,l])=>'<button class="chip" type="button" data-act="rp" data-arg="'+k+'" aria-pressed="'+(S.rp===k)+'">'+l+'</button>').join('')+'</div>';
+  if(S.rp==='custom') h+='<div class="row" style="flex-wrap:wrap"><div class="field" style="width:170px"><label for="r-from">Dan</label><input id="r-from" type="date" data-bind="rFrom" value="'+esc(S.rFrom)+'"></div><div class="field" style="width:170px"><label for="r-to">Gacha</label><input id="r-to" type="date" data-bind="rTo" value="'+esc(S.rTo)+'"></div></div>';
+  h+='<span class="hint">'+esc(from===to?dayLabel(from):dayLabel(from)+' – '+dayLabel(to))+'</span></div>';
+  h+='<div class="kpis"><div class="kpi"><span class="lbl">Tushum</span><b>'+money(s.rev)+'</b><small>'+s.receipts+' ta sotuv · oʻrtacha '+money(s.receipts?s.rev/s.receipts:0)+'</small></div><div class="kpi"><span class="lbl">Yalpi foyda</span><b class="'+(s.profit<0?'bad':'')+'">'+money(s.profit)+'</b><small>tushum − tovar tannarxi · marja '+pct(s.profit,s.rev)+'</small></div><div class="kpi"><span class="lbl">Xarajatlar</span><b>'+money(expT)+'</b><small>ijara, ish haqi va boshqalar</small></div><div class="kpi"><span class="lbl">Sof foyda</span><b class="'+(net<0?'bad':'good')+'">'+money(net)+'</b><small>yalpi foyda − xarajatlar · '+pct(net,s.rev)+'</small></div></div>';
+  h+='<div class="kpis"><div class="kpi"><span class="lbl">Pul kirimi</span><b>'+money(cashIn)+'</b><small>sotuvlar va nasiya toʻlovlari</small></div><div class="kpi"><span class="lbl">Pul chiqimi</span><b>'+money(cashOut)+'</b><small>xarajatlar va tovar uchun toʻlovlar</small></div><div class="kpi"><span class="lbl">Sizga qarz</span><b class="'+(owedN?'bad':'')+'">'+money(owed)+'</b><small>'+owedN+' ta toʻlanmagan · '+overN+' ta muddati oʻtgan</small></div><div class="kpi"><span class="lbl">Siz qarzdorsiz</span><b class="'+(supOwe>=0.5?'bad':'')+'">'+money(supOwe)+'</b><small>yetkazib beruvchilarga · '+pendN+' ta buyurtma kutilmoqda</small></div></div>';
+  h+='<div class="rgrid" style="margin-bottom:16px"><section class="pane"><h3 class="h-sm">Pul oqimi</h3><div class="flow"><div><span>Sotuvlardan (naqd, karta, oʻtkazma)</span><b class="good">+'+money(cashSales)+'</b></div><div><span>Nasiya toʻlovlari</span><b class="good">+'+money(debtIn)+'</b></div><div><span>Xarajatlar</span><b class="bad">'+money(-expT)+'</b></div><div><span>Yetkazib beruvchilarga toʻlov</span><b class="bad">'+money(-supPaid)+'</b></div><div class="tot"><span>Natija</span><b class="'+(cashIn-cashOut<0?'bad':'good')+'">'+(cashIn-cashOut>=0?'+':'')+money(cashIn-cashOut)+'</b></div></div></section>';
+  h+='<section class="pane"><h3 class="h-sm">Xarajatlar turlari boʻyicha</h3>'+(expT>0?hbars(EXP_CATS.map(([k,l])=>({label:l,v:expBy[k]||0,tip:[['s1','Xarajat',plainMoney(expBy[k]||0)],['','Ulushi',pct(expBy[k]||0,expT)]]})).filter(r=>r.v>0).sort((a,b)=>b.v-a.v)):'<div class="muted" style="font-size:13.5px">Bu davrda xarajat yozilmagan.</div>')+'</section>';
+  const at={sn:0,sr:0,sp:0,gn:0,gc:0}; items.forEach(it=>{ if(it.kind==='writeoff'||!(it.kind==='atom'||it.cat==='atomizer'||it.with)) return; const n=num(it.n)||1; if(it.gift){ at.gn+=n; at.gc+=num(it.cost); } else { at.sn+=n; at.sr+=num(it.price); at.sp+=num(it.price)-num(it.cost); } });
+  if(at.sn||at.gn) h+='<section class="pane wide"><h3 class="h-sm">Atomayzerlar</h3><div class="flow"><div><span>Sotildi · '+at.sn+' ta</span><b>'+money(at.sr)+'</b></div><div><span>Sotilganidan foyda</span><b class="'+(at.sp<0?'bad':'good')+'">'+money(at.sp)+'</b></div><div><span>Sovgʻa qilindi · '+at.gn+' ta (tannarxi)</span><b class="'+(at.gc>0?'bad':'')+'">'+money(-at.gc)+'</b></div></div></section>';
+  h+='<section class="pane wide"><div class="row between"><h3 class="h-sm">Qabul qilingan tovarlar (xaridlar)</h3><span class="num">'+money(recT)+'</span></div>'+(recT>0?hbars(Object.entries(recBy).sort((a,b)=>b[1]-a[1]).map(([k,v])=>({label:k,v,tip:[['s1','Xarid',plainMoney(v)]]}))):'<div class="muted" style="font-size:13.5px">Bu davrda tovar qabul qilinmagan.</div>')+(pendN?'<div class="hint">Kutilayotgan buyurtmalar: '+pendN+' ta, '+money(pendV)+'</div>':'')+'</section></div>';
+  const bs=buckets(items,from,to);
+  const tbl=S.showTable?'<div class="tablewrap"><table><thead><tr><th>'+(from===to?'Soat':'Davr')+'</th><th class="n">Sotuvlar</th><th class="n">Tushum</th><th class="n">Foyda</th></tr></thead><tbody>'+bs.map(b=>'<tr><td>'+esc(b.label)+'</td><td class="n">'+b.n+'</td><td class="n">'+money(b.rev)+'</td><td class="n">'+money(b.profit)+'</td></tr>').join('')+'</tbody></table></div>':'';
+  h+='<div class="rgrid"><section class="pane wide"><div class="row" style="justify-content:space-between"><h3 class="h-sm">Tushum va foyda · '+(from===to?'soatlar boʻyicha':(bs.length&&bs[0].k.length===7?'oylar boʻyicha':'kunlar boʻyicha'))+'</h3><button class="linkbtn" type="button" data-act="toggle-table">'+(S.showTable?'Jadvalni yashirish':'Jadval koʻrinishida')+'</button></div>'+(s.rev>0?colChart(bs,'Tushum va foyda'):'<div class="empty" style="padding:18px">Bu davrda sotuv yoʻq.</div>')+tbl+'</section>';
+  const catRows=Object.keys(s.byCat).map(k=>{ const x=s.byCat[k]; return {label:catLabel(k),v:x.rev,p:x.profit,tip:[['s1','Tushum',plainMoney(x.rev)],['','Foyda',plainMoney(x.profit)],['','Marja',pct(x.profit,x.rev)]]}; }).sort((a,b)=>b.v-a.v);
+  h+='<section class="pane"><h3 class="h-sm">Turlar boʻyicha tushum</h3>'+hbars(catRows)+'</section>';
+  const k=s.kind;
+  const kRow=(kk,label,sub,x)=>{ const pf=x.rev-x.cost; return '<div class="kr" data-kind="'+kk+'"><div class="kh"><b>'+label+'</b><span class="'+(pf<0?'bad':'good')+'">'+money(pf)+'</span></div><div class="kd"><span>'+sub+'</span><span>foyda · marja '+pct(pf,x.rev)+'</span></div><div class="kd"><span>Tushum '+money(x.rev)+'</span><span>Tannarx '+money(x.cost)+'</span></div></div>'; };
+  const kRows=[]; if(k.bottle.n) kRows.push(kRow('bottle','Butun shisha',q1(k.bottle.n)+' shisha · '+q1(k.bottle.ml)+' ml',k.bottle)); if(k.ml.ml) kRows.push(kRow('ml','Ml boʻyicha',q1(k.ml.ml)+' ml'+(k.ml.opened?' · '+k.ml.opened+' ta shisha ochildi':''),k.ml)); if(k.piece.n) kRows.push(kRow('piece','Dona mahsulotlar',q1(k.piece.n)+' dona',k.piece));
+  h+='<section class="pane"><h3 class="h-sm">Qanday sotildi</h3>'+(kRows.length?'<div class="kl">'+kRows.join('')+'</div>':'<div class="muted" style="font-size:13.5px">Bu davrda sotuv yoʻq.</div>')+'</section>';
+  const top=Object.values(s.byProd).sort((a,b)=>b.profit-a.profit).slice(0,8).map(t=>({label:t.name,v:Math.max(0,t.profit),tip:[['s1','Foyda',plainMoney(t.profit)],['','Tushum',plainMoney(t.rev)]]}));
+  h+='<section class="pane"><h3 class="h-sm">Eng foydali mahsulotlar</h3>'+hbars(top)+'</section>';
+  h+='<section class="pane"><h3 class="h-sm">Toʻlovlar</h3>'+hbars(SALE_PAYS.map(([pk,l])=>({label:pk==='debt'?'Nasiya':l,v:s.pay[pk]||0,tip:[['s1','Tushum',plainMoney(s.pay[pk]||0)],['','Ulushi',pct(s.pay[pk]||0,s.rev)]]})).filter(r=>r.v>0))+'</section>';
+  const lp=Object.values(s.byProd).filter(x=>x.b.n||x.m.ml).sort((a,b)=>(b.b.rev+b.m.rev)-(a.b.rev+a.m.rev));
+  if(lp.length){
+    const LT={bn:0,br:0,bp:0,mm:0,mr:0,mp:0}; lp.forEach(x=>{ LT.bn+=x.b.n; LT.br+=x.b.rev; LT.bp+=x.b.rev-x.b.cost; LT.mm+=x.m.ml; LT.mr+=x.m.rev; LT.mp+=x.m.rev-x.m.cost; });
+    const nm=v=>{ const r=Math.round(v||0); return '<span class="mn">'+(r<0?'−':'')+grp(r)+'</span>'; };
+    const mc=(v,has)=>'<td class="n">'+(has?'<span class="'+(v<0?'bad':'')+'">'+nm(v)+'</span>':'<span class="muted">—</span>')+'</td>';
+    h+='<section class="pane wide"><h3 class="h-sm">Atirlar: butun shisha va ml boʻyicha</h3><div class="tablewrap tall lp"><table><thead><tr><th>Atir</th><th class="n">Shisha</th><th class="n">Shisha tushumi</th><th class="n">Shisha foydasi</th><th class="n">Ml</th><th class="n">Ml tushumi</th><th class="n">Ml foydasi</th><th class="n">Jami foyda</th></tr></thead><tbody>'+
+      lp.map(x=>'<tr><td>'+esc(x.name)+'</td><td class="n">'+(x.b.n?q1(x.b.n):'<span class="muted">—</span>')+'</td>'+mc(x.b.rev,x.b.n)+mc(x.b.rev-x.b.cost,x.b.n)+'<td class="n">'+(x.m.ml?q1(x.m.ml)+' ml':'<span class="muted">—</span>')+'</td>'+mc(x.m.rev,x.m.ml)+mc(x.m.rev-x.m.cost,x.m.ml)+mc(x.b.rev-x.b.cost+x.m.rev-x.m.cost,true)+'</tr>').join('')+
+      '</tbody><tfoot><tr><td>Jami</td><td class="n">'+q1(LT.bn)+'</td>'+mc(LT.br,true)+mc(LT.bp,true)+'<td class="n">'+q1(LT.mm)+' ml</td>'+mc(LT.mr,true)+mc(LT.mp,true)+mc(LT.bp+LT.mp,true)+'</tr></tfoot></table></div><div class="hint" style="margin-top:8px">Summalar: '+esc(cur())+'. Tushum chegirma ayrilgandan keyin. Tannarx: shisha uchun hajm × 1 ml tannarxi (qoʻlbolada + qadoq), ml uchun sotilgan ml × 1 ml tannarxi. Atomayzer alohida hisoblanadi.</div></section>';
+  }
+  const hm=[...S.products.entries()].filter(([id,p])=>isHand(p)).map(([id,p])=>{ const made=(p.batches||[]).filter(b=>{ const d=b.day||String(b.t).slice(0,10); return d>=from&&d<=to; }).reduce((a,b)=>a+num(b.ml),0); const pr=s.byProd[id]||{rev:0,profit:0,bottles:0,ml:0}; return {name:p.name,made,pr}; }).filter(r=>r.made||r.pr.rev);
+  h+='<section class="pane wide"><h3 class="h-sm">Qoʻlbola atirlar</h3>'+(hm.length?'<div class="tablewrap"><table><thead><tr><th>Atir</th><th class="n">Tayyorlangan</th><th class="n">Sotilgan shisha</th><th class="n">Sotilgan ml</th><th class="n">Tushum</th><th class="n">Foyda</th></tr></thead><tbody>'+hm.map(r=>'<tr><td>'+esc(r.name)+'</td><td class="n">'+q1(r.made)+' ml</td><td class="n">'+q1(r.pr.bottles)+'</td><td class="n">'+q1(r.pr.ml)+' ml</td><td class="n">'+money(r.pr.rev)+'</td><td class="n '+(r.pr.profit<0?'bad':'good')+'">'+money(r.pr.profit)+'</td></tr>').join('')+'</tbody></table></div>':'<div class="muted" style="font-size:13.5px">Bu davrda qoʻlbola atir tayyorlanmagan va sotilmagan.</div>')+'</section>';
+  const col={}; let colT=0; for(const x of S.debts.values()) (x.payments||[]).forEach(pm=>{ const d=pm.day||dayKey(new Date(pm.t)); if(d>=from&&d<=to){ col[pm.m]=(col[pm.m]||0)+num(pm.amount); colT+=num(pm.amount); } });
+  h+='<section class="pane"><div class="row between"><h3 class="h-sm">Qabul qilingan nasiya toʻlovlari</h3><span class="num">'+money(colT)+'</span></div>'+(colT>0?hbars(PAYS.map(([pk,l])=>({label:l,v:col[pk]||0})).filter(r=>r.v>0)):'<div class="muted" style="font-size:13.5px">Bu davrda nasiya toʻlovi yoʻq.</div>')+'</section>';
+  let pv=0,pp=0,iv=0; for(const p of S.products.values()){ if(isLiquid(p)){ pv+=Math.max(0,num(p.sealed))*bottleCost(p)+Math.max(0,num(p.openMl))*costMl(p); pp+=Math.max(0,num(p.sealed))*num(p.priceBottle)+Math.max(0,num(p.openMl))*num(p.priceMl); } else { pv+=Math.max(0,num(p.qty))*num(p.cost); pp+=Math.max(0,num(p.qty))*num(p.price); } }
+  for(const m of S.materials.values()) iv+=Math.max(0,num(m.stock))*num(m.cost);
+  h+='<section class="pane"><h3 class="h-sm">Hozirgi qoldiq qiymati</h3><div class="kv"><div><span>Mahsulotlar (tannarxda)</span><b>'+money(pv)+'</b></div><div><span>Mahsulotlar (sotuv narxida)</span><b>'+money(pp)+'</b></div><div><span>Materiallar (tannarxda)</span><b>'+money(iv)+'</b></div><div><span>Kam qolgan mahsulotlar</span><b>'+[...S.products.values()].filter(isLow).length+'</b></div></div></section>';
+  h+=priceTable();
+  h+='<section class="pane wide"><h3 class="h-sm">Sotuvlar</h3>'+salesList(items)+'</section>';
+  const moves=[]; for(const [id,m] of S.materials) (m.log||[]).forEach(e=>{ const d=dayKey(new Date(e.t)); if(d>=from&&d<=to) moves.push(Object.assign({name:m.name,unit:m.unit||'pcs'},e)); });
+  moves.sort((a,b)=>String(b.t).localeCompare(String(a.t)));
+  h+='<section class="pane wide"><h3 class="h-sm">Materiallar harakati</h3>'+(moves.length?movesList(moves.slice(0,60),true):'<div class="muted" style="font-size:13.5px">Bu davrda materiallar oʻzgarmadi.</div>')+'</section>';
+  const sd=S.setDraft||(S.setDraft={name:S.settings.name||'',currency:S.settings.currency||"soʻm"});
+  const dirty=sd.name!==(S.settings.name||'')||sd.currency!==(S.settings.currency||"soʻm");
+  h+='<section class="pane"><h3 class="h-sm">Yuklab olish</h3><p class="muted" style="font-size:13.5px">Shu davrdagi sotuvlar, xarajatlar va buyurtmalar Excel uchun CSV faylda.</p><div class="row"><button class="btn" type="button" data-act="csv"'+(items.length?'':' disabled')+'>Sotuvlar (CSV)</button><button class="btn" type="button" data-act="csv-exp">Xarajatlar va buyurtmalar (CSV)</button></div></section>';
+  h+='<section class="pane"><h3 class="h-sm">Zaxira nusxa</h3><p class="muted" style="font-size:13.5px">Barcha maʼlumotlar va rasmlar bitta faylda. Haftada bir marta yuklab olib, xavfsiz joyda saqlang.</p><div class="row" style="flex-wrap:wrap"><button class="btn" type="button" data-sp="export">Zaxirani yuklab olish</button><span class="btn filebtn">Zaxiradan tiklash<input type="file" accept=".json,application/json" data-sp-import aria-label="Zaxira faylini tanlang"></span></div><p class="muted" style="font-size:13.5px;margin-top:12px">Kirgan: <b>'+esc(window.SP&&SP.user?SP.user.email:'')+'</b> · <button class="linkbtn" type="button" data-sp="logout">Chiqish</button></p></section>';
+  h+='<section class="pane"><h3 class="h-sm">Doʻkon</h3><div class="fgrid"><div class="field"><label for="set-name">Doʻkon nomi</label><input id="set-name" type="text" data-bind="setDraft.name" value="'+esc(sd.name)+'"></div><div class="field"><label for="set-cur">Valyuta</label><input id="set-cur" type="text" data-bind="setDraft.currency" value="'+esc(sd.currency)+'"></div></div><div class="row end"><button class="btn primary" type="button" data-act="set-save"'+(dirty?dis():' disabled')+'>Saqlash</button></div></section>';
+  return h+'</div>';
+}
+
+function priceTable(){
+  const all=[...S.products.values()];
+  const list=[...S.products.entries()].filter(([id,p])=>(S.prcat==='all'||p.cat===S.prcat)&&brandOk(p,S.prbrand)&&matchQ(p,S.prq)).sort(byName);
+  let tc=0,tp=0;
+  const rows=list.map(([id,p])=>{
+    const liq=isLiquid(p);
+    const cost=liq?bottleCost(p):num(p.cost), price=liq?num(p.priceBottle):num(p.price), prof=price-cost;
+    const vc=liq?Math.max(0,num(p.sealed))*bottleCost(p)+Math.max(0,num(p.openMl))*costMl(p):Math.max(0,num(p.qty))*num(p.cost);
+    const vp=liq?Math.max(0,num(p.sealed))*num(p.priceBottle)+Math.max(0,num(p.openMl))*num(p.priceMl):Math.max(0,num(p.qty))*num(p.price);
+    tc+=vc; tp+=vp;
+    const stock=liq?q1(p.sealed)+' sh'+(num(p.openMl)?' · '+q1(p.openMl)+' ml':''):q1(p.qty)+' dona';
+    return '<tr><td class="mintd"><button class="tname" type="button" data-act="edit-product" data-arg="'+esc(id)+'">'+esc(p.name)+'</button>'+(p.brand?'<div class="tsub">'+esc(p.brand)+'</div>':'')+'</td><td>'+esc(catLabel(p.cat))+'</td><td class="n">'+stock+'</td><td class="n">'+money(cost)+'</td><td class="n">'+money(price)+'</td><td class="n '+(prof<0?'bad':'good')+'">'+money(prof)+'</td><td class="n">'+pct(prof,price)+'</td><td class="n">'+(liq?money(p.priceMl):'<span class="muted">—</span>')+'</td><td class="n">'+money(vc)+'</td><td class="n">'+money(vp)+'</td></tr>';
+  }).join('');
+  let h='<section class="pane wide"><div class="row between"><h3 class="h-sm">Mahsulot narxlari</h3><span class="hint">'+list.length+' ta mahsulot · hozirgi narx va qoldiq</span></div>';
+  h+='<div class="row">'+searchBox('pr-q','prq',S.prq,'Mahsulot qidirish')+'</div><div class="filtrow">'+brandSelect('prbrand',all.filter(p=>S.prcat==='all'||p.cat===S.prcat))+catChips('prcat',all.filter(p=>brandOk(p,S.prbrand)))+'</div>';
+  if(!list.length) return h+'<div class="muted" style="font-size:13.5px">'+(all.length?'Hech narsa topilmadi.':'Hali mahsulot yoʻq.')+'</div></section>';
+  h+='<div class="tablewrap tall"><table><thead><tr><th>Mahsulot</th><th>Turi</th><th class="n">Qoldiq</th><th class="n">Tannarx</th><th class="n">Sotuv narxi</th><th class="n">Foyda</th><th class="n">Marja</th><th class="n">1 ml narxi</th><th class="n">Qoldiq (tannarxda)</th><th class="n">Qoldiq (sotuv narxida)</th></tr></thead><tbody>'+rows+'</tbody><tfoot><tr><td colspan="8">Jami</td><td class="n">'+money(tc)+'</td><td class="n">'+money(tp)+'</td></tr></tfoot></table></div><span class="hint">Atirlar uchun tannarx, narx va foyda 1 shisha uchun koʻrsatilgan. Nomini bossangiz, mahsulot ochiladi.</span></section>';
+  return h;
+}
+
+/* ----- Sheets ----- */
+function viewSheet(){
+  const sh=S.sheet; let body, center=false;
+  if(sh.kind==='pick'){ body=sheetPick(sh); center=true; }
+  else if(sh.kind==='cart'){ body='<div class="sheet-head"><span class="disp">Savat</span><button class="btn ghost" type="button" data-act="close">Yopish</button></div><div class="sheet-body">'+cartBody()+'</div>'; center=true; }
+  else if(sh.kind==='product') body=sheetProduct(sh);
+  else if(sh.kind==='material') body=sheetMaterial(sh);
+  else if(sh.kind==='recipe') body=sheetRecipe(sh);
+  else if(sh.kind==='batch'){ body=sheetBatch(sh); center=true; }
+  else if(sh.kind==='expense'){ body=sheetExpense(sh); center=true; }
+  else if(sh.kind==='types') body=sheetTypes(sh);
+  else if(sh.kind==='order') body=sheetOrder(sh);
+  return '<div class="overlay'+(center?' center':'')+'" data-act="bg-close"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">'+body+'</div></div>';
+}
+function f(id,label,bind,val,o){ o=o||{}; return '<div class="field"><label for="'+id+'">'+label+'</label><input id="'+id+'" type="text"'+(o.mode?' inputmode="'+o.mode+'"':'')+(o.list?' list="'+o.list+'" autocomplete="off"':'')+' data-bind="'+bind+'" value="'+esc(val)+'"'+(o.ph?' placeholder="'+esc(o.ph)+'"':'')+'>'+(o.hint?'<span class="hint">'+o.hint+'</span>':'')+'</div>'; }
+function sheetHead(t){ return '<div class="sheet-head"><span class="disp" id="sheet-title">'+t+'</span><button class="btn ghost" type="button" data-act="close">Yopish</button></div>'; }
+function sheetPick(sh){
+  const p=S.products.get(sh.pid); if(!p) return sheetHead('Oʻchirilgan')+'<div class="sheet-body"></div>';
+  const bm=num(p.bottleMl);
+  let b='<div class="row" style="flex-wrap:nowrap;align-items:center"><span style="width:64px;flex:none">'+thumb(p)+'</span><div style="min-width:0"><div class="muted" style="font-size:13px">'+catPill(p.cat)+' '+esc(p.brand||'')+'</div><div class="muted" style="font-size:13px;margin-top:4px">'+q1(p.sealed)+' yangi · '+q1(p.openMl)+' ml ochiq</div></div></div>';
+  const canBottle=!(num(p.priceBottle)<=0&&num(p.priceMl)>0), canMl=!(num(p.priceMl)<=0&&num(p.priceBottle)>0);
+  if(!canBottle&&sh.mode==='bottle') sh.mode='ml'; if(!canMl&&sh.mode==='ml') sh.mode='bottle';
+  const bb=b.length;
+  b+='<div class="opt'+(sh.mode==='bottle'?' on':'')+'" data-act="pick-mode" data-arg="bottle"><button class="ot" type="button" data-act="pick-mode" data-arg="bottle" aria-pressed="'+(sh.mode==='bottle')+'"><span>Butun shisha · '+q1(bm)+' ml</span><span>'+money(p.priceBottle)+'</span></button>'+(sh.mode==='bottle'?'<span class="qty" style="margin:0" data-act="noop"><button type="button" data-act="pick-n" data-arg="-1" aria-label="Kamaytirish">−</button><span>'+sh.n+' '+plural(sh.n,'shisha','shisha')+'</span><button type="button" data-act="pick-n" data-arg="1" aria-label="Koʻpaytirish">+</button></span>':'<span class="os">Yopiq, yangi</span>')+'</div>';
+  if(!canBottle) b=b.slice(0,bb);
+  const mb=b.length;
+  b+='<div class="opt'+(sh.mode==='ml'?' on':'')+'" data-act="pick-mode" data-arg="ml"><button class="ot" type="button" data-act="pick-mode" data-arg="ml" aria-pressed="'+(sh.mode==='ml')+'"><span>Ml boʻyicha</span><span>'+money(p.priceMl)+' / ml</span></button>';
+  if(sh.mode==='ml'){
+    b+='<div class="mlchips" role="group" aria-label="Miqdor">'+ML_CHIPS.map(v=>'<button type="button" data-act="pick-ml" data-arg="'+v+'" aria-pressed="'+(num(sh.ml)===v)+'">'+v+'</button>').join('')+'</div>';
+    b+='<div class="fgrid"><div class="field"><label for="pk-ml">Boshqa miqdor (ml)</label><input id="pk-ml" type="text" inputmode="decimal" data-bind="sheet.ml" value="'+esc(sh.ml)+'"></div><div class="field"><label for="pk-cont">Atomayzer</label><select id="pk-cont" data-bind="sheet.cont">'+atomOptions(sh.cont)+'</select></div></div>';
+    const a=atomRef(sh.cont);
+    if(a){
+      if(sh.atomFor!==a.key){ sh.atomFor=a.key; sh.atomPrice=a.price>0?str(a.price):''; }
+      const sp=str(sh.atomPrice).trim()!==''?num(sh.atomPrice):a.price, gift=!!sh.gift;
+      b+='<div class="atomrow"><div class="seg" role="group" aria-label="Atomayzer"><button type="button" data-act="pick-gift" data-arg="0" aria-pressed="'+(!gift)+'">Atomayzer sotiladi</button><button type="button" data-act="pick-gift" data-arg="1" aria-pressed="'+gift+'">Sovgʻa</button></div>';
+      if(gift) b+='<span class="hint">Chekda “sovgʻa” deb yoziladi.'+(isSeller()?'':' Tannarxi '+money(a.cost)+' foydadan ayriladi.')+'</span>';
+      else b+='<div class="field"><label for="pk-ap">Atomayzer narxi</label><input id="pk-ap" type="text" inputmode="numeric" data-bind="sheet.atomPrice" value="'+esc(sh.atomPrice)+'" placeholder="'+esc(a.price>0?str(a.price):'0')+'"><span class="hint">'+(sp>0?(isSeller()?'Chekda shu narx yoziladi.':'Tannarxi '+money(a.cost)+' · ustama '+money(sp-a.cost)):'Narx kiritilmasa, sovgʻa deb yoziladi.')+'</span></div>';
+      b+='</div>';
+    }
+  } else b+='<span class="os">Ochiq shishadan quyiladi. U tugasa, yangisi oʻzi ochiladi.</span>';
+  b+='</div>';
+  if(!canMl) b=b.slice(0,mb);
+  const l={pid:sh.pid,kind:sh.mode,n:sh.n,ml:num(sh.ml),cont:sh.cont,gift:!!sh.gift,atomPrice:sh.atomPrice};
+  const cp0=cartPlan(), base0=cp0.work.get(sh.pid)||p, r=planLine(base0,l,cp0.work);
+  if(base0!==p) b+='<div class="note info">Savatda bor. Qolgani: '+(isLiquid(p)?q1(num(base0.sealed))+' yangi · '+q1(num(base0.openMl))+' ml ochiq':q1(base0.qty)+' ta')+'</div>';
+  if(r.opened&&!r.err) b+='<div class="note info">Bunda '+r.opened+' ta yangi shisha ochiladi.</div>';
+  if(r.err) b+='<div class="note bad" role="alert">Sotib boʻlmaydi: '+esc(r.err)+'</div>';
+  r.warn.forEach(w=>{ b+='<div class="note warn">'+esc(w)+'</div>'; });
+  const ok=(sh.mode==='ml'?num(sh.ml)>0:sh.n>0)&&!r.err;
+  return sheetHead(esc(p.name))+'<div class="sheet-body">'+b+'</div><div class="sheet-foot"><button class="btn primary big" type="button" data-act="pick-add"'+(ok?'':' disabled')+'>Savatga qoʻshish · '+money(r.list)+'</button></div>';
+}
+function sheetProduct(sh){
+  const d=sh.d, p=sh.id?S.products.get(sh.id):null, c=CAT[d.cat]||CATS[0], liquid=sh.nt?!!sh.nt.liquid:c.liquid, hand=!sh.nt&&d.cat==='handmade';
+  const prev={name:d.name,cat:d.cat,img:d.img};
+  let b='<div class="imgpick">'+thumb(prev)+'<div class="row" style="flex-direction:column;align-items:flex-start"><span class="btn filebtn small">'+(S.uploading?'Yuklanmoqda…':(d.img?'Rasmni almashtirish':'Rasm qoʻshish'))+'<input id="sh-img" type="file" accept="image/*" data-file="img" aria-label="Mahsulot rasmi"'+(S.uploading?' disabled':'')+'></span>'+(d.img?'<button class="linkbtn bad" type="button" data-act="img-rm">Rasmni oʻchirish</button>':'<span class="hint">“Sotish” oynasida koʻrinadi.</span>')+'</div></div>';
+  b+=f('sh-name','Nomi','sheet.d.name',d.name,{ph:hand?'Amber Oud No.7':'Sauvage EDP'});
+  b+='<div class="fgrid"><div class="field"><label for="'+(sh.nt?'sh-nt':'sh-cat')+'">Turi</label>'+(sh.nt?'<input id="sh-nt" type="text" data-bind="sheet.nt.label" value="'+esc(sh.nt.label)+'" placeholder="Yangi tur nomi"><span class="hint"><button class="linkbtn" type="button" data-act="nt-cancel">Roʻyxatdan tanlash</button></span>':'<select id="sh-cat" data-bind="sheet.d.cat">'+CATS.map(x=>'<option value="'+esc(x.id)+'"'+(x.id===d.cat?' selected':'')+'>'+esc(x.label)+'</option>').join('')+'</select><span class="hint"><button class="linkbtn" type="button" data-act="nt-new">+ Yangi tur</button></span>')+'</div>'+f('sh-brand',(d.cat==='copy'||d.cat==='analogue')?'Qaysi atirning nusxasi':'Brend','sheet.d.brand',d.brand,{list:'brand-list'})+'</div>'+brandDatalist();
+  if(sh.nt) b+='<div class="field"><label>Yangi tur qanday sotiladi</label><div class="seg" role="group" aria-label="Qanday sotiladi"><button type="button" data-act="nt-liq" data-arg="1" aria-pressed="'+(!!sh.nt.liquid)+'">Shisha va ml</button><button type="button" data-act="nt-liq" data-arg="0" aria-pressed="'+(!sh.nt.liquid)+'">Dona</button></div></div>';
+  if(liquid){
+    const bml=num(d.bottleMl);
+    const rc=p?recipeCostMl(Object.assign({},p,{cat:'handmade'})):0;
+    const cml=hand?(num(d.costMl)>0?num(d.costMl):rc):(bml?num(d.bottleCost)/bml:0);
+    const bcost=bml*cml+(hand&&p?packCost(p):0);
+    b+='<div class="sec"><span class="lbl">Narx</span><div class="fgrid">'+f('sh-pb','Shisha narxi','sheet.d.priceBottle',d.priceBottle,{mode:'numeric',hint:num(d.priceBottle)?'Foyda '+money(num(d.priceBottle)-bcost):'Faqat ml boʻyicha sotsangiz, boʻsh qoldiring'})+f('sh-pml','1 ml narxi','sheet.d.priceMl',d.priceMl,{mode:'numeric',hint:num(d.priceMl)?'Foyda '+money(num(d.priceMl)-cml)+' / ml':'Faqat butun shisha sotsangiz, boʻsh qoldiring'})+'</div>';
+    b+='<div class="fgrid">'+f('sh-bml','Shisha hajmi (ml)','sheet.d.bottleMl',d.bottleMl,{mode:'decimal',hint:'Toʻla shisha necha ml'})+(hand?f('sh-cml','1 ml tannarxi','sheet.d.costMl',d.costMl,{mode:'decimal',ph:rc?String(Math.round(rc)):'',hint:'Partiyalardan hisoblanadi'+(rc?' · retsept '+money(rc):'')}):f('sh-bcost','Shisha tannarxi','sheet.d.bottleCost',d.bottleCost,{mode:'numeric',hint:bml&&num(d.bottleCost)?money(cml)+' / ml':'Toʻla shishani necha soʻmga olgansiz'}))+'</div></div>';
+    b+='<div class="sec"><span class="lbl">Ml boʻyicha sotish</span>'+atomField(d.atom,'sheet.d.atom','sh-atom')+'</div>';
+    b+='<div class="sec"><span class="lbl">Qoldiq</span><div class="fgrid">'+f('sh-sealed',hand?'Tayyor shishalar':'Yangi shishalar','sheet.d.sealed',d.sealed,{mode:'numeric'})+f('sh-open',hand?'Suyuqlik (ml)':'Ochiq shishada qolgan (ml)','sheet.d.openMl',d.openMl,{mode:'decimal',hint:hand?'':'Ochiq shisha boʻlmasa 0'})+f('sh-low','Ogohlantirish: yangi shisha ≤','sheet.d.low',d.low,{mode:'numeric',hint:'0 — ogohlantirmaslik'})+'</div>';
+    if(p){
+      b+='<div class="row">'+(!hand?'<button class="btn small" type="button" data-act="sec" data-arg="rcv">Shisha qabul qilish</button>':'')+(num(p.sealed)>0&&!hand?'<button class="btn small" type="button" data-act="open-bottle" data-arg="'+esc(sh.id)+'"'+dis()+'>Shisha ochish</button>':'')+(num(p.openMl)>0?'<button class="btn small" type="button" data-act="sec" data-arg="wo">Ml hisobdan chiqarish</button>':'')+'</div>';
+    }
+    b+='</div>';
+  } else {
+    b+='<div class="sec"><span class="lbl">Narx va qoldiq</span><div class="fgrid">'+f('sh-price','Narx','sheet.d.price',d.price,{mode:'numeric',hint:num(d.price)?'Foyda '+money(num(d.price)-num(d.cost)):''})+f('sh-cost','Tannarx','sheet.d.cost',d.cost,{mode:'numeric'})+f('sh-qty','Qoldiq','sheet.d.qty',d.qty,{mode:'numeric'})+f('sh-low','Ogohlantirish: ≤','sheet.d.low',d.low,{mode:'numeric',hint:'0 — ogohlantirmaslik'})+'</div>'+(p?'<div class="row"><button class="btn small" type="button" data-act="sec" data-arg="rcv">Kirim qilish</button></div>':'')+'</div>';
+  }
+  if(p&&sh.sec==='rcv'&&!hand&&(CAT[p.cat]||{}).liquid===liquid) b+='<div class="sec"><span class="lbl">Kirim qilish</span><div class="fgrid">'+f('sh-rn',liquid?'Kelgan shishalar':'Kelgan dona','sheet.rcv.n',sh.rcv.n,{mode:'numeric'})+f('sh-rc','Bittasining tannarxi','sheet.rcv.c',sh.rcv.c,{mode:'numeric'})+'</div><div class="row"><button class="btn primary small" type="button" data-act="rcv"'+(num(sh.rcv.n)>0?dis():' disabled')+'>Qoldiqqa qoʻshish</button><span class="hint">Tannarx oʻrtacha hisoblanadi.</span></div></div>';
+  if(p&&sh.sec==='wo'&&liquid) b+='<div class="sec"><span class="lbl">Ochiq shishadan hisobdan chiqarish</span><div class="fgrid">'+f('sh-wo','ml (tester, toʻkilgan, qoldiq)','sheet.wo',sh.wo,{mode:'decimal'})+'</div><div class="row"><button class="btn primary small" type="button" data-act="wo-do"'+(num(sh.wo)>0?dis():' disabled')+'>Hisobdan chiqarish</button><button class="btn small" type="button" data-act="wo-all"'+dis()+'>Shisha boʻshadi</button></div></div>';
+  if(p) b+='<div class="sec"><div class="row">'+(sh.confirmDel?'<button class="btn danger solid small" type="button" data-act="del-product"'+dis()+'>Oʻchirish: '+esc(p.name)+'</button><button class="btn ghost small" type="button" data-act="del-cancel">Qoldirish</button>':'<button class="btn danger small" type="button" data-act="del-ask">Mahsulotni oʻchirish</button>')+'</div></div>';
+  return sheetHead(p?'Mahsulotni tahrirlash':'Yangi mahsulot')+'<div class="sheet-body">'+b+'</div><div class="sheet-foot"><button class="btn" type="button" data-act="close">Bekor qilish</button><button class="btn primary" type="button" data-act="save-product"'+(d.name.trim()&&!S.uploading&&(!sh.nt||sh.nt.label.trim())?dis():' disabled')+'>'+(p?'Saqlash':'Mahsulot qoʻshish')+'</button></div>';
+}
+function sheetMaterial(sh){
+  const d=sh.d, m=sh.id?S.materials.get(sh.id):null;
+  if(!m){
+    let b=f('mt-name','Nomi','sheet.d.name',d.name,{ph:'Atir spirti 96%'});
+    b+='<div class="field"><label for="mt-unit">Oʻlchov birligi</label><select id="mt-unit" data-bind="sheet.d.unit">'+[['ml','ml'],['g','gramm'],['pcs','dona']].map(([k,l])=>'<option value="'+k+'"'+(d.unit===k?' selected':'')+'>'+l+'</option>').join('')+'</select></div>';
+    b+='<div class="fgrid">'+f('mt-stock','Boshlangʻich qoldiq','sheet.d.stock',d.stock,{mode:'decimal'})+f('mt-cost','Tannarxi (1 '+esc(UL(d.unit))+')','sheet.d.cost',d.cost,{mode:'decimal'})+f('mt-low','Ogohlantirish: ≤','sheet.d.low',d.low,{mode:'decimal'})+'</div>';
+    b+=(d.unit==='pcs'?f('mt-price','Sotish narxi (ixtiyoriy)','sheet.d.price',d.price,{mode:'numeric',hint:'Mijozga sotilsa, masalan atomayzer'}):'');
+    return sheetHead('Yangi material')+'<div class="sheet-body">'+b+'</div><div class="sheet-foot"><button class="btn" type="button" data-act="close">Bekor qilish</button><button class="btn primary" type="button" data-act="save-material"'+(d.name.trim()?dis():' disabled')+'>Material qoʻshish</button></div>';
+  }
+  const u=m.unit||'pcs', a=sh.act||'in';
+  let b='<div class="row" style="justify-content:space-between;align-items:flex-end"><div><span class="lbl">Qoldiq</span><div class="bignum">'+q1(m.stock)+'<small>'+esc(UL(u))+'</small></div></div><div style="text-align:right"><span class="lbl">Tannarx</span><div class="num">'+money(m.cost)+' / '+esc(UL(u))+'</div></div></div>';
+  b+='<div class="seg" role="group" aria-label="Amal">'+[['in','Kirim'],['out','Sarf'],['adjust','Sanoq']].map(([k,l])=>'<button type="button" data-act="mat-act" data-arg="'+k+'" aria-pressed="'+(a===k)+'">'+l+'</button>').join('')+'</div>';
+  if(a==='in'){
+    const avg=(Math.max(0,num(m.stock))+num(sh.mv.n))>0&&num(sh.mv.c)>0?(Math.max(0,num(m.stock))*num(m.cost)+num(sh.mv.c))/(Math.max(0,num(m.stock))+num(sh.mv.n)):0;
+    b+='<div class="fgrid">'+f('mv-n','Miqdor ('+esc(UL(u))+')','sheet.mv.n',sh.mv.n,{mode:'decimal'})+f('mv-c','Jami toʻlangan','sheet.mv.c',sh.mv.c,{mode:'numeric',hint:avg?'Yangi tannarx '+money(avg)+' / '+esc(UL(u)):''})+'</div>';
+  } else if(a==='out'){
+    b+='<div class="fgrid">'+f('mv-n','Sarflangan miqdor ('+esc(UL(u))+')','sheet.mv.n',sh.mv.n,{mode:'decimal'})+'</div>';
+  } else {
+    b+='<div class="fgrid">'+f('mv-n','Hozirgi sanoq ('+esc(UL(u))+')','sheet.mv.n',sh.mv.n,{mode:'decimal',hint:sh.mv.n!==''?'Farq '+(num(sh.mv.n)-num(m.stock)>0?'+':'')+q1(num(sh.mv.n)-num(m.stock))+' '+esc(UL(u)):''})+'</div>';
+  }
+  b+=f('mv-note','Izoh (ixtiyoriy)','sheet.mv.note',sh.mv.note,{ph:a==='in'?'Yetkazib beruvchi, hisob-faktura':a==='out'?'Nima uchun ishlatildi':'Oylik sanoq'});
+  const okMv=a==='adjust'?sh.mv.n!==''&&num(sh.mv.n)!==num(m.stock):num(sh.mv.n)>0;
+  b+='<button class="btn primary" type="button" data-act="mat-move"'+(okMv?dis():' disabled')+'>'+(a==='in'?'Qoldiqqa qoʻshish':a==='out'?'Qoldiqdan olish':'Sanoqni saqlash')+'</button>';
+  const log=(m.log||[]).slice().reverse().map(e=>Object.assign({unit:u},e));
+  b+='<div class="sec"><span class="lbl">Tarix</span>'+(log.length?movesList(log,false):'<div class="muted" style="font-size:13.5px">Hali harakat yoʻq.</div>')+'</div>';
+  b+='<div class="sec"><span class="lbl">Maʼlumotlar</span>'+f('mt-name','Nomi','sheet.d.name',d.name)+'<div class="fgrid"><div class="field"><label for="mt-unit">Oʻlchov birligi</label><select id="mt-unit" data-bind="sheet.d.unit">'+[['ml','ml'],['g','gramm'],['pcs','dona']].map(([k,l])=>'<option value="'+k+'"'+(d.unit===k?' selected':'')+'>'+l+'</option>').join('')+'</select></div>'+f('mt-cost','1 birlik tannarxi','sheet.d.cost',d.cost,{mode:'decimal'})+f('mt-low','Ogohlantirish: ≤','sheet.d.low',d.low,{mode:'decimal'})+'</div>'+(d.unit==='pcs'?f('mt-price','Sotish narxi (ixtiyoriy)','sheet.d.price',d.price,{mode:'numeric',hint:'Mijozga sotilsa, masalan atomayzer'}):'')+'<div class="row"><button class="btn small" type="button" data-act="save-material"'+((d.name!==sh.orig.name||d.unit!==sh.orig.unit||d.cost!==sh.orig.cost||d.low!==sh.orig.low||d.price!==sh.orig.price)&&d.name.trim()?dis():' disabled')+'>Saqlash</button>'+(sh.confirmDel?'<button class="btn danger solid small" type="button" data-act="del-material"'+dis()+'>Oʻchirish: '+esc(m.name)+'</button><button class="btn ghost small" type="button" data-act="del-cancel">Qoldirish</button>':'<button class="btn danger small" type="button" data-act="del-ask">Materialni oʻchirish</button>')+'</div></div>';
+  return sheetHead(esc(m.name))+'<div class="sheet-body">'+b+'</div>';
+}
+function sheetRecipe(sh){
+  const p=S.products.get(sh.pid), d=sh.d, mats=[...S.materials.entries()].sort(byName);
+  const line=(kind,r,i)=>'<div class="recipe-line"><select id="rd-'+kind+'-'+i+'-m" data-bind="sheet.d.'+kind+'.'+i+'.mid" aria-label="Material"><option value="">Materialni tanlang</option>'+mats.map(([mid,m])=>'<option value="'+esc(mid)+'"'+(r.mid===mid?' selected':'')+'>'+esc(m.name)+' ('+esc(UL(m.unit||'pcs'))+')</option>').join('')+'</select><input id="rd-'+kind+'-'+i+'-a" type="text" inputmode="decimal" data-bind="sheet.d.'+kind+'.'+i+'.amt" value="'+esc(r.amt)+'" aria-label="Miqdor" placeholder="'+(kind==='recipe'?'ml / g':'soni')+'"><span class="lc">'+(r.mid&&num(r.amt)?money(num(r.amt)*matCost(r.mid)):'')+'</span><button class="xbtn" type="button" data-act="rd-del" data-arg="'+kind+'|'+i+'" aria-label="Olib tashlash">×</button></div>';
+  const tot=d.recipe.reduce((s,r)=>s+(matUnit(r.mid)==='ml'?num(r.amt):0),0), cost=d.recipe.reduce((s,r)=>s+num(r.amt)*matCost(r.mid),0), pk=d.pack.reduce((s,r)=>s+num(r.amt)*matCost(r.mid),0);
+  const bm=p?num(p.bottleMl):0, am=atomRef(d.atom), ac=am?am.cost:0, cml=cost/100;
+  let b=(mats.length?'':'<div class="note warn">Avval “Materiallar” boʻlimiga moy, spirt, shisha va atomayzerlarni qoʻshing.</div>');
+  b+='<div class="lbl">100 ml uchun tarkib</div>'+d.recipe.map((r,i)=>line('recipe',r,i)).join('')+'<div class="row"><button class="btn small" type="button" data-act="rd-add" data-arg="recipe">+ Tarkib</button><span class="hint">'+q1(tot)+' ml · '+money(cost)+' / 100 ml</span></div>';
+  b+='<div class="sec"><div class="lbl">1 shisha uchun idish va qadoq</div>'+d.pack.map((r,i)=>line('pack',r,i)).join('')+'<div class="row"><button class="btn small" type="button" data-act="rd-add" data-arg="pack">+ Qadoq</button><span class="hint">'+money(pk)+' / shisha</span></div></div>';
+  b+='<div class="sec">'+atomField(d.atom,'sheet.d.atom','rd-atom')+'</div>';
+  b+='<div class="sec"><div class="lbl">Tannarx</div><div class="kv"><div><span>1 ml suyuqlik</span><b>'+money(cml)+'</b></div><div><span>'+q1(bm)+' ml shisha</span><b>'+money(bm*cml+pk)+'</b></div><div><span>10 ml quyma</span><b>'+money(10*cml+ac)+'</b></div><div><span>Shundan atomayzer</span><b>'+money(ac)+'</b></div></div></div>';
+  return sheetHead('Retsept · '+esc(p?p.name:''))+'<div class="sheet-body">'+b+'</div><div class="sheet-foot"><button class="btn" type="button" data-act="close">Bekor qilish</button><button class="btn primary" type="button" data-act="rd-save"'+dis()+'>Retseptni saqlash</button></div>';
+}
+function sheetBatch(sh){
+  const p=S.products.get(sh.pid); if(!p) return sheetHead('Oʻchirilgan');
+  const bt=planBatch(p,sh);
+  let b='<div class="fgrid">'+f('mk-ml','Tayyorlash (ml)','sheet.ml',sh.ml,{mode:'decimal',ph:'300'})+f('mk-fill','Hozir shishaga quyish','sheet.fill',sh.fill,{mode:'numeric',ph:q1(p.bottleMl)+' ml dan'})+'</div>';
+  if(bt.rows.length) b+='<div class="tablewrap"><table><thead><tr><th>Materiallardan olinadi</th><th class="n">Miqdor</th><th class="n">Bor</th></tr></thead><tbody>'+bt.rows.map(r=>'<tr><td>'+esc(r.name)+'</td><td class="n">'+q1(r.need)+' '+esc(UL(r.unit))+'</td><td class="n'+(r.short?' bad':'')+'">'+q1(r.have)+'</td></tr>').join('')+'</tbody></table></div>';
+  if(bt.X>0||bt.N>0) b+='<div class="kv"><div><span>Partiya tannarxi</span><b>'+money(bt.total)+'</b></div><div><span>Keyin 1 ml tannarxi</span><b>'+money(bt.newCostMl)+'</b></div><div><span>Keyin suyuqlik</span><b>'+q1(bt.open)+' ml</b></div><div><span>Keyin shishalar</span><b>'+q1(bt.sealed)+'</b></div></div>';
+  bt.warn.forEach(w=>{ b+='<div class="note warn">'+esc(w)+'</div>'; });
+  const hist=(p.batches||[]).slice(-6).reverse();
+  if(hist.length) b+='<div class="sec"><span class="lbl">Oldingi partiyalar</span><ul class="moves">'+hist.map(x=>'<li><span>'+q1(x.ml)+' ml'+(x.bottles?' · '+x.bottles+' ta quyildi':'')+'<span class="w" style="display:block">'+esc(shortDay(x.day||String(x.t).slice(0,10)))+'</span></span><span class="d">'+money(x.cost)+'</span></li>').join('')+'</ul></div>';
+  return sheetHead('Partiya · '+esc(p.name))+'<div class="sheet-body">'+b+'</div><div class="sheet-foot"><button class="btn primary big" type="button" data-act="mk-do"'+(bt.ok?dis():' disabled')+'>'+(bt.X>0?q1(bt.X)+' ml tayyorlash':'Shishaga quyish')+(bt.N>0&&bt.X>0?' + '+bt.N+' ta quyish':'')+'</button></div>';
+}
+function sheetTypes(sh){
+  const cnt={}; for(const p of S.products.values()) cnt[p.cat]=(cnt[p.cat]||0)+1;
+  let b='<div class="debtbox"><span class="lbl">Yangi tur qoʻshish</span>'+f('ty-name','Nomi','sheet.nl',sh.nl,{ph:'Masalan: Krem, Sovgʻa toʻplami, Tester'})+'<div class="seg" role="group" aria-label="Qanday sotiladi"><button type="button" data-act="ty-liq" data-arg="1" aria-pressed="'+(!!sh.nliq)+'">Shisha va ml</button><button type="button" data-act="ty-liq" data-arg="0" aria-pressed="'+(!sh.nliq)+'">Dona</button></div><span class="hint">'+(sh.nliq?'Butun shisha yoki ml boʻyicha sotiladi (atirlar kabi).':'Dona hisobida sotiladi (dezodorant, aksessuar kabi).')+'</span><div><button class="btn primary" type="button" data-act="ty-add"'+(sh.nl.trim()?dis():' disabled')+'>Qoʻshish</button></div></div>';
+  b+='<div class="sec"><span class="lbl">Barcha turlar</span><div>'+CATS.map(c=>{
+    const n=cnt[c.id]||0, how='<span class="pill">'+(c.liquid?'Shisha va ml':'Dona')+'</span>';
+    if(c.custom&&sh.edit===c.id) return '<div class="trow"><input id="ty-edit" type="text" data-bind="sheet.editLabel" value="'+esc(sh.editLabel)+'" aria-label="Tur nomi"><div class="row"><button class="btn primary small" type="button" data-act="ty-save" data-arg="'+esc(c.id)+'"'+(sh.editLabel.trim()?dis():' disabled')+'>Saqlash</button><button class="btn ghost small" type="button" data-act="ty-cancel">Bekor qilish</button></div></div>';
+    if(c.custom&&sh.del===c.id) return '<div class="trow"><span class="nm">'+esc(c.label)+'</span><div class="row"><button class="btn danger solid small" type="button" data-act="ty-del" data-arg="'+esc(c.id)+'"'+dis()+'>Oʻchirish</button><button class="btn ghost small" type="button" data-act="ty-cancel">Qoldirish</button></div></div>';
+    return '<div class="trow"><span><span class="nm">'+esc(c.label)+'</span> '+how+'<span class="sub" style="display:block">'+n+' ta mahsulot'+(c.custom?'':' · asosiy tur')+'</span></span>'+(c.custom?'<div class="row"><button class="btn small" type="button" data-act="ty-edit" data-arg="'+esc(c.id)+'"'+dis()+'>Nomini oʻzgartirish</button>'+(n?'':'<button class="btn danger small" type="button" data-act="ty-del-ask" data-arg="'+esc(c.id)+'"'+dis()+'>Oʻchirish</button>')+'</div>':'<span></span>')+'</div>';
+  }).join('')+'</div><span class="hint">Mahsulotlari bor turni oʻchirib boʻlmaydi. Avval mahsulotlarni boshqa turga oʻtkazing.</span></div>';
+  return sheetHead('Mahsulot turlari')+'<div class="sheet-body">'+b+'</div><div class="sheet-foot"><button class="btn" type="button" data-act="close">Yopish</button></div>';
+}
+async function saveTypes(list){ S.types=list; setTypes(list); await retry(()=>DB.doc('settings/types').set({list})); }
+function sheetExpense(sh){
+  const d=sh.d, x=sh.id?S.expenses.get(sh.id):null;
+  let b=f('ex-amt','Summa','sheet.d.amount',d.amount,{mode:'numeric',ph:'0'});
+  b+='<div class="field"><label>Turi</label><div class="chips" style="flex-wrap:wrap;overflow:visible">'+EXP_CATS.map(([k,l])=>'<button class="chip" type="button" data-act="ex-cat" data-arg="'+k+'" aria-pressed="'+(d.cat===k)+'">'+l+'</button>').join('')+'</div></div>';
+  b+='<div class="field"><label for="ex-day">Sana</label><input id="ex-day" type="date" data-bind="sheet.d.day" value="'+esc(d.day)+'" max="'+dayKey()+'"></div>';
+  b+='<div class="field"><label>Qanday toʻlandi</label><div class="seg" role="group" aria-label="Toʻlov turi">'+PAYS.map(([k,l])=>'<button type="button" data-act="ex-pay" data-arg="'+k+'" aria-pressed="'+(d.pay===k)+'">'+l+'</button>').join('')+'</div></div>';
+  b+=f('ex-note','Izoh (ixtiyoriy)','sheet.d.note',d.note,{ph:'Masalan: noyabr oyi ijarasi'});
+  if(x) b+='<div class="sec"><div class="row">'+(sh.confirmDel?'<button class="btn danger solid small" type="button" data-act="del-expense"'+dis()+'>Xarajatni oʻchirish</button><button class="btn ghost small" type="button" data-act="del-cancel">Qoldirish</button>':'<button class="btn danger small" type="button" data-act="del-ask">Oʻchirish</button>')+'</div></div>';
+  const ok=num(d.amount)>0&&!!d.day;
+  return sheetHead(x?'Xarajatni tahrirlash':'Yangi xarajat')+'<div class="sheet-body">'+b+'</div><div class="sheet-foot"><button class="btn" type="button" data-act="close">Bekor qilish</button><button class="btn primary" type="button" data-act="save-expense"'+(ok?dis():' disabled')+'>Saqlash</button></div>';
+}
+function sheetOrder(sh){
+  const d=sh.d;
+  const prods=[...S.products.entries()].filter(([id,p])=>!isHand(p)).sort(byName), mats=[...S.materials.entries()].sort(byName);
+  const opts=sel=>'<option value="">Tanlang</option><optgroup label="Mahsulotlar">'+prods.map(([id,p])=>'<option value="p:'+esc(id)+'"'+(sel==='p:'+id?' selected':'')+'>'+esc(p.name)+'</option>').join('')+'</optgroup><optgroup label="Materiallar">'+mats.map(([id,m])=>'<option value="m:'+esc(id)+'"'+(sel==='m:'+id?' selected':'')+'>'+esc(m.name)+'</option>').join('')+'</optgroup>';
+  const total=d.lines.reduce((a,l)=>a+num(l.qty)*num(l.cost),0);
+  const sups=[...new Set([...S.orders.values()].map(o=>o.supplier).filter(Boolean))].sort();
+  let b=f('or-sup','Yetkazib beruvchi','sheet.d.supplier',d.supplier,{ph:'Kompaniya yoki ism',list:'sup-list'})+(sups.length?'<datalist id="sup-list">'+sups.map(x=>'<option value="'+esc(x)+'"></option>').join('')+'</datalist>':'');
+  b+='<div class="lbl">Nima buyurtma qilinadi</div>'+d.lines.map((l,i)=>{ const inf=l.key?itemInfo(l.key):null; return '<div class="ordline"><select id="ol-'+i+'-k" data-bind="sheet.d.lines.'+i+'.key" aria-label="Mahsulot yoki material">'+opts(l.key)+'</select><div class="ordnums">'+f('ol-'+i+'-q','Soni'+(inf?' ('+esc(inf.unit)+')':''),'sheet.d.lines.'+i+'.qty',l.qty,{mode:'decimal'})+f('ol-'+i+'-c','Bittasining narxi','sheet.d.lines.'+i+'.cost',l.cost,{mode:'numeric'})+'<div class="field sumf"><label>Summa</label><div class="num" style="padding:12px 0">'+money(num(l.qty)*num(l.cost))+'</div></div><button class="xbtn" type="button" data-act="ol-del" data-arg="'+i+'" aria-label="Olib tashlash">×</button></div></div>'; }).join('');
+  b+='<div class="row"><button class="btn small" type="button" data-act="ol-add">+ Qator qoʻshish</button></div>';
+  b+='<div class="total"><span class="lbl">Jami</span><b>'+money(total)+'</b></div>';
+  b+='<div class="sec"><div class="fgrid">'+f('or-paid','Hozir toʻlangan summa','sheet.d.paid',d.paid,{mode:'numeric',hint:num(d.paid)<total?'Qolgan '+money(total-num(d.paid))+' yetkazib beruvchiga qarz boʻladi.':'Toʻliq toʻlangan.'})+'<div class="field"><label for="or-exp">Kutilgan sana</label><input id="or-exp" type="date" data-bind="sheet.d.expected" value="'+esc(d.expected)+'"></div></div><div class="seg" role="group" aria-label="Toʻlov turi">'+PAYS.map(([k,l])=>'<button type="button" data-act="or-pay" data-arg="'+k+'" aria-pressed="'+(d.pay===k)+'">'+l+'</button>').join('')+'</div>'+f('or-note','Izoh (ixtiyoriy)','sheet.d.note',d.note)+'</div>';
+  b+='<label class="check"><input type="checkbox" id="or-now" data-check="sheet.d.now"'+(d.now?' checked':'')+'> Tovar keldi, hozir qoldiqqa qoʻshilsin</label>';
+  const ok=d.lines.some(l=>l.key&&num(l.qty)>0);
+  return sheetHead('Yangi buyurtma')+'<div class="sheet-body">'+b+'</div><div class="sheet-foot"><button class="btn" type="button" data-act="close">Bekor qilish</button><button class="btn primary" type="button" data-act="save-order"'+(ok?dis():' disabled')+'>'+(d.now?'Saqlash va qabul qilish':'Buyurtmani saqlash')+'</button></div>';
+}
+async function receiveOrder(id){
+  const o=S.orders.get(id); if(!o||o.status==='received') return;
+  const mats=[];
+  for(const l of (o.lines||[])){
+    const n=num(l.qty), c=num(l.cost);
+    if(l.type==='product'){
+      const p=S.products.get(l.id); if(!p) continue;
+      if(isLiquid(p)){ const bm=num(p.bottleMl), old=Math.max(0,num(p.openMl))+Math.max(0,num(p.sealed))*bm, tot=old+n*bm; await patchProduct(l.id,{sealed:num(p.sealed)+Math.floor(n),costMl:rnd(tot>0?(old*num(p.costMl)+n*c)/tot:c/(bm||1))}); }
+      else { const old=Math.max(0,num(p.qty)); await patchProduct(l.id,{qty:num(p.qty)+Math.floor(n),cost:rnd(old+n>0?(old*num(p.cost)+n*c)/(old+n):c)}); }
+    } else {
+      const m=S.materials.get(l.id); if(!m) continue; const old=Math.max(0,num(m.stock));
+      mats.push({mid:l.id,delta:n,type:'in',note:'Buyurtma'+(o.supplier?' · '+o.supplier:''),cost:(old+n)>0?(old*num(m.cost)+n*c)/(old+n):c});
+    }
+  }
+  await moveMats(mats);
+  const fl={status:'received',receivedDay:dayKey(),receivedT:new Date().toISOString()};
+  S.orders.set(id,Object.assign({},S.orders.get(id),fl)); await retry(()=>DB.doc('orders/'+id).update(fl));
+}
+function productDraft(p,cat){
+  const c=p?p.cat:(cat||'original');
+  return {name:p?p.name||'':'',brand:p?p.brand||'':'',cat:c,img:p?p.img||'':'',atom:p?p.atom||'':'',
+    bottleMl:str(p&&p.bottleMl!=null?p.bottleMl:(c==='handmade'?50:100)),sealed:str(p?num(p.sealed):0),openMl:str(p?num(p.openMl):0),
+    bottleCost:p&&isLiquid(p)&&!isHand(p)?str(Math.round(num(p.costMl)*num(p.bottleMl))):'',costMl:p&&isHand(p)&&num(p.costMl)>0?str(rnd(p.costMl)):'',
+    priceBottle:str(p&&p.priceBottle!=null?p.priceBottle:''),priceMl:str(p&&p.priceMl!=null?p.priceMl:''),low:str(p&&p.low!=null?p.low:0),
+    qty:str(p?num(p.qty):0),cost:str(p&&p.cost!=null?p.cost:''),price:str(p&&p.price!=null?p.price:'')};
+}
+function materialDraft(m){ return {name:m?m.name||'':'',unit:m?m.unit||'pcs':'ml',stock:str(m?num(m.stock):0),cost:str(m&&m.cost!=null?m.cost:''),low:str(m&&m.low!=null?m.low:0),price:str(m&&m.price?m.price:'')}; }
+
+/* ---------- image upload ---------- */
+async function shrink(file){
+  const url=URL.createObjectURL(file);
+  try{
+    const img=await new Promise((res,rej)=>{ const i=new Image(); const to=setTimeout(()=>rej(new Error('timeout')),3000); i.onload=()=>{ clearTimeout(to); res(i); }; i.onerror=()=>{ clearTimeout(to); rej(new Error('load')); }; i.src=url; });
+    const max=640, s=Math.min(1,max/Math.max(img.naturalWidth,img.naturalHeight));
+    const c=document.createElement('canvas'); c.width=Math.round(img.naturalWidth*s); c.height=Math.round(img.naturalHeight*s);
+    c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+    return await new Promise(res=>c.toBlob(b=>res(b||file),'image/jpeg',0.75));
+  }catch(e){ return file; }
+  finally{ URL.revokeObjectURL(url); }
+}
+async function uploadImage(file){
+  if(!file) return;
+  if(!canWrite()){ toast('Bu doʻkonni faqat koʻra olasiz, oʻzgartira olmaysiz.','bad'); return; }
+  try{ if(!ASSETS) ASSETS=await window.claude.use('assets'); }catch(e){ ASSETS=null; }
+  if(!ASSETS){ toast('Rasmni faqat doʻkon egasi yoki muharrir qoʻsha oladi.','bad'); return; }
+  S.uploading=true; render();
+  try{
+    const blob=await shrink(file);
+    let res; try{ res=await ASSETS.upload(blob); }catch(e){ if(e&&e.code==='store_unavailable'){ await sleep(600); res=await ASSETS.upload(blob); } else throw e; }
+    if(S.sheet&&S.sheet.kind==='product'){ S.sheet.d.img=res.id; }
+  }catch(e){ toast('Rasm yuklanmadi. Kichikroq JPG yoki PNG fayl tanlang.','bad'); }
+  finally{ S.uploading=false; render(); }
+}
+
+/* ---------- actions ---------- */
+function openSheet(o){ S.sheet=o; render(); }
+const ACT={
+  noop(){},
+  tab(k){ S.tab=k; S.confirmUndo=null; S.sheet=null; render(); try{ window.scrollTo(0,0); }catch(e){} },
+  chip(a){ const [k,v]=a.split('|'); S[k]=v; render(); },
+  tile(id){
+    const p=S.products.get(id); if(!p) return;
+    if(soldOut(p)){ toast(p.name+' qolmagan. Avval qoldiqni “Mahsulotlar”da kiriting.','bad'); return; }
+    if(!isLiquid(p)){ const ex=S.cart.find(l=>l.pid===id&&l.kind==='piece'); const inC=ex?num(ex.n):0; if(inC+1>num(p.qty)){ toast('Faqat '+q1(p.qty)+' ta bor — hammasi savatda.','bad'); return; } if(ex) ex.n=inC+1; else S.cart.push({pid:id,kind:'piece',n:1,ml:0}); render(); toast('Qoʻshildi: '+p.name); return; }
+    openSheet({kind:'pick',pid:id,mode:(num(p.priceBottle)<=0&&num(p.priceMl)>0)?'ml':(num(p.priceMl)<=0&&num(p.priceBottle)>0)?'bottle':(num(p.sealed)>0?'bottle':'ml'),n:1,ml:'10',cont:atomRef(p.atom)?atomKey(p.atom):(atomRef(S.lastCont)?S.lastCont:''),gift:false,atomPrice:'',atomFor:''});
+  },
+  'pick-mode'(m,el,e){ if(e.target!==el&&e.target.closest('input,select,label')&&!e.target.closest('.ot')) return; S.sheet.mode=m; render(); },
+  'pick-n'(d){ S.sheet.n=Math.max(1,S.sheet.n+Number(d)); render(); },
+  'pick-ml'(v){ S.sheet.ml=String(v); render(); },
+  'pick-add'(){
+    const sh=S.sheet, p=S.products.get(sh.pid); if(!p) return;
+    { const cp0=cartPlan(), r0=planLine(cp0.work.get(sh.pid)||p,{pid:sh.pid,kind:sh.mode,n:sh.n,ml:num(sh.ml),cont:sh.cont,gift:!!sh.gift,atomPrice:sh.atomPrice},cp0.work); if(r0.err){ toast('Sotib boʻlmaydi: '+r0.err,'bad'); return; } }
+    if(sh.mode==='bottle'){ const ex=S.cart.find(l=>l.pid===sh.pid&&l.kind==='bottle'); if(ex) ex.n=num(ex.n)+sh.n; else S.cart.push({pid:sh.pid,kind:'bottle',n:sh.n,ml:0}); }
+    else { S.cart.push({pid:sh.pid,kind:'ml',n:0,ml:num(sh.ml),cont:sh.cont,gift:!!sh.gift,atomPrice:sh.atomPrice}); S.lastCont=sh.cont; }
+    S.sheet=null; render(); toast('Qoʻshildi: '+p.name);
+  },
+  'pick-gift'(v){ if(!S.sheet) return; S.sheet.gift=v==='1'; render(); },
+  'line-gift'(i){ const l=S.cart[Number(i)]; if(!l) return; const x=cartPlan().lines[Number(i)]; const g=x&&x.r&&x.r.atom?x.r.atom.gift:!!l.gift; l.gift=!g; render(); },
+  'line-n'(a){ const [i,d]=a.split('|'); const l=S.cart[i]; const old=l.n; l.n=Math.max(1,num(l.n)+Number(d)); const x=cartPlan().lines[Number(i)]; if(Number(d)>0&&x&&x.r&&x.r.err){ l.n=old; toast(x.r.err,'bad'); } render(); },
+  'line-ml'(a){ const [i,d]=a.split('|'); const l=S.cart[i]; const v=num(l.ml); const st=v<10?1:5; l.ml=Math.max(1,v+Number(d)*st); const x=cartPlan().lines[Number(i)]; if(Number(d)>0&&x&&x.r&&x.r.err){ l.ml=v; toast(x.r.err,'bad'); } render(); },
+  'line-rm'(i){ S.cart.splice(Number(i),1); if(!S.cart.length&&S.sheet&&S.sheet.kind==='cart') S.sheet=null; render(); },
+  'cart-clear'(){ S.cart=[]; S.discount=''; if(S.sheet&&S.sheet.kind==='cart') S.sheet=null; render(); },
+  'open-cart'(){ openSheet({kind:'cart'}); },
+  pay(k){ S.pay=k; render(); },
+  async checkout(){
+    const cp=cartPlan(); const base0=new Map([...cp.work.keys()].map(k=>[k,S.products.get(k)])); const lines=cp.lines.filter(x=>x.r); if(!lines.length) return;
+    if(cartBad(cp)){ toast('Savatda yetarli boʻlmagan mahsulot bor.','bad'); render(); return; }
+    const debt=S.pay==='debt'; if(debt&&!debtOk()){ toast('Mijoz ismi, telefoni va toʻlov sanasini kiriting.','bad'); return; }
+    const cust={name:S.cust.name.trim(),phone:S.cust.phone.trim(),due:S.cust.due};
+    const rid='r'+uid(), t=new Date().toISOString();
+    const items=[];
+    lines.forEach(x=>{
+      const r=x.r, a=r.atom, mlP=a?(r.list>0?x.price*r.mlList/r.list:0):x.price;
+      const it={id:uid(),rid,t,pid:x.l.pid,name:x.p.name,brand:x.p.brand||'',cat:x.p.cat,kind:r.kind,n:r.n,ml:rnd(r.ml),price:rnd(mlP),cost:rnd(a?r.mlCost:r.cost),pay:S.pay,opened:r.opened,filled:r.filled}; if(debt) it.cust=cust.name; items.push(it);
+      if(a){
+        const ai={id:uid(),rid,t,name:a.name,brand:'',kind:a.k==='p'?'piece':'atom',n:1,ml:0,price:a.gift?0:rnd(x.price-mlP),cost:rnd(a.cost),pay:S.pay,opened:0,filled:0,with:x.p.name};
+        if(a.k==='p'){ const ap=S.products.get(a.id); ai.pid=a.id; ai.cat=ap?ap.cat:'atomizer'; ai.brand=ap&&ap.brand||''; } else { ai.mid=a.id; ai.cat='atomizer'; }
+        if(a.gift) ai.gift=true; if(debt) ai.cust=cust.name; items.push(ai);
+      }
+    });
+    const total=cp.total;
+    const ok=await run(async()=>{
+      for(const [pid,wp] of cp.work){ const p=S.products.get(pid); if(!p) continue; const f=isLiquid(p)?{sealed:wp.sealed,openMl:wp.openMl}:{qty:wp.qty}; await patchProduct(pid,f,base0.get(pid)||p); }
+      await moveMats(cp.uses);
+      await addSaleItems(items);
+      if(debt){ const doc={rid,day:dayKey(),t,ms:Date.now(),name:cust.name,phone:cust.phone,due:cust.due,total:rnd(total),paid:0,payments:[],items:items.map(it=>({name:it.name,desc:lineDesc(it.kind,it.n,it.ml,0,it.gift)}))}; S.debts.set(rid,doc); await retry(()=>DB.doc('debts/'+rid).set(doc)); }
+    },debt?'Nasiyaga sotildi: '+cust.name+' · '+plainMoney(total):'Sotuv saqlandi · '+plainMoney(total));
+    if(ok){ S.cart=[]; S.discount=''; if(debt){ S.cust={name:'',phone:'',due:''}; S.pay='cash'; } if(S.sheet&&S.sheet.kind==='cart') S.sheet=null; render(); }
+  },
+  'undo-ask'(r){ S.confirmUndo=r; render(); },
+  'undo-cancel'(){ S.confirmUndo=null; render(); },
+  async undo(rid){
+    const found=[]; for(const [docId,d] of S.sales) (d.items||[]).forEach(it=>{ if((it.rid||it.id)===rid) found.push({docId,it}); });
+    if(!found.length) return;
+    if(isSeller()){ const dt=S.debts.get(rid); if(found.some(({docId})=>(S.sales.get(docId)||{}).day!==dayKey())||(dt&&num(dt.paid)>0)){ toast('Bu sotuvni faqat doʻkon egasi bekor qila oladi.','bad'); return; } }
+    await run(async()=>{
+      const back=new Map(), mats=[];
+      found.forEach(({it})=>{ if(it.kind==='atom'){ if(it.mid) mats.push({mid:it.mid,delta:1,type:'return',note:'Sotuv bekor qilindi · '+(it.with||it.name)}); return; } const b=back.get(it.pid)||{n:0,ml:0,q:0}; if(it.kind==='piece') b.q+=num(it.n); else if(it.kind==='bottle') b.n+=num(it.n); else b.ml+=num(it.ml); back.set(it.pid,b); if(it.cont) mats.push({mid:it.cont,delta:1,type:'return',note:'Sotuv bekor qilindi · '+it.name}); });
+      for(const [pid,b] of back){ const p=S.products.get(pid); if(!p) continue; const f={}; if(b.q) f.qty=num(p.qty)+b.q; if(b.n) f.sealed=num(p.sealed)+b.n; if(b.ml) f.openMl=rnd(num(p.openMl)+b.ml); if(Object.keys(f).length) await patchProduct(pid,f); }
+      await moveMats(mats);
+      if(S.debts.has(rid)){ S.debts.delete(rid); await retry(()=>DB.doc('debts/'+rid).delete()); }
+      const docs=new Set(found.map(x=>x.docId));
+      for(const docId of docs){ const c=S.sales.get(docId); const items=((c&&c.items)||[]).filter(x=>(x.rid||x.id)!==rid); if(DB.remove){ const gone=((c&&c.items)||[]).filter(x=>(x.rid||x.id)===rid); S.sales.set(docId,Object.assign({},c,{items})); await retry(()=>DB.doc('sales/'+docId).update({items:DB.remove(...gone)})); continue; } if(items.length){ const doc=Object.assign({},c,{items}); S.sales.set(docId,doc); await retry(()=>DB.doc('sales/'+docId).set(doc)); } else { S.sales.delete(docId); await retry(()=>DB.doc('sales/'+docId).delete()); } }
+    },'Sotuv bekor qilindi. Qoldiq qaytarildi.');
+    S.confirmUndo=null; render();
+  },
+  'new-product'(cat){ const d=productDraft(null,cat||(['all','open','low'].includes(S.pcat)?(S.tab==='handmade'?'handmade':'original'):S.pcat)); openSheet({kind:'product',id:null,d,orig:Object.assign({},d),rcv:{n:'',c:''},wo:'',sec:'',confirmDel:false}); focusSoon('sh-name'); },
+  'edit-product'(id){ const p=S.products.get(id); if(!p) return; const d=productDraft(p); openSheet({kind:'product',id,d,orig:Object.assign({},d),rcv:{n:'',c:isLiquid(p)?str(Math.round(bottleCost(p))):str(p.cost)},wo:'',sec:'',confirmDel:false}); },
+  sec(k){ S.sheet.sec=S.sheet.sec===k?'':k; render(); },
+  'img-rm'(){ S.sheet.d.img=''; render(); },
+  'new-material'(){ const d=materialDraft(null); openSheet({kind:'material',id:null,d,orig:Object.assign({},d),mv:{n:'',c:'',note:''},act:'in',confirmDel:false}); focusSoon('mt-name'); },
+  'edit-material'(id){ const m=S.materials.get(id); if(!m) return; const d=materialDraft(m); openSheet({kind:'material',id,d,orig:Object.assign({},d),mv:{n:'',c:'',note:''},act:'in',confirmDel:false}); },
+  'mat-act'(k){ S.sheet.act=k; S.sheet.mv={n:k==='adjust'?str(num(S.materials.get(S.sheet.id).stock)):'',c:'',note:''}; render(); },
+  async 'mat-move'(){
+    const sh=S.sheet, m=S.materials.get(sh.id); if(!m) return; const a=sh.act, n=num(sh.mv.n);
+    let mv;
+    if(a==='in'){ const old=Math.max(0,num(m.stock)); const c=num(sh.mv.c); mv={mid:sh.id,delta:n,type:'in',note:(sh.mv.note||'')+(c?(sh.mv.note?' · ':'')+'toʻlandi '+plainMoney(c):''),cost:c>0?(old*num(m.cost)+c)/(old+n):undefined}; if(mv.cost===undefined) delete mv.cost; }
+    else if(a==='out') mv={mid:sh.id,delta:-n,type:'out',note:sh.mv.note||''};
+    else mv={mid:sh.id,delta:rnd(n-num(m.stock)),type:'adjust',note:sh.mv.note||''};
+    const ok=await run(()=>moveMats([mv]),a==='in'?'Qoʻshildi: '+q1(n)+' '+UL(m.unit||'pcs'):a==='out'?'Olindi: '+q1(n)+' '+UL(m.unit||'pcs'):'Sanoq saqlandi');
+    if(ok&&S.sheet){ const nd=materialDraft(S.materials.get(sh.id)); S.sheet.d.cost=nd.cost; S.sheet.orig.cost=nd.cost; S.sheet.mv={n:a==='adjust'?str(num(S.materials.get(sh.id).stock)):'',c:'',note:''}; render(); }
+  },
+  close(){ S.sheet=null; render(); },
+  'bg-close'(a,el,e){ if(e.target===el){ S.sheet=null; render(); } },
+  'del-ask'(){ S.sheet.confirmDel=true; render(); },
+  'del-cancel'(){ S.sheet.confirmDel=false; render(); },
+  async 'save-product'(){
+    const sh=S.sheet, d=sh.d, id=sh.id||('p'+uid()), isNew=!sh.id;
+    let newType=null; const prevCat=d.cat;
+    if(sh.nt&&sh.nt.label.trim()){ const lb=sh.nt.label.trim(), ex=CATS.find(x=>x.label.toLowerCase()===lb.toLowerCase()); if(ex) d.cat=ex.id; else { newType={id:'t'+uid(),label:lb,liquid:!!sh.nt.liquid}; d.cat=newType.id; } }
+    const ct=newType||CAT[d.cat]||CATS[0], liquid=ct.liquid, hand=d.cat==='handmade';
+    const full={name:d.name.trim(),brand:d.brand.trim(),cat:d.cat,low:num(d.low),img:d.img||'',atom:d.atom||''};
+    if(liquid){ const bml=num(d.bottleMl)||100; Object.assign(full,{bottleMl:bml,sealed:Math.floor(num(d.sealed)),openMl:rnd(num(d.openMl)),priceBottle:num(d.priceBottle),priceMl:num(d.priceMl),costMl:hand?rnd(num(d.costMl)):rnd(num(d.bottleCost)/bml)}); }
+    else Object.assign(full,{qty:Math.floor(num(d.qty)),cost:num(d.cost),price:num(d.price)});
+    let ok;
+    if(isNew){ Object.assign(full,{created:new Date().toISOString(),recipe:[],pack:[],batches:[]}); ok=await run(async()=>{ if(newType) await saveTypes(S.types.concat([newType])); await setProduct(id,full); },'Qoʻshildi: '+full.name); }
+    else{
+      const o=sh.orig, ch={};
+      ['name','brand','cat','low','img','atom','bottleMl','sealed','openMl','priceBottle','priceMl','qty','cost','price'].forEach(k=>{ if(d[k]!==o[k]&&full[k]!==undefined) ch[k]=full[k]; });
+      if(liquid&&(d.bottleCost!==o.bottleCost||d.costMl!==o.costMl||d.bottleMl!==o.bottleMl)) ch.costMl=full.costMl;
+      if(d.cat!==o.cat) Object.assign(ch,full);
+      if(!Object.keys(ch).length){ S.sheet=null; render(); return; }
+      ok=await run(async()=>{ if(newType) await saveTypes(S.types.concat([newType])); await patchProduct(id,ch,false); },'Saqlandi: '+full.name);
+    }
+    if(ok){ S.sheet=null; render(); } else if(newType){ d.cat=prevCat; }
+  },
+  async rcv(){
+    const sh=S.sheet, p=S.products.get(sh.id); if(!p) return; const n=num(sh.rcv.n), c=num(sh.rcv.c);
+    let fld;
+    if(isLiquid(p)){ const bm=num(p.bottleMl), old=Math.max(0,num(p.openMl))+Math.max(0,num(p.sealed))*bm, tot=old+n*bm; fld={sealed:num(p.sealed)+Math.floor(n),costMl:rnd(tot>0?(old*num(p.costMl)+n*c)/tot:c/(bm||1))}; }
+    else { const old=Math.max(0,num(p.qty)); fld={qty:num(p.qty)+Math.floor(n),cost:rnd(old+n>0?(old*num(p.cost)+n*c)/(old+n):c)}; }
+    const ok=await run(()=>patchProduct(sh.id,fld,p),'Qoʻshildi: '+p.name+' · '+q1(n));
+    if(ok&&S.sheet){ const nd=productDraft(S.products.get(sh.id)); ['sealed','qty','bottleCost','cost'].forEach(k=>{ S.sheet.d[k]=nd[k]; S.sheet.orig[k]=nd[k]; }); S.sheet.rcv.n=''; S.sheet.sec=''; render(); }
+  },
+  async 'open-bottle'(id){
+    const p=S.products.get(id); if(!p||num(p.sealed)<=0) return;
+    const ok=await run(()=>patchProduct(id,{sealed:num(p.sealed)-1,openMl:rnd(num(p.openMl)+num(p.bottleMl))},p),'Shisha ochildi: '+p.name);
+    if(ok&&S.sheet&&S.sheet.id===id){ const np=S.products.get(id); ['sealed','openMl'].forEach(k=>{ S.sheet.d[k]=str(np[k]); S.sheet.orig[k]=S.sheet.d[k]; }); render(); }
+  },
+  async 'wo-do'(){ await writeOff(S.sheet.id,num(S.sheet.wo)); },
+  async 'wo-all'(){ const p=S.products.get(S.sheet.id); if(p&&num(p.openMl)>0) await writeOff(S.sheet.id,num(p.openMl)); },
+  async 'del-product'(){ const id=S.sheet.id, p=S.products.get(id); const ok=await run(async()=>{ S.products.delete(id); await retry(()=>DB.doc('products/'+id).delete()); },'Oʻchirildi: '+(p?p.name:'product')); if(ok){ S.sheet=null; S.cart=S.cart.filter(l=>l.pid!==id); render(); } },
+  async 'save-material'(){
+    const sh=S.sheet, d=sh.d, id=sh.id||('m'+uid());
+    let ok;
+    if(!sh.id){ const st=rnd(num(d.stock)); const doc={name:d.name.trim(),unit:d.unit,stock:st,cost:rnd(num(d.cost)),low:num(d.low),price:d.unit==='pcs'?rnd(num(d.price)):0,created:new Date().toISOString(),log:st?[{t:new Date().toISOString(),type:'start',d:st,bal:st,note:'Boshlangʻich qoldiq'}]:[]}; ok=await run(()=>setMaterial(id,doc),'Qoʻshildi: '+doc.name); if(ok){ S.sheet=null; render(); } }
+    else { const ch={}; if(d.name!==sh.orig.name) ch.name=d.name.trim(); if(d.unit!==sh.orig.unit) ch.unit=d.unit; if(d.cost!==sh.orig.cost) ch.cost=rnd(num(d.cost)); if(d.low!==sh.orig.low) ch.low=num(d.low); if(d.price!==sh.orig.price) ch.price=rnd(num(d.price)); if(!Object.keys(ch).length) return; ok=await run(()=>patchMaterial(id,ch),'Saqlandi'); if(ok&&S.sheet){ S.sheet.orig=Object.assign({},S.sheet.d); render(); } }
+  },
+  async 'del-material'(){ const id=S.sheet.id, m=S.materials.get(id); const ok=await run(async()=>{ S.materials.delete(id); await retry(()=>DB.doc('materials/'+id).delete()); },'Oʻchirildi: '+(m?m.name:'item')); if(ok){ S.sheet=null; render(); } },
+  'open-recipe'(id){ const p=S.products.get(id); const d={recipe:(p.recipe||[]).map(r=>({mid:r.mid,amt:str(r.amt)})),pack:(p.pack||[]).map(r=>({mid:r.mid,amt:str(r.amt)}))}; if(!d.recipe.length) d.recipe.push({mid:'',amt:''}); if(!d.pack.length) d.pack.push({mid:'',amt:'1'}); d.atom=p.atom||''; openSheet({kind:'recipe',pid:id,d}); },
+  'rd-add'(k){ S.sheet.d[k].push({mid:'',amt:k==='pack'?'1':''}); render(); },
+  'rd-del'(a){ const [k,i]=a.split('|'); S.sheet.d[k].splice(Number(i),1); render(); },
+  async 'rd-save'(){ const sh=S.sheet; const clean=arr=>arr.filter(r=>r.mid&&num(r.amt)>0).map(r=>({mid:r.mid,amt:num(r.amt)})); const ok=await run(()=>patchProduct(sh.pid,{recipe:clean(sh.d.recipe),pack:clean(sh.d.pack),atom:sh.d.atom||''}),'Retsept saqlandi'); if(ok){ S.sheet=null; render(); } },
+  'open-batch'(id){ openSheet({kind:'batch',pid:id,ml:'',fill:''}); focusSoon('mk-ml'); },
+  async 'mk-do'(){
+    const sh=S.sheet, p=S.products.get(sh.pid); const bt=planBatch(p,sh); if(!bt.ok) return;
+    const batch={t:new Date().toISOString(),day:dayKey(),ml:bt.X,bottles:bt.N,cost:rnd(bt.total)};
+    const note=p.name+(bt.X?' · '+q1(bt.X)+' ml':'')+(bt.N?' · '+bt.N+' ta quyildi':'');
+    const ok=await run(async()=>{
+      await patchProduct(sh.pid,{openMl:bt.open,sealed:bt.sealed,costMl:rnd(bt.newCostMl),batches:[...(p.batches||[]),batch].slice(-100)},p);
+      await moveMats(bt.rows.map(r=>({mid:r.mid,delta:-r.need,type:(p.pack||[]).some(x=>x.mid===r.mid)&&!(p.recipe||[]).some(x=>x.mid===r.mid)?'fill':'batch',note})));
+    },(bt.X?'Tayyorlandi: '+q1(bt.X)+' ml':'Quyildi')+(bt.N?' · '+bt.N+' ta shisha tayyor':''));
+    if(ok){ S.sheet=null; render(); }
+  },
+  rp(k){ S.rp=k; if(k==='custom'&&!S.rFrom){ S.rFrom=addDays(dayKey(),-6); S.rTo=dayKey(); } render(); },
+  'toggle-table'(){ S.showTable=!S.showTable; render(); },
+  async 'set-save'(){ const d=S.setDraft; const doc={name:d.name.trim(),currency:d.currency.trim()||"soʻm"}; const ok=await run(async()=>{ S.settings=doc; await retry(()=>DB.doc('settings/shop').set(doc)); },'Saqlandi'); if(ok){ S.setDraft=null; render(); } },
+  async csv(){
+    const [from,to]=periodRange(); const items=allItems(from,to).slice().reverse();
+    const q=v=>{ const s=String(v==null?'':v); return /[",\n;]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s; };
+    const lines=[['Sana','Vaqt','Sotuv','Mahsulot','Brend','Turi','Qanday sotildi','Shisha/dona','ml','Narx','Tannarx','Foyda','Toʻlov','Mijoz','Sovgʻa'].join(',')];
+    items.forEach(it=>lines.push([it._day,timeOf(it.t),it.rid||it.id,it.name,it.brand||'',(CAT[it.cat]||{}).label||it.cat,KIND[it.kind]||it.kind,it.n||'',it.ml||'',Math.round(num(it.price)),Math.round(num(it.cost)),Math.round(num(it.price)-num(it.cost)),it.kind==='writeoff'?'':(PAY[it.pay]||it.pay||''),it.cust||'',it.gift?'Ha':''].map(q).join(',')));
+    try{ if(!DL) DL=await window.claude.use('downloads'); if(!DL){ toast('Bu yerda yuklab olish ishlamaydi.','bad'); return; } await DL.save({filename:'shokh-parfume-sotuvlar-'+from+(from!==to?'_'+to:'')+'.csv',data:'﻿'+lines.join('\n')}); }
+    catch(e){ const c=e&&e.code; if(c&&/cancel|declin|denied|abort/i.test(c)) return; toast('Fayl saqlanmadi. Qayta urinib koʻring.','bad'); }
+  },
+  'debt-form'(a){ const [id,mode]=a.split('|'); const x=S.debts.get(id); if(!x) return; S.dform={id,mode,amt:String(Math.round(debtLeft(x))),m:'cash',due:x.due||''}; render(); focusSoon(mode==='pay'?'dp-amt':'dd-due'); },
+  'debt-m'(k){ S.dform.m=k; render(); },
+  'debt-cancel'(){ S.dform=null; render(); },
+  async 'debt-pay'(){
+    const fm=S.dform, x=S.debts.get(fm.id); if(!x) return; const amt=Math.min(num(fm.amt),debtLeft(x)); if(!(amt>0)) return;
+    const pay={t:new Date().toISOString(),day:dayKey(),amount:rnd(amt),m:fm.m};
+    const paid=rnd(num(x.paid)+amt), f={paid,payments:[...(x.payments||[]),pay]};
+    const ok=await run(async()=>{ S.debts.set(fm.id,Object.assign({},x,f)); await retry(()=>DB.doc('debts/'+fm.id).update(DB.union?{paid:DB.inc(rnd(amt)),payments:DB.union(pay)}:f)); },(debtLeft(Object.assign({},x,f))<0.5?'Toʻliq toʻlandi · ':'Toʻlov saqlandi · ')+plainMoney(amt));
+    if(ok){ S.dform=null; render(); }
+  },
+  async 'debt-date'(){ const fm=S.dform, x=S.debts.get(fm.id); if(!x) return; const f={due:fm.due}; const ok=await run(async()=>{ S.debts.set(fm.id,Object.assign({},x,f)); await retry(()=>DB.doc('debts/'+fm.id).update(f)); },'Yangi sana saqlandi'); if(ok){ S.dform=null; render(); } },
+  copy(v,el){ try{ const p=navigator.clipboard&&navigator.clipboard.writeText(v); if(p&&p.then) p.then(()=>toast('Nusxalandi: '+v),()=>toast(v)); else toast(v); }catch(e){ toast(v); } },
+  'open-types'(){ openSheet({kind:'types',nl:'',nliq:true,edit:null,editLabel:'',del:null}); focusSoon('ty-name'); },
+  'ty-liq'(v){ S.sheet.nliq=v==='1'; render(); },
+  async 'ty-add'(){
+    const sh=S.sheet, lb=sh.nl.trim(); if(!lb) return;
+    if(CATS.some(c=>c.label.toLowerCase()===lb.toLowerCase())){ toast('Bunday tur allaqachon bor: '+lb,'bad'); return; }
+    const t={id:'t'+uid(),label:lb,liquid:!!sh.nliq};
+    const ok=await run(()=>saveTypes(S.types.concat([t])),'Tur qoʻshildi: '+lb);
+    if(ok&&S.sheet){ S.sheet.nl=''; render(); }
+  },
+  'ty-edit'(id){ const c=CAT[id]; if(!c) return; S.sheet.edit=id; S.sheet.editLabel=c.label; S.sheet.del=null; render(); focusSoon('ty-edit'); },
+  'ty-cancel'(){ S.sheet.edit=null; S.sheet.del=null; render(); },
+  async 'ty-save'(id){
+    const lb=S.sheet.editLabel.trim(); if(!lb) return;
+    if(CATS.some(c=>c.id!==id&&c.label.toLowerCase()===lb.toLowerCase())){ toast('Bunday tur allaqachon bor: '+lb,'bad'); return; }
+    const ok=await run(()=>saveTypes(S.types.map(t=>t.id===id?Object.assign({},t,{label:lb}):t)),'Saqlandi: '+lb);
+    if(ok&&S.sheet){ S.sheet.edit=null; render(); }
+  },
+  'ty-del-ask'(id){ S.sheet.del=id; S.sheet.edit=null; render(); },
+  async 'ty-del'(id){
+    if([...S.products.values()].some(p=>p.cat===id)){ toast('Bu turda mahsulotlar bor. Avval ularni boshqa turga oʻtkazing.','bad'); return; }
+    const c=CAT[id]; const ok=await run(()=>saveTypes(S.types.filter(t=>t.id!==id)),'Tur oʻchirildi'+(c?': '+c.label:''));
+    if(ok&&S.sheet){ S.sheet.del=null; render(); }
+  },
+  'nt-new'(){ S.sheet.nt={label:'',liquid:true}; render(); focusSoon('sh-nt'); },
+  'nt-cancel'(){ S.sheet.nt=null; render(); },
+  'nt-liq'(v){ S.sheet.nt.liquid=v==='1'; render(); },
+  xtab(k){ S.xtab=k; S.oform=null; render(); },
+  xmonth(d){ S.xmonth=addMonths(S.xmonth||dayKey().slice(0,7),Number(d)); render(); },
+  'new-expense'(){ openSheet({kind:'expense',id:null,d:{amount:'',cat:'rent',day:dayKey(),pay:'cash',note:''},confirmDel:false}); focusSoon('ex-amt'); },
+  'edit-expense'(id){ const x=S.expenses.get(id); if(!x) return; openSheet({kind:'expense',id,d:{amount:str(x.amount),cat:x.cat||'other',day:x.day||dayKey(),pay:x.pay||'cash',note:x.note||''},confirmDel:false}); },
+  'ex-cat'(k){ S.sheet.d.cat=k; render(); },
+  'ex-pay'(k){ S.sheet.d.pay=k; render(); },
+  async 'save-expense'(){
+    const sh=S.sheet, d=sh.d, id=sh.id||('e'+uid());
+    const doc={day:d.day,cat:d.cat,amount:rnd(num(d.amount)),pay:d.pay,note:d.note.trim()};
+    const ok=await run(async()=>{ if(sh.id){ S.expenses.set(id,Object.assign({},S.expenses.get(id),doc)); await retry(()=>DB.doc('expenses/'+id).update(doc)); } else { doc.t=new Date().toISOString(); S.expenses.set(id,doc); await retry(()=>DB.doc('expenses/'+id).set(doc)); } },'Xarajat saqlandi · '+plainMoney(doc.amount));
+    if(ok){ S.xmonth=String(d.day).slice(0,7); S.sheet=null; render(); }
+  },
+  async 'del-expense'(){ const id=S.sheet.id; const ok=await run(async()=>{ S.expenses.delete(id); await retry(()=>DB.doc('expenses/'+id).delete()); },'Xarajat oʻchirildi'); if(ok){ S.sheet=null; render(); } },
+  'new-order'(){ openSheet({kind:'order',d:{supplier:'',expected:'',note:'',paid:'',pay:'cash',now:false,lines:[{key:'',qty:'',cost:''}]}}); focusSoon('or-sup'); },
+  'ol-add'(){ S.sheet.d.lines.push({key:'',qty:'',cost:''}); render(); },
+  'ol-del'(i){ S.sheet.d.lines.splice(Number(i),1); if(!S.sheet.d.lines.length) S.sheet.d.lines.push({key:'',qty:'',cost:''}); render(); },
+  'or-pay'(k){ S.sheet.d.pay=k; render(); },
+  async 'save-order'(){
+    const d=S.sheet.d;
+    const lines=d.lines.filter(l=>l.key&&num(l.qty)>0).map(l=>{ const inf=itemInfo(l.key); return inf?{type:inf.type,id:inf.id,name:inf.name,unitLabel:inf.unit,qty:num(l.qty),cost:num(l.cost)}:null; }).filter(Boolean);
+    if(!lines.length){ toast('Kamida bitta qator kiriting.','bad'); return; }
+    const total=rnd(lines.reduce((a,l)=>a+l.qty*l.cost,0)), paid=rnd(Math.min(Math.max(0,num(d.paid)),total)), t=new Date().toISOString(), id='o'+uid();
+    const doc={t,day:dayKey(),supplier:d.supplier.trim(),expected:d.expected||'',note:d.note.trim(),status:'ordered',lines,total,paid,payments:paid>0?[{t,day:dayKey(),amount:paid,m:d.pay}]:[]};
+    const now=d.now;
+    const ok=await run(async()=>{ S.orders.set(id,doc); await retry(()=>DB.doc('orders/'+id).set(doc)); if(now) await receiveOrder(id); },now?'Buyurtma qabul qilindi. Qoldiq yangilandi.':'Buyurtma saqlandi');
+    if(ok){ S.sheet=null; S.xtab='ord'; S.ocat=now?'all':'open'; render(); }
+  },
+  async 'of-receive'(id){ const o=S.orders.get(id); if(!o) return; await run(()=>receiveOrder(id),'Qabul qilindi. Qoldiq yangilandi.'); },
+  'of-form'(a){ const i=a.lastIndexOf('|'); const id=a.slice(0,i), mode=a.slice(i+1); const o=S.orders.get(id); if(!o) return; S.oform={id,mode,amt:String(Math.round(orderLeft(o))),m:'cash'}; render(); if(mode==='pay') focusSoon('op-amt'); },
+  'of-m'(k){ S.oform.m=k; render(); },
+  'of-cancel'(){ S.oform=null; render(); },
+  async 'of-pay'(){
+    const fm=S.oform, o=S.orders.get(fm.id); if(!o) return; const amt=Math.min(num(fm.amt),orderLeft(o)); if(!(amt>0)) return;
+    const pay={t:new Date().toISOString(),day:dayKey(),amount:rnd(amt),m:fm.m}; const fl={paid:rnd(num(o.paid)+amt),payments:[...(o.payments||[]),pay]};
+    const ok=await run(async()=>{ S.orders.set(fm.id,Object.assign({},o,fl)); await retry(()=>DB.doc('orders/'+fm.id).update(fl)); },'Yetkazib beruvchiga toʻlov saqlandi · '+plainMoney(amt));
+    if(ok){ S.oform=null; render(); }
+  },
+  async 'of-del'(){ const id=S.oform.id, o=S.orders.get(id); if(!o||o.status==='received') return; const ok=await run(async()=>{ S.orders.delete(id); await retry(()=>DB.doc('orders/'+id).delete()); },'Buyurtma oʻchirildi'); if(ok){ S.oform=null; render(); } },
+  async 'csv-exp'(){
+    const [from,to]=periodRange(); const q=v=>{ const t=String(v==null?'':v); return /[",\n;]/.test(t)?'"'+t.replace(/"/g,'""')+'"':t; };
+    const lines=[['Sana','Turi','Summa','Toʻlov','Izoh'].join(',')];
+    [...S.expenses.values()].filter(x=>x.day>=from&&x.day<=to).sort((a,b)=>String(a.day).localeCompare(String(b.day))).forEach(x=>lines.push([x.day,EXPC[x.cat]||x.cat,Math.round(num(x.amount)),PAY[x.pay]||x.pay||'',x.note||''].map(q).join(',')));
+    lines.push(''); lines.push(['Buyurtma sanasi','Yetkazib beruvchi','Holati','Jami','Toʻlangan','Qarz','Tarkibi'].join(','));
+    [...S.orders.values()].filter(o=>o.day>=from&&o.day<=to).sort((a,b)=>String(a.day).localeCompare(String(b.day))).forEach(o=>lines.push([o.day,o.supplier||'',o.status==='received'?'Qabul qilingan':'Kutilmoqda',Math.round(num(o.total)),Math.round(num(o.paid)),Math.round(orderLeft(o)),(o.lines||[]).map(l=>l.name+' '+l.qty+' '+(l.unitLabel||'')).join('; ')].map(q).join(',')));
+    try{ if(!DL) DL=await window.claude.use('downloads'); if(!DL){ toast('Bu yerda yuklab olish ishlamaydi.','bad'); return; } await DL.save({filename:'shokh-parfume-xarajatlar-'+from+(from!==to?'_'+to:'')+'.csv',data:'\ufeff'+lines.join('\n')}); }
+    catch(e){ const c=e&&e.code; if(c&&/cancel|declin|denied|abort/i.test(c)) return; toast('Fayl saqlanmadi. Qayta urinib koʻring.','bad'); }
+  },
+
+};
+async function writeOff(id,m){
+  const p=S.products.get(id); if(!p||!(m>0)) return;
+  const item={id:uid(),t:new Date().toISOString(),pid:id,name:p.name,brand:p.brand||'',cat:p.cat,kind:'writeoff',n:0,ml:rnd(m),price:0,cost:rnd(m*costMl(p)),pay:''};
+  const ok=await run(async()=>{ await patchProduct(id,{openMl:rnd(num(p.openMl)-m)},p); await addSaleItems([item]); },'Hisobdan chiqarildi: '+q1(m)+' ml');
+  if(ok&&S.sheet&&S.sheet.id===id){ const np=S.products.get(id); S.sheet.d.openMl=str(np.openMl); S.sheet.orig.openMl=S.sheet.d.openMl; S.sheet.wo=''; S.sheet.sec=''; render(); }
+}
+function focusSoon(id){ setTimeout(()=>{ const el=document.getElementById(id); if(el) try{ el.focus(); }catch(e){} },40); }
+
+/* ---------- tooltip ---------- */
+const tipEl=document.getElementById('tip');
+function hideTip(){ tipEl.hidden=true; }
+function showTip(el,x,y){
+  let d; try{ d=JSON.parse(el.getAttribute('data-tip')); }catch(e){ return; }
+  tipEl.textContent='';
+  const t=document.createElement('div'); t.className='tt'; t.textContent=d.t; tipEl.appendChild(t);
+  (d.rows||[]).forEach(r=>{ const row=document.createElement('div'); row.className='tr'; const i=document.createElement('i'); if(r[0]) i.style.background='var(--'+r[0]+')'; const b=document.createElement('b'); b.textContent=r[2]; const s=document.createElement('span'); s.textContent=r[1]; row.appendChild(i); row.appendChild(b); row.appendChild(s); tipEl.appendChild(row); });
+  tipEl.hidden=false;
+  const w=tipEl.offsetWidth, h=tipEl.offsetHeight, vw=window.innerWidth;
+  let left=x+14, top=y-h-12; if(left+w>vw-8) left=x-w-14; if(left<8) left=8; if(top<8) top=y+16;
+  tipEl.style.left=left+'px'; tipEl.style.top=top+'px';
+}
+document.addEventListener('pointermove',e=>{ const el=e.target.closest&&e.target.closest('[data-tip]'); if(el) showTip(el,e.clientX,e.clientY); else if(!tipEl.hidden) hideTip(); });
+document.addEventListener('focusin',e=>{ const el=e.target.closest&&e.target.closest('[data-tip]'); if(el){ const r=el.getBoundingClientRect(); showTip(el,r.left+r.width/2,r.top); } });
+document.addEventListener('focusout',()=>hideTip());
+
+/* ---------- events ---------- */
+document.addEventListener('click',e=>{
+  const el=e.target.closest('[data-act]'); if(!el) return;
+  const fn=ACT[el.dataset.act]; if(!fn||el.disabled) return;
+  fn(el.dataset.arg,el,e);
+});
+document.addEventListener('input',e=>{
+  const t=e.target; const b=t.dataset&&t.dataset.bind; if(!b) return;
+  setPath(b,t.value);
+  const ol=b.match(/^sheet\.d\.lines\.(\d+)\.key$/); if(ol&&S.sheet&&S.sheet.d.lines[ol[1]]){ const inf=itemInfo(t.value); const L=S.sheet.d.lines[ol[1]]; if(inf) L.cost=String(inf.cost); }
+  if(b==='cust.name'&&!S.cust.phone){ const nm=t.value.trim().toLowerCase(); for(const x of S.debts.values()) if(nm&&String(x.name||'').toLowerCase()===nm&&x.phone){ S.cust.phone=x.phone; break; } }
+  render();
+});
+document.addEventListener('change',e=>{ const t=e.target; if(t.dataset&&t.dataset.check){ setPath(t.dataset.check,t.checked); render(); return; } if(t.dataset&&t.dataset.file==='img'){ const file=t.files&&t.files[0]; t.value=''; uploadImage(file); } });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&S.sheet){ S.sheet=null; render(); } });
+
+/* ---------- data ---------- */
+let slowTimer=null;
+function freshCheck(){ if(S.fresh.p&&S.fresh.m&&S.fresh.s&&S.fresh.d&&S.fresh.e&&S.fresh.o){ S.slow=false; clearTimeout(slowTimer); } }
+function listen(ref,key,onDocs){
+  return ref.onSnapshot(snap=>{ onDocs(snap); S.got[key]=true; if(!snap.metadata.fromCache){ S.fresh[key]=true; freshCheck(); } render(); },
+    err=>{ S.got[key]=true; S.fresh[key]=true; freshCheck(); if(err&&err.code==='revoked') S.dead=true; else toast('Doʻkon maʼlumotlari yangilanmay qoldi. Qayta ulanish uchun sahifani yangilang.','bad'); render(); });
+}
+async function init(){
+  render();
+  slowTimer=setTimeout(()=>{ S.slow=true; render(); },10000);
+  let db=null; try{ db=window.claude&&window.claude.use?await window.claude.use('db'):null; }catch(e){ db=null; }
+  if(!db){ S.noDb=true; clearTimeout(slowTimer); render(); return; }
+  DB=db;
+  try{ const user=await window.claude.use('user'); if(user){ const c=await user.can('data.write'); if(c===false) S.readOnly=true; } }catch(e){}
+  listen(DB.collection('products'),'p',snap=>{ S.products=new Map(snap.docs.map(d=>[d.id,fixNums(d.data(),['sealed','openMl','qty'])])); });
+  listen(DB.collection('materials'),'m',snap=>{ S.materials=new Map(snap.docs.map(d=>[d.id,fixNums(d.data(),['stock'])])); });
+  if(isSeller()){ S.got.e=S.got.o=true; S.fresh.e=S.fresh.o=true; } else listen(DB.collection('expenses').where('day','>=',addDays(dayKey(),-800)),'e',snap=>{ S.expenses=new Map(snap.docs.map(d=>[d.id,d.data()])); });
+  if(!isSeller()) listen(DB.collection('orders'),'o',snap=>{ S.orders=new Map(snap.docs.map(d=>[d.id,d.data()])); });
+  listen(DB.collection('debts'),'d',snap=>{ S.debts=new Map(snap.docs.map(d=>[d.id,d.data()])); });
+  listen(DB.collection('sales').where('day','>=',addDays(dayKey(),isSeller()?-1:-400)),'s',snap=>{ S.sales=new Map(snap.docs.map(d=>[d.id,d.data()])); });
+  DB.doc('settings/types').onSnapshot(snap=>{ S.types=snap.exists?((snap.data()||{}).list||[]):[]; setTypes(S.types); render(); },()=>{});
+  DB.doc('settings/shop').onSnapshot(snap=>{ if(snap.exists){ const d=snap.data(); S.settings={name:d.name||'',currency:d.currency||"soʻm"}; } const a=document.activeElement; if(!a||(a.id!=='set-name'&&a.id!=='set-cur')) S.setDraft=null; render(); },()=>{});
+}
+document.documentElement.lang='uz';
+window.SP_render=render;
+(window.SP_READY||Promise.resolve()).then(init);
+})();
+</script>
+</body>
+</html>
